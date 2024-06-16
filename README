@@ -1,5 +1,0 @@
-To run the electron app, you need to run the following command:
-```
-npm install
-npm start
-```
