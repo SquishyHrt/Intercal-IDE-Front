@@ -2,17 +2,25 @@
 // import reactLogo from '../assets/react.svg'
 // import viteLogo from '/electron-vite.animate.svg'
 import '../App.css'
-import FolderTree, { testData } from 'react-folder-tree';
-import 'react-folder-tree/dist/style.css';
+import BasicTree from "Components/FIleTree.tsx";
 
 function App() {
-    const onTreeStateChange = (state, event) => console.log(state, event);
-
     return (
-        <FolderTree
-            data={ testData }
-            onChange={ onTreeStateChange }
-        />
+        <body>
+        <div className="container">
+            <div className="top-box">Top Box (Full Width)</div>
+            <div className="bottom-container">
+                <div className="bottom-box">Box 1
+                    <BasicTree />
+                </div>
+                <div className="bottom-box">Box 2
+                    <textarea className="editable-textarea" placeholder="Enter text here"></textarea>
+                </div>
+                <div className="bottom-box">Box 3</div>
+                <div className="bottom-box">Box 4</div>
+            </div>
+        </div>
+        </body>
     );
 }
 
