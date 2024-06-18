@@ -4,8 +4,8 @@
   font-weight: 400;
 
   color-scheme: white;
-  color: rgba(0, 0, 0, 0.87);
-  background-color: #ffffff;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #1e1e1e;
 }
 body, html {
   margin: 0;
@@ -16,41 +16,42 @@ body, html {
 .container {
   display: flex;
   flex-direction: column;
-  height: 97vh;
+  justify-content: center;
+  height: auto;
+  width: auto;
   box-sizing: border-box;
+  margin: 5px;
 }
 
 .top-box {
-  border: 2px solid #000;
+  /*border: 2px solid #ffffff;*/
   padding: 20px;
   box-sizing: border-box;
+  height: 20vh;
+  border-radius: 15px;
+  background-color: #4F4F4F;
 }
 
 .bottom-container {
   display: flex;
   justify-content: space-between;
-  flex-grow: 1;
-  height: 100%;
+  height: 78vh;
   box-sizing: content-box;
 }
 
 .bottom-box {
-  border: 2px solid #000;
+  /*border: 2px solid #ffffff;*/
   flex: 1;
+  display: flex;
   box-sizing: content-box;
-  padding: 10px;
-  margin-right: 10px;
-  margin-top: 10px;
-  overflow: auto; /* Prevents content from changing the box size */
-}
-
-.bottom-box:nth-child(1) {
-  flex: 1 1 5%;
-}
-
-.bottom-box:nth-child(2) {
-  flex: 1 1 35%;
-  /*overflow: auto;*/
+  padding: 15px;
+  margin-right: 15px;
+  margin-top: 15px;
+  overflow: auto;
+  resize: none;
+  border-radius: 15px;
+  background-color: #4F4F4F;
+  justify-content: center;
 }
 
 .editable-textarea {
@@ -61,11 +62,20 @@ body, html {
   resize: none; /* Prevents resizing */
 }
 
+.bottom-box:nth-child(1) {
+  flex: 1 1 5%;
+}
+
+.bottom-box:nth-child(2) {
+  flex: 1 1 35%;
+  overflow: auto;
+}
+
 .bottom-box:nth-child(3) {
   flex: 1 1 10%;
 }
 
 .bottom-box:nth-child(4) {
   flex: 1 1 10%;
-  margin-right: 0%;
+  margin-right: 0;
 }

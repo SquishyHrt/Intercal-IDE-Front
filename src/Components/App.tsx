@@ -1,20 +1,18 @@
-// import { useState } from 'react'
 import '../App.css'
 import BasicTree from "Components/FIleTree.tsx";
 import AceEdit from "Components/AceEditor.tsx";
 
-
-function App() {
+const App = () => {
     return (
         <body>
         <div className="container">
             <div className="top-box">Top Box (Full Width)</div>
             <div className="bottom-container">
-                <div className="bottom-box">Box 1
-                    <BasicTree />
+                <div className="bottom-box">
+                    <BasicTree/>
                 </div>
-                <div className="bottom-box" id="editor-box">Box 2
-                    <AceEdit />
+                <div className="bottom-box" id="editor-box">
+                    <AceEdit/>
                 </div>
                 <div className="bottom-box">Box 3</div>
                 <div className="bottom-box">Box 4</div>

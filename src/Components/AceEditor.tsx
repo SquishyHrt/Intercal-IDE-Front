@@ -12,10 +12,9 @@ const AceEdit = () => {
     return (
         <AceEditor
             width="95%"
-            height="95%"
+            height="100%"
             mode="java"
-            theme="github"
-            keyboardHandler={"vim"}
+            theme="gruvbox"
             onChange={onChange}
             name="editor-box"
             editorProps={{ $blockScrolling: true }}
