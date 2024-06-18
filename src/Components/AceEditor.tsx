@@ -14,7 +14,7 @@ const AceEdit = () => {
             width="95%"
             height="100%"
             mode="java"
-            theme="gruvbox"
+            theme="github"
             onChange={onChange}
             name="editor-box"
             editorProps={{ $blockScrolling: true }}

@@ -25,11 +25,30 @@ body, html {
 
 .top-box {
   /*border: 2px solid #ffffff;*/
-  padding: 20px;
+  /*padding: 20px;*/
   box-sizing: border-box;
-  height: 20vh;
+  height: 15vh;
   border-radius: 15px;
-  background-color: #4F4F4F;
+  /*background-color: #4F4F4F;*/
+  flex-direction: column;
+  display: flex;
+}
+
+.top-box .top-part {
+  flex: 1;
+  /*background-image: url('./assets/Piste.png'); !* Path to your ground image *!*/
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  background-color: aqua;
+  background-size: cover;
+  background-position: center top;
+}
+
+.top-box .bottom-part {
+  flex: 2;
+  background-image: url('./assets/Piste.png'); /* Path to your ground image */
+  background-size: auto;
+  background-position: bottom center;
 }
 
 .bottom-container {
