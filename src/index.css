@@ -56,6 +56,14 @@ body, html {
   height: 40px; 
 }
 
+.bleachers-box {
+  background: url("./assets/bleachers.png");
+  border: none;
+  background-size: contain;
+  width: 400px; 
+  height: 750px; 
+}
+
 .top-box {
   box-sizing: border-box;
   height: 14vh;

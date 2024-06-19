@@ -25,7 +25,9 @@ const App = () => {
                     <AceEdit/>
                 </div>
                 <div className="bottom-box">Box 3</div>
-                <div className="bottom-box">Box 4</div>
+                <div className="bottom-box">
+                    <button className="bleachers-box"></button>
+                </div>
             </div>
         </div>
         </body>
