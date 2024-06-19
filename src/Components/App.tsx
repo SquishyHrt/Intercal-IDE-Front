@@ -1,6 +1,7 @@
 import '../App.css'
 import BasicTree from "Components/FIleTree.tsx";
 import AceEdit from "Components/AceEditor.tsx";
+import Chat from "Components/Chat.tsx";
 
 const App = () => {
     return (
@@ -24,7 +25,9 @@ const App = () => {
                 <div className="bottom-box" id="editor-box">
                     <AceEdit/>
                 </div>
-                <div className="bottom-box">Box 3</div>
+                <div className="bottom-box">
+                    <Chat/>
+                </div>
                 <div className="bottom-box">
                     <button className="bleachers-box"></button>
                 </div>
