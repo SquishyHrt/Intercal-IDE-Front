@@ -6,6 +6,7 @@ const Chat = () => {
     const [messageInput, setMessageInput] = useState('');
 
     const sendMessage = async () => {
+        console.log("Send button clicked");
         if (messageInput.trim() === '') return;
 
         const userMessage = {
@@ -13,23 +14,33 @@ const Chat = () => {
             text: messageInput.trim()
         };
 
+        console.log("User message:", userMessage);
+
         setMessages([...messages, userMessage]);
         setMessageInput('');
 
         try {
-            const response = await fetch('/api/message', {
+            console.log("Sending message to backend:", userMessage.text);
+            const response = await fetch('http://localhost:8080/api/message', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ message: userMessage.text })
             });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
             const data = await response.json();
+            console.log("Received response from backend:", data);
+
             const botMessage = {
                 sender: 'bot',
                 text: data.response
             };
             setMessages(prevMessages => [...prevMessages, botMessage]);
         } catch (error) {
-            console.error('Error:', error);
+            console.error('Error during fetch:', error);
             const errorMessage = {
                 sender: 'bot',
                 text: 'Sorry, something went wrong.'
