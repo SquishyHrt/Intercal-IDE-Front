@@ -1,8 +1,9 @@
 import '../App.css'
-import BasicTree from "Components/FIleTree.tsx";
-import AceEdit from "Components/AceEditor.tsx";
+import BasicTree from "Components/FileTree.tsx";
 import Chat from "Components/Chat.tsx";
 import MonacoEditor from './MonacoEditor';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
 
 const App = () => {
     return (
@@ -27,7 +28,21 @@ const App = () => {
                         <MonacoEditor />
                     </div>
                     <div className="bottom-box">
-                        <Chat />
+                        <Tabs id="right-tabs">
+                            <TabList>
+                                <Tab>IA</Tab>
+                                <Tab>Compilation</Tab>
+                            </TabList>
+
+                            <TabPanel>
+                                <Chat />
+                            </TabPanel>
+                            <TabPanel>
+                                <div id="">
+                                    <p>Compilation console</p>
+                                </div>
+                            </TabPanel>
+                        </Tabs>
                     </div>
                     <div className="bottom-box">
                         <button className="bleachers-box"></button>
