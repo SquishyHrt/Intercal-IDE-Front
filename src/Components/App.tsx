@@ -1,12 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '../App.css';
-import BasicTree from "Components/FIleTree.tsx";
+import BasicTree from "Components/FileTree.tsx";
 import AceEdit from "Components/AceEditor.tsx";
-import Chat from "Components/Chat.tsx";
 import FileMenu from "Components/FileMenu.js";
 import EditMenu from "Components/EditMenu.js";
 import ViewMenu from "Components/ViewMenu.js";
 import HelpMenu from "Components/HelpMenu.js";
+import Chat from "Components/Chat.tsx";
+import MonacoEditor from './MonacoEditor';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
 
 const App = () => {
     const [visibleMenu, setVisibleMenu] = useState(null);
@@ -34,7 +37,7 @@ const App = () => {
     }, [menuRef]);
 
     return (
-        <div>
+        <body>
             <div className="container">
                 <div className="top-box">
                     <div className="top-part">
@@ -57,17 +60,31 @@ const App = () => {
                         <BasicTree />
                     </div>
                     <div className="bottom-box" id="editor-box">
-                        <AceEdit />
+                        <MonacoEditor />
                     </div>
                     <div className="bottom-box">
-                        <Chat />
+                        <Tabs id="right-tabs">
+                            <TabList>
+                                <Tab>IA</Tab>
+                                <Tab>Compilation</Tab>
+                            </TabList>
+
+                            <TabPanel>
+                                <Chat />
+                            </TabPanel>
+                            <TabPanel>
+                                <div id="">
+                                    <p>Compilation console</p>
+                                </div>
+                            </TabPanel>
+                        </Tabs>
                     </div>
                     <div className="bottom-box">
                         <button className="bleachers-box"></button>
                     </div>
                 </div>
             </div>
-        </div>
+        </body>
     );
 };
 
