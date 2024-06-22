@@ -1,10 +1,16 @@
-import React from 'react';
+const HelpMenuHelp = () => {
+    console.log('Help');
+}
 
-const HelpMenu = ({ closeMenu }) => (
+const HelpMenuTipOfTheDay = () => {
+    console.log('Tip of the Day');
+}
+
+const HelpMenu = () => (
     <div className="help-menu">
         <ul>
-            <li onClick={closeMenu}>Help</li>
-            <li onClick={closeMenu}>Tip of the Day</li>
+            <li onClick={HelpMenuHelp}>Help</li>
+            <li onClick={HelpMenuTipOfTheDay}>Tip of the Day</li>
         </ul>
     </div>
 );

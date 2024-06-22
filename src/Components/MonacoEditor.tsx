@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, {useRef, useEffect, useState} from 'react';
 import * as monaco from 'monaco-editor';
 
 const MonacoEditor = () => {
@@ -6,7 +6,7 @@ const MonacoEditor = () => {
 
     useEffect(() => {
         // Define the INTERCAL language
-        monaco.languages.register({ id: 'intercal' });
+        monaco.languages.register({id: 'intercal'});
 
         monaco.languages.setMonarchTokensProvider('intercal', {
             tokenizer: {
@@ -17,11 +17,11 @@ const MonacoEditor = () => {
                     [/"([^"\\]|\\.)*$/, 'string.invalid'],
                     [/\(/, 'delimiter.parenthesis'],
                     [/\)/, 'delimiter.parenthesis'],
-                    [/"/, { token: 'string.quote', bracket: '@open', next: '@string' }],
+                    [/"/, {token: 'string.quote', bracket: '@open', next: '@string'}],
                 ],
                 string: [
                     [/[^\\"]+/, 'string'],
-                    [/"/, { token: 'string.quote', bracket: '@close', next: '@pop' }],
+                    [/"/, {token: 'string.quote', bracket: '@close', next: '@pop'}],
                 ],
             },
         });
@@ -36,10 +36,10 @@ const MonacoEditor = () => {
                 ['(', ')'],
             ],
             autoClosingPairs: [
-                { open: '{', close: '}' },
-                { open: '[', close: ']' },
-                { open: '(', close: ')' },
-                { open: '"', close: '"' },
+                {open: '{', close: '}'},
+                {open: '[', close: ']'},
+                {open: '(', close: ')'},
+                {open: '"', close: '"'},
             ],
         });
 
@@ -62,7 +62,7 @@ const MonacoEditor = () => {
                     kind: monaco.languages.CompletionItemKind.Keyword,
                     insertText: keyword,
                 }));
-                return { suggestions: suggestions };
+                return {suggestions: suggestions};
             },
         });
 
@@ -72,7 +72,7 @@ const MonacoEditor = () => {
         };
     }, []);
 
-    return <div id="editor" style={{ height: '100%', width: '95%' }} />;
+    return <div id="editor" style={{height: '100%', width: '95%'}}/>;
 };
 
 export default MonacoEditor;

@@ -1,12 +1,26 @@
-import React from 'react';
+const EditMenuCut = () => {
+    console.log('Cut');
+}
 
-const EditMenu = ({ closeMenu }) => (
+const EditMenuCopy = () => {
+    console.log('Copy');
+}
+
+const EditMenuDelete = () => {
+    console.log('Delete');
+}
+
+const EditMenuFind = () => {
+    console.log('Find');
+}
+
+const EditMenu = () => (
     <div className="edit-menu">
         <ul>
-            <li onClick={closeMenu}>Cut</li>
-            <li onClick={closeMenu}>Copy</li>
-            <li onClick={closeMenu}>Delete</li>
-            <li onClick={closeMenu}>Find</li>
+            <li onClick={EditMenuCut}>Cut</li>
+            <li onClick={EditMenuCopy}>Copy</li>
+            <li onClick={EditMenuDelete}>Delete</li>
+            <li onClick={EditMenuFind}>Find</li>
         </ul>
     </div>
 );

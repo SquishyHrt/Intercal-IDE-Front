@@ -1,10 +1,16 @@
-import React from 'react';
+const ViewMenuAppearance = () => {
+    console.log('Appearance');
+}
 
-const ViewMenu = ({ closeMenu }) => (
+const ViewMenuSwitchThemes = () => {
+    console.log('Switch Themes');
+}
+
+const ViewMenu = () => (
     <div className="view-menu">
         <ul>
-            <li onClick={closeMenu}>Appearance</li>
-            <li onClick={closeMenu}>Switch Themes</li>
+            <li onClick={ViewMenuAppearance}>Appearance</li>
+            <li onClick={ViewMenuSwitchThemes}>Switch Themes</li>
         </ul>
     </div>
 );

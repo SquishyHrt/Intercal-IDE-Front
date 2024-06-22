@@ -1,6 +1,6 @@
-import FolderTree, { testData } from 'react-folder-tree';
+import FolderTree, {testData} from 'react-folder-tree';
 import 'react-folder-tree/dist/style.css';
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 
 const BasicTree = () => {
     const onTreeStateChange = (state: any, event: any) => console.log(state, event);
@@ -12,8 +12,8 @@ const BasicTree = () => {
                 console.log("Sending message to backend:", "./");
                 const response = await fetch('http://localhost:8080/api/architecture', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ path: "./" })
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({path: "./"})
                 });
 
                 if (!response.ok) {
