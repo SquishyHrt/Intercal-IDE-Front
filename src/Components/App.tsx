@@ -8,6 +8,7 @@ import HelpMenu from "Components/HelpMenu.js";
 import TabInfoBox from "Components/TabInfoBox.tsx";
 import MonacoEditor from './MonacoEditor';
 import 'react-tabs/style/react-tabs.css';
+import GetMeteo from "Components/MeteoComp.tsx";
 
 const App = () => {
     const [visibleMenu, setVisibleMenu] = useState(null);
