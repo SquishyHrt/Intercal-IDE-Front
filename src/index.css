@@ -111,56 +111,48 @@ body, html {
     margin-right: 0;
 }
 
-.file-menu {
-    position: absolute;
-    top: 60px;
+.top-menu {
     background-color: #1e1e1e;
     border-radius: 15px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     z-index: 1000;
+    overflow: hidden;
 }
 
-.edit-menu {
-    position: absolute;
-    left: 40px;
-    top: 60px;
-    background-color: #1e1e1e;
-    border-radius: 15px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-}
-
-.view-menu {
-    position: absolute;
-    left: 80px;
-    top: 60px;
-    background-color: #1e1e1e;
-    border-radius: 15px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-}
-
-.help-menu {
-    position: absolute;
-    left: 120px;
-    top: 60px;
-    background-color: #1e1e1e;
-    border-radius: 15px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-}
-
-.file-menu ul, .view-menu ul, .help-menu ul, .edit-menu ul {
+.top-menu ul {
     list-style: none;
     margin: 0;
     padding: 0;
 }
 
-.file-menu ul li, .view-menu ul li, .help-menu ul li, .edit-menu ul li {
+.top-menu ul li {
     padding: 8px 12px;
     cursor: pointer;
 }
 
-.file-menu ul li:hover, .view-menu ul li:hover, .help-menu ul li:hover, .edit-menu ul li:hover {
+.top-menu ul li:hover {
     background: #4F4F4F;
+}
+
+#file-menu {
+    position: absolute;
+    top: 60px;
+}
+
+#edit-menu {
+    position: absolute;
+    top: 60px;
+    left: 40px;
+}
+
+#view-menu {
+    position: absolute;
+    top: 60px;
+    left: 80px;
+}
+
+#help-menu {
+    position: absolute;
+    top: 60px;
+    left: 120px;
 }

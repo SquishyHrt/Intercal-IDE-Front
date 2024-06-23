@@ -7,7 +7,7 @@ const ViewMenuSwitchThemes = () => {
 }
 
 const ViewMenu = () => (
-    <div className="view-menu">
+    <div className="top-menu" id="view-menu">
         <ul>
             <li onClick={ViewMenuAppearance}>Appearance</li>
             <li onClick={ViewMenuSwitchThemes}>Switch Themes</li>
