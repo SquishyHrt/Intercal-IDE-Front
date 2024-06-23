@@ -25,6 +25,12 @@ body, html {
     margin: 3px;
 }
 
+.top-box {
+    box-sizing: border-box;
+    height: 13vh;
+    flex-direction: column;
+    display: flex;
+}
 
 .button-1 {
     background: url("./assets/button_file.png");
@@ -57,17 +63,10 @@ body, html {
     height: 100%;
 }
 
-.top-box {
-    box-sizing: border-box;
-    height: 13vh;
-    flex-direction: column;
-    display: flex;
-}
-
 .bottom-container {
     display: flex;
     justify-content: space-between;
-    height: 78vh;
+    height: 84vh;
     box-sizing: content-box;
 }
 
