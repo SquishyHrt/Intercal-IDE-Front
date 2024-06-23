@@ -59,7 +59,7 @@ body, html {
 
 .top-box {
     box-sizing: border-box;
-    height: 15vh;
+    height: 13vh;
     flex-direction: column;
     display: flex;
 }
