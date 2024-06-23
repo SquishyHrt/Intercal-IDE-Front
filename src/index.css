@@ -69,22 +69,8 @@ body, html {
 .top-box {
     box-sizing: border-box;
     height: 15vh;
-    border-radius: 15px;
     flex-direction: column;
     display: flex;
-}
-
-.top-box .top-part {
-    flex: 1;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-    background-color: aqua;
-}
-
-.top-box .bottom-part {
-    flex: 1;
-    background: url('./assets/Piste.png') no-repeat center center;
-    background-size: cover;
 }
 
 .bottom-container {

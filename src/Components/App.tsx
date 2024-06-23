@@ -38,14 +38,12 @@ const App = () => {
     return (
         <body>
         <div className="container">
-            <div className="top-box">
-                <div className="top-part">
-                    <div className="buttons">
-                        <button className="button-1" onClick={() => openMenu('file')}></button>
-                        <button className="button-2" onClick={() => openMenu('edit')}></button>
-                        <button className="button-3" onClick={() => openMenu('view')}></button>
-                        <button className="button-4" onClick={() => openMenu('help')}></button>
-                    </div>
+            <GetMeteo>
+                <div className="buttons">
+                    <button className="button-1" onClick={() => openMenu('file')}></button>
+                    <button className="button-2" onClick={() => openMenu('edit')}></button>
+                    <button className="button-3" onClick={() => openMenu('view')}></button>
+                    <button className="button-4" onClick={() => openMenu('help')}></button>
                 </div>
                 <div className="bottom-part" ref={menuRef}>
                     {visibleMenu === 'file' && <FileMenu/>}
@@ -53,7 +51,7 @@ const App = () => {
                     {visibleMenu === 'view' && <ViewMenu/>}
                     {visibleMenu === 'help' && <HelpMenu/>}
                 </div>
-            </div>
+            </GetMeteo>
             <div className="bottom-container">
                 <div className="bottom-box">
                     <BasicTree/>

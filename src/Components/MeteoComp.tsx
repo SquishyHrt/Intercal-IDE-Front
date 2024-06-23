@@ -1,5 +1,9 @@
 import {fetchWeatherApi} from 'openmeteo';
 import {useEffect, useState} from "react";
+import '../index.css';
+// Define the images to display depending on the weather and make sure they are imported
+import TopRainy from '../assets/TopRainy.png';
+import TopSunny from '../assets/TopSunny.png';
 
 const params = {
     "latitude": 48.132022,
@@ -23,7 +27,7 @@ const IsRaining = (precipitationData: any): boolean => {
     return precipitationData.snowfall > 0;
 }
 
-const GetMeteo = () => {
+const GetMeteo = ({children}: { children: any }) => {
     const GetMeteoData = async () => {
         try {
             const responses = await fetchWeatherApi(url, params);
@@ -49,11 +53,13 @@ const GetMeteo = () => {
         fetchMeteoData().then();
     }, []);
 
-    if (meteoCode === undefined) {
-        return <div>Loading...</div>;
-    }
+    const background = meteoCode ? TopRainy : TopSunny;
 
-    return <div>Raining ?: {meteoCode ? 'Yes' : 'No'}</div>;
+    return (
+        <div className="top-box" style={{background: `url(${background}) no-repeat center center`}}>
+            {children}
+        </div>
+    )
 }
 
 export default GetMeteo
