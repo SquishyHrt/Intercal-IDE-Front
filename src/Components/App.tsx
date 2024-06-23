@@ -9,6 +9,7 @@ import TabInfoBox from "Components/TabInfoBox.tsx";
 import MonacoEditor from './MonacoEditor';
 import 'react-tabs/style/react-tabs.css';
 import GetMeteo from "Components/MeteoComp.tsx";
+import Player from "Components/Player.tsx";
 
 const App = () => {
     const [visibleMenu, setVisibleMenu] = useState(null);
@@ -51,6 +52,7 @@ const App = () => {
                     {visibleMenu === 'view' && <ViewMenu/>}
                     {visibleMenu === 'help' && <HelpMenu/>}
                 </div>
+                <Player></Player>
             </GetMeteo>
             <div className="bottom-container">
                 <div className="bottom-box">
