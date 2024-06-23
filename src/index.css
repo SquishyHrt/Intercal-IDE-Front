@@ -28,34 +28,25 @@ body, html {
 
 .button-1 {
     background: url("./assets/button_file.png");
-    border: none;
-    background-size: contain;
-    width: 48px;
-    height: 48px;
 }
 
 .button-2 {
     background: url("./assets/button_edit.png");
-    border: none;
-    background-size: contain;
-    width: 48px;
-    height: 48px;
 }
 
 .button-3 {
     background: url("./assets/button_view.png");
-    border: none;
-    background-size: contain;
-    width: 48px;
-    height: 48px;
 }
 
 .button-4 {
     background: url("./assets/button_help.png");
+}
+
+.button-1, .button-2, .button-3, .button-4 {
     border: none;
     background-size: contain;
-    width: 48px;
-    height: 48px;
+    width: 42px;
+    height: 42px;
 }
 
 .bleachers-box {

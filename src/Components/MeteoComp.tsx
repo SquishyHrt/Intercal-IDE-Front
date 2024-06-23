@@ -56,7 +56,7 @@ const GetMeteo = ({children}: { children: any }) => {
     const background = meteoCode ? TopRainy : TopSunny;
 
     return (
-        <div className="top-box" style={{background: `url(${background}) no-repeat center center`}}>
+        <div className="top-box" style={{background: `url(${background}) no-repeat`}}>
             {children}
         </div>
     )
