@@ -7,7 +7,7 @@ const HelpMenuTipOfTheDay = () => {
 }
 
 const HelpMenu = () => (
-    <div className="help-menu">
+    <div className="top-menu" id="help-menu">
         <ul>
             <li onClick={HelpMenuHelp}>Help</li>
             <li onClick={HelpMenuTipOfTheDay}>Tip of the Day</li>

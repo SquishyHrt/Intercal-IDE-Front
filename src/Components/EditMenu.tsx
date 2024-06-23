@@ -15,7 +15,7 @@ const EditMenuFind = () => {
 }
 
 const EditMenu = () => (
-    <div className="edit-menu">
+    <div className="top-menu" id="edit-menu">
         <ul>
             <li onClick={EditMenuCut}>Cut</li>
             <li onClick={EditMenuCopy}>Copy</li>

@@ -15,7 +15,7 @@ const FileMenuExit = () => {
 }
 
 const FileMenu = () => (
-    <div className="file-menu">
+    <div className="top-menu" id="file-menu">
         <ul>
             <li onClick={FileMenuNew}>New File</li>
             <li onClick={FileMenuOpen}>Open File</li>
