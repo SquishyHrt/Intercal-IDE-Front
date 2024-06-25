@@ -1,6 +1,7 @@
 import FolderTree, { testData } from 'react-folder-tree';
 import 'react-folder-tree/dist/style.css';
 import { useEffect, useState } from "react";
+import { fetchArchitecture, getFileContent } from '@/utils';
 
 function getNode(path: number[], fileTree: any) {
     let tmp: any = fileTree.children;
@@ -20,7 +21,7 @@ const BasicTree = () => {
             const prevTree = JSON.parse(JSON.stringify(fileTree));
             const { absolutePath } = getNode(event.path, prevTree);
 
-            console.log("Deleting node at:", absolutePath)
+            console.log("Deleting node at:", absolutePath);
         }
         else if (event.type == "renameNode") {
             const prevTree = JSON.parse(JSON.stringify(fileTree));
@@ -45,30 +46,7 @@ const BasicTree = () => {
     };
 
     useEffect(() => {
-        const fetchArchitecture = async () => {
-            try {
-                console.log("Sending message to backend:", "./");
-                const response = await fetch('http://localhost:8080/api/architecture', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ path: "/home/lb/EPITA/PING/samuelIDE/my-app" })
-                });
-
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-
-                const data = await response.json();
-                setFileTree(data);
-                console.log("Received response from backend:", data);
-                return data;
-
-            } catch (error) {
-                console.error('Error during fetch:', error);
-                return testData;
-            }
-        }
-        fetchArchitecture().then(r => setFileTree(r));
+        fetchArchitecture("/home/lb/EPITA/PING/samuelIDE/my-app").then(r => setFileTree(r));
     }, []);
 
     const onNameClick = ({ defaultOnClick, nodeData }) => {
