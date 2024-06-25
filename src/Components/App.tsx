@@ -11,6 +11,7 @@ import EditorTabs from './EditorTabs';
 
 import "react-tabs/style/react-tabs.css";
 import "../App.css";
+import { getFileContent } from '@/Utils/utils';
 
 const App = () => {
 
@@ -40,15 +41,23 @@ const App = () => {
         };
     }, [menuRef]);
 
-    // MANAGE FILE OPENING
-    const [openTabs, setOpenTabs] = useState<string[]>(['hey.txt', 'hello.txt']);
-    const [fileContents, setFileContents] = useState({ 'hey.txt': 'this is a text', 'hello.txt': 'look at that text' });
+    // MANAGE TAB SELECTION
+    const [activeTabIndex, setActiveTabIndex] = useState(0);
 
-    const onNameClick = (selectedFileAbsPath: string, selectedFile: string) => {
+    // MANAGE FILE OPENING
+    const [openTabs, setOpenTabs] = useState<string[]>([]);
+    const [fileContents, setFileContents] = useState({});
+
+    const onNameClick = async (selectedFileAbsPath: string, selectedFile: string) => {
         const idx = openTabs.indexOf(selectedFile);
         if (idx == -1) {
+            const content = await getFileContent(selectedFileAbsPath);
             setOpenTabs([...openTabs, selectedFile]);
-            setFileContents({ ...fileContents, [selectedFile]: 'example text' });
+            setFileContents({ ...fileContents, [selectedFile]: content });
+            setActiveTabIndex(openTabs.length);
+        }
+        else {
+            setActiveTabIndex(idx);
         }
     }
 
@@ -84,7 +93,7 @@ const App = () => {
                     <BasicTree openTab={onNameClick} />
                 </div>
                 <div className="bottom-box" id="editor-box">
-                    <EditorTabs openTabs={openTabs} fileContents={fileContents} />
+                    <EditorTabs openTabs={openTabs} fileContents={fileContents} activeTabIndex={activeTabIndex} setActiveTabIndex={setActiveTabIndex} />
                 </div>
                 <div className="bottom-box">
                     <TabInfoBox />
