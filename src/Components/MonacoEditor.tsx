@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect } from 'react';
 import * as monaco from 'monaco-editor';
 
 const MonacoEditor = () => {
@@ -44,6 +44,7 @@ const MonacoEditor = () => {
         });
 
         // Initialize the Monaco Editor
+        // @ts-ignore
         editorRef.current = monaco.editor.create(document.getElementById('editor'), {
             value: 'Default text value',
             language: 'intercal',
@@ -55,6 +56,7 @@ const MonacoEditor = () => {
 
 
         const completion = monaco.languages.registerCompletionItemProvider('intercal', {
+            // @ts-ignore
             provideCompletionItems: () => {
                 const keywords = ['DO', 'PLEASE', 'IGNORE', 'NEXT', 'ABSTAIN', 'FORGET', 'REMEMBER', 'REINSTATE', 'RESUME', 'GIVE UP', 'COMPUTE', 'COME FROM', 'WRITE IN', 'READ OUT', 'GIVE UP'];
                 const suggestions = keywords.map(keyword => ({
@@ -67,14 +69,15 @@ const MonacoEditor = () => {
         });
 
         // Get the editor text:
-        console.log(editorRef.current.getValue());
+        // console.log(editorRef.current.getValue());
 
         // Set the editor text:
-        editorRef.current.setValue('New text value');
-        console.log(editorRef.current.getValue());
+        // editorRef.current.setValue('New text value');
+        // console.log(editorRef.current.getValue());
 
         return () => {
             completion.dispose();
+            // @ts-ignore
             editorRef.current.dispose();
         };
     }, []);

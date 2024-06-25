@@ -98,6 +98,8 @@ html {
 
 .bottom-box:nth-child(1) {
     flex: 1 1 5%;
+    justify-content: left;
+    overflow: scroll;
 }
 
 .bottom-box:nth-child(2) {

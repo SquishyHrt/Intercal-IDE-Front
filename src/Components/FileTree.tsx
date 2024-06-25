@@ -1,7 +1,7 @@
 import FolderTree, {testData} from 'react-folder-tree';
 import 'react-folder-tree/dist/style.css';
 import {useEffect, useState} from "react";
-import {createFile, createFolder, deleteP, fetchArchitecture, rename} from '@/utils';
+import {createFile, createFolder, deleteP, fetchArchitecture, rename} from 'Utils/utils.ts';
 
 function getNode(path: number[], fileTree: any) {
     let tmp: any = fileTree.children;
@@ -26,12 +26,11 @@ function getPath(rootPath: string, path: number[], fileTree: any) {
 
 const BasicTree = () => {
     const [fileTree, setFileTree] = useState(testData);
-    const [rootPath, setRootPath] = useState("");
+    const [rootPath, setRootPath] = useState("./");
+    const [cwd, setCwd] = useState('./');
 
     const onTreeStateChange = (state: any, event: any) => {
-
         // console.log(state, event);
-
         if (event.type == "deleteNode") {
             const prevTree = JSON.parse(JSON.stringify(fileTree));
             const absolutePath = getPath(rootPath, event.path, prevTree);
@@ -73,25 +72,37 @@ const BasicTree = () => {
         }
     };
 
-    useEffect(() => {
-        const project = "/home/lb/EPITA/PING/samuelIDE";
-        setRootPath(project);
-        fetchArchitecture(project).then(r => setFileTree(r));
-    }, []);
-
     const onNameClick = ({defaultOnClick, nodeData}) => {
         defaultOnClick();
-
         const absPath = getPath(rootPath, nodeData.path, fileTree);
-
         console.log('File selected: ', absPath);
     };
+
+    useEffect(() => {
+        const fetchCwd = async () => {
+            try {
+                const currentCwd = await window.electron.getCwd();
+                setCwd(currentCwd);
+                console.log('CWD:', cwd);
+
+                // These lines should be executed after the cwd is updated
+                setRootPath(cwd);
+                const architecture = await fetchArchitecture(cwd);
+                setFileTree(architecture);
+            } catch (error) {
+                console.error('Error while fetching CWD:', error);
+            }
+        };
+
+        fetchCwd();
+    }, [cwd]);
 
     return (
         <FolderTree
             data={fileTree}
             onChange={onTreeStateChange}
             onNameClick={onNameClick}
+            initOpenStatus={'closed'}
             showCheckbox={false}
         />
     );
