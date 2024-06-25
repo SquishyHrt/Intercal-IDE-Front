@@ -1,1 +1,27 @@
-"use strict";const e=require("electron");e.contextBridge.exposeInMainWorld("ipcRenderer",{on(...n){const[r,t]=n;return e.ipcRenderer.on(r,(c,...i)=>t(c,...i))},off(...n){const[r,...t]=n;return e.ipcRenderer.off(r,...t)},send(...n){const[r,...t]=n;return e.ipcRenderer.send(r,...t)},invoke(...n){const[r,...t]=n;return e.ipcRenderer.invoke(r,...t)}});e.contextBridge.exposeInMainWorld("electron",{exitApp:()=>e.ipcRenderer.send("exit-app"),getCwd:async()=>await e.ipcRenderer.invoke("get-cwd")});
+"use strict";
+const electron = require("electron");
+electron.contextBridge.exposeInMainWorld("ipcRenderer", {
+  on(...args) {
+    const [channel, listener] = args;
+    return electron.ipcRenderer.on(channel, (event, ...args2) => listener(event, ...args2));
+  },
+  off(...args) {
+    const [channel, ...omit] = args;
+    return electron.ipcRenderer.off(channel, ...omit);
+  },
+  send(...args) {
+    const [channel, ...omit] = args;
+    return electron.ipcRenderer.send(channel, ...omit);
+  },
+  invoke(...args) {
+    const [channel, ...omit] = args;
+    return electron.ipcRenderer.invoke(channel, ...omit);
+  }
+});
+electron.contextBridge.exposeInMainWorld("electron", {
+  exitApp: () => electron.ipcRenderer.send("exit-app"),
+  getCwd: async () => {
+    return await electron.ipcRenderer.invoke("get-cwd");
+  }
+  // add other APIs you need here.
+});
