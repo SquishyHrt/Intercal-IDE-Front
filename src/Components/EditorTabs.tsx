@@ -4,21 +4,9 @@ import MonacoEditor from "./MonacoEditor";
 import '../style/EditorTabs.css'
 
 const EditorTabs = () => {
-    const [openTabs, setOpenTabs] = useState<string[]>(['hey.txt']);
+    const [openTabs, setOpenTabs] = useState<string[]>(['hey.txt', 'hello.txt']);
     /*
-                {openTabs.map((tab, index) => (
-                    <TabPanel key={index}>
-                        <h1>hey</h1>
-                    </TabPanel>
-                ))}
-
-                {openTabs.map((tab, index) => (
-                            <Tab key={index}>{tab}</Tab>
-                        ))}
-    */
-
-    return (
-        <div id="file-tabs">
+                <div id="file-tabs">
             <div id="file-tabs-header">
                 <Tabs id="editor-tabs">
                     <TabList>
@@ -40,6 +28,23 @@ const EditorTabs = () => {
                     ))}
                 </Tabs>
             </div>
+        </div>
+    */
+
+    return (
+        <div id="file-tabs">
+            <Tabs id="editor-tabs" forceRenderTabPanel={true}>
+                <TabList>
+                    {openTabs.map((tab, index) => (
+                        <Tab key={index}>{tab}</Tab>
+                    ))}
+                </TabList>
+                {openTabs.map((tab, index) => (
+                    <TabPanel key={index}>
+                        <MonacoEditor domId={index} />
+                    </TabPanel>
+                ))}
+            </Tabs>
         </div>
     )
 }
