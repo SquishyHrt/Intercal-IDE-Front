@@ -43,10 +43,18 @@ const App = () => {
         <div className="container">
             <GetMeteo>
                 <div className="buttons">
-                    <button className="button-1" onClick={() => openMenu('file')}></button>
-                    <button className="button-2" onClick={() => openMenu('edit')}></button>
-                    <button className="button-3" onClick={() => openMenu('view')}></button>
-                    <button className="button-4" onClick={() => openMenu('help')}></button>
+                    <div>
+                        <button className="button-1" onClick={() => openMenu('file')}></button>
+                        <button className="button-2" onClick={() => openMenu('edit')}></button>
+                        <button className="button-3" onClick={() => openMenu('view')}></button>
+                        <button className="button-4" onClick={() => openMenu('help')}></button>
+                    </div>
+
+                    <div>
+                        <button id="button-run"></button>
+                        <button id="button-save"></button>
+                        <button id="button-close"></button>
+                    </div>
                 </div>
                 <div className="bottom-part" ref={menuRef}>
                     {visibleMenu === 'file' && <FileMenu />}
