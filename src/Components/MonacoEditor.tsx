@@ -82,7 +82,7 @@ const MonacoEditor = () => {
         };
     }, []);
 
-    return <div id="editor" style={{ height: '100%', width: '95%' }} />;
+    return <div id="editor" style={{ height: '100%', width: '100%' }} />;
 };
 
 export default MonacoEditor;

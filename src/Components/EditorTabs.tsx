@@ -1,10 +1,10 @@
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import { useState } from "react";
 import MonacoEditor from "./MonacoEditor";
+import '../style/EditorTabs.css'
 
 const EditorTabs = () => {
-    const [openTabs, setOpenTabs] = useState<string[]>([]);
-    //setOpenTabs(['hey.txt']);
+    const [openTabs, setOpenTabs] = useState<string[]>(['hey.txt']);
     /*
                 {openTabs.map((tab, index) => (
                     <TabPanel key={index}>
@@ -22,19 +22,24 @@ const EditorTabs = () => {
             <div id="file-tabs-header">
                 <Tabs id="editor-tabs">
                     <TabList>
-                        <Tab>
-                            simulation.txt
-                        </Tab>
-                        <Tab>
-                            fake.rust
-                        </Tab>
+                        {openTabs.map((tab, index) => (
+                            <Tab key={index}>{tab}</Tab>
+                        ))}
                     </TabList>
                 </Tabs>
                 <div id="button-run"></div>
                 <div id="button-save"></div>
                 <div id="button-close"></div>
             </div>
-            <div id="file-tabs-content"></div>
+            <div id="file-tabs-content">
+                <Tabs id="file-react-tabs">
+                    {openTabs.map((tab, index) => (
+                        <TabPanel key={index}>
+                            <MonacoEditor />
+                        </TabPanel>
+                    ))}
+                </Tabs>
+            </div>
         </div>
     )
 }

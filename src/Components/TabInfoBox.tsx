@@ -1,5 +1,6 @@
-import {Tab, TabList, TabPanel, Tabs} from "react-tabs";
+import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import Chat from "Components/Chat.tsx";
+import '../style/TabInfoBox.css'
 
 const TabInfoBox = () => {
     return (
@@ -10,7 +11,7 @@ const TabInfoBox = () => {
             </TabList>
 
             <TabPanel>
-                <Chat/>
+                <Chat />
             </TabPanel>
             <TabPanel>
                 <div id="">
