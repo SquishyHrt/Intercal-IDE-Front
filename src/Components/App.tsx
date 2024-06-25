@@ -1,14 +1,16 @@
-import React, {useState, useEffect, useRef} from 'react';
-import '../App.css';
+import React, {useState, useEffect, useRef} from "react";
+
 import BasicTree from "Components/FileTree.tsx";
 import FileMenu from "Components/FileMenu.js";
 import EditMenu from "Components/EditMenu.js";
 import ViewMenu from "Components/ViewMenu.js";
 import HelpMenu from "Components/HelpMenu.js";
 import TabInfoBox from "Components/TabInfoBox.tsx";
-import MonacoEditor from './MonacoEditor';
-import 'react-tabs/style/react-tabs.css';
 import GetMeteo from "Components/MeteoComp.tsx";
+import MonacoEditor from "Components/MonacoEditor";
+
+import "react-tabs/style/react-tabs.css";
+import "../App.css";
 
 const App = () => {
     const [visibleMenu, setVisibleMenu] = useState(null);
@@ -36,7 +38,6 @@ const App = () => {
     }, [menuRef]);
 
     return (
-        <body>
         <div className="container">
             <GetMeteo>
                 <div className="buttons">
@@ -67,7 +68,6 @@ const App = () => {
                 </div>
             </div>
         </div>
-        </body>
     );
 };
 
