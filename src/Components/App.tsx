@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import '../App.css';
 import BasicTree from "Components/FileTree.tsx";
 import FileMenu from "Components/FileMenu.js";
@@ -9,6 +9,7 @@ import TabInfoBox from "Components/TabInfoBox.tsx";
 import MonacoEditor from './MonacoEditor';
 import 'react-tabs/style/react-tabs.css';
 import GetMeteo from "Components/MeteoComp.tsx";
+import EditorTabs from './EditorTabs';
 
 const App = () => {
     const [visibleMenu, setVisibleMenu] = useState(null);
@@ -37,36 +38,36 @@ const App = () => {
 
     return (
         <body>
-        <div className="container">
-            <GetMeteo>
-                <div className="buttons">
-                    <button className="button-1" onClick={() => openMenu('file')}></button>
-                    <button className="button-2" onClick={() => openMenu('edit')}></button>
-                    <button className="button-3" onClick={() => openMenu('view')}></button>
-                    <button className="button-4" onClick={() => openMenu('help')}></button>
-                </div>
-                <div className="bottom-part" ref={menuRef}>
-                    {visibleMenu === 'file' && <FileMenu/>}
-                    {visibleMenu === 'edit' && <EditMenu/>}
-                    {visibleMenu === 'view' && <ViewMenu/>}
-                    {visibleMenu === 'help' && <HelpMenu/>}
-                </div>
-            </GetMeteo>
-            <div className="bottom-container">
-                <div className="bottom-box">
-                    <BasicTree/>
-                </div>
-                <div className="bottom-box" id="editor-box">
-                    <MonacoEditor/>
-                </div>
-                <div className="bottom-box">
-                    <TabInfoBox/>
-                </div>
-                <div className="bottom-box">
-                    <button className="bleachers-box"></button>
+            <div className="container">
+                <GetMeteo>
+                    <div className="buttons">
+                        <button className="button-1" onClick={() => openMenu('file')}></button>
+                        <button className="button-2" onClick={() => openMenu('edit')}></button>
+                        <button className="button-3" onClick={() => openMenu('view')}></button>
+                        <button className="button-4" onClick={() => openMenu('help')}></button>
+                    </div>
+                    <div className="bottom-part" ref={menuRef}>
+                        {visibleMenu === 'file' && <FileMenu />}
+                        {visibleMenu === 'edit' && <EditMenu />}
+                        {visibleMenu === 'view' && <ViewMenu />}
+                        {visibleMenu === 'help' && <HelpMenu />}
+                    </div>
+                </GetMeteo>
+                <div className="bottom-container">
+                    <div className="bottom-box">
+                        <BasicTree />
+                    </div>
+                    <div className="bottom-box" id="editor-box">
+                        <EditorTabs />
+                    </div>
+                    <div className="bottom-box">
+                        <TabInfoBox />
+                    </div>
+                    <div className="bottom-box">
+                        <button className="bleachers-box"></button>
+                    </div>
                 </div>
             </div>
-        </div>
         </body>
     );
 };
