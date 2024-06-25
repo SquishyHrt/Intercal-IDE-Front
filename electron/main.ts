@@ -34,6 +34,8 @@ function createWindow() {
         },
     })
 
+    // win.setMenu(null) enable this to hide the menu bar when release
+
     // Test active push message to Renderer-process.
     win.webContents.on('did-finish-load', () => {
         win?.webContents.send('main-process-message', (new Date).toLocaleString())

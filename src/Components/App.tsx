@@ -26,6 +26,7 @@ const App = () => {
 
     useEffect(() => {
         const handleClickOutside = (event: any) => {
+            // @ts-ignore
             if (menuRef.current && !menuRef.current.contains(event.target)) {
                 closeMenu();
             }

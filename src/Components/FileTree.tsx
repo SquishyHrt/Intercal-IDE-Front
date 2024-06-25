@@ -81,6 +81,7 @@ const BasicTree = () => {
     useEffect(() => {
         const fetchCwd = async () => {
             try {
+                // @ts-ignore
                 const currentCwd = await window.electron.getCwd();
                 setCwd(currentCwd);
                 console.log('CWD:', cwd);

@@ -13,6 +13,7 @@ const FileMenuSave = () => {
 }
 
 const FileMenuExit = () => {
+    // @ts-ignore
     window.electron.exitApp();
 };
 

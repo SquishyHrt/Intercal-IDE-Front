@@ -9,6 +9,8 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
+  "description": "A Custom IDE for Intercal Language",
+  "author": "Paolo Wattebled, Lucas Besnard, Arthur Guelennoc, Gustave Herve, Arthur Hamard",
   "dependencies": {
     "@sinm/react-file-tree": "^1.1.1",
     "@uiw/react-textarea-code-editor": "^3.0.2",

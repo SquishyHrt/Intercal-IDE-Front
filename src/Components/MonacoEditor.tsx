@@ -50,8 +50,8 @@ const MonacoEditor = () => {
             language: 'intercal',
             theme: 'vs-dark',
             automaticLayout: true,
-            width: '100%',
-            height: '100%',
+            // width: '100%',
+            // height: '100%',
         });
 
 
