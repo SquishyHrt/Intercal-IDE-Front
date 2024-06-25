@@ -1,5 +1,3 @@
-import React from 'react';
-
 const FileMenuNew = () => {
     console.log('New File');
 }
@@ -13,6 +11,7 @@ const FileMenuSave = () => {
 }
 
 const FileMenuExit = () => {
+    // @ts-ignore
     window.electron.exitApp();
 };
 

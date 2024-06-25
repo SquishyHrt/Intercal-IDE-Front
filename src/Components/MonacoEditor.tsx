@@ -1,7 +1,8 @@
 import { useRef, useEffect } from 'react';
 import * as monaco from 'monaco-editor';
 
-const MonacoEditor = ({ domId }: any) => {
+
+const MonacoEditor = ({ domId, value }: any) => {
     const editorRef = useRef(null);
 
     useEffect(() => {
@@ -50,8 +51,8 @@ const MonacoEditor = ({ domId }: any) => {
             language: 'intercal',
             theme: 'vs-dark',
             automaticLayout: true,
-            width: '100%',
-            height: '100%',
+            // width: '100%',
+            // height: '100%',
         });
 
 
@@ -72,7 +73,7 @@ const MonacoEditor = ({ domId }: any) => {
         // console.log(editorRef.current.getValue());
 
         // Set the editor text:
-        // editorRef.current.setValue('New text value');
+        editorRef.current.setValue(value);
         // console.log(editorRef.current.getValue());
 
         return () => {

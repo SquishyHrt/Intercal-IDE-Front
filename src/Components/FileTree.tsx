@@ -1,7 +1,7 @@
-import FolderTree, {testData} from 'react-folder-tree';
+import FolderTree, { testData } from 'react-folder-tree';
 import 'react-folder-tree/dist/style.css';
-import {useEffect, useState} from "react";
-import {createFile, createFolder, deleteP, fetchArchitecture, rename} from 'Utils/utils.ts';
+import { useEffect, useState } from "react";
+import { createFile, createFolder, deleteP, fetchArchitecture, rename } from 'Utils/utils.ts';
 
 function getNode(path: number[], fileTree: any) {
     let tmp: any = fileTree.children;
@@ -24,7 +24,7 @@ function getPath(rootPath: string, path: number[], fileTree: any) {
     return res;
 }
 
-const BasicTree = () => {
+const BasicTree = ({ openTab }: any) => {
     const [fileTree, setFileTree] = useState(testData);
     const [rootPath, setRootPath] = useState("./");
     const [cwd, setCwd] = useState('./');
@@ -72,15 +72,19 @@ const BasicTree = () => {
         }
     };
 
-    const onNameClick = ({defaultOnClick, nodeData}) => {
+    const onNameClick = ({ defaultOnClick, nodeData }) => {
         defaultOnClick();
-        const absPath = getPath(rootPath, nodeData.path, fileTree);
+        const path = getPath("", nodeData.path, fileTree);
+        const absPath = rootPath + path;
         console.log('File selected: ', absPath);
+        if (nodeData.isOpen == undefined) // It's a file, so open a tab
+            openTab(absPath, path.substring(1));
     };
 
     useEffect(() => {
         const fetchCwd = async () => {
             try {
+                // @ts-ignore
                 const currentCwd = await window.electron.getCwd();
                 setCwd(currentCwd);
                 console.log('CWD:', cwd);

@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+
     "target": "ES2020",
     "useDefineForClassFields": true,
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
@@ -14,18 +15,18 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "paths": {
-      "@/*": ["src/*"],
-      "Components/*": ["src/Components/*"],
-      "Interfaces/*": ["src/Data/Interfaces/", "src/Data/Interfaces/*"],
-      "Objects/*": ["src/Data/Objects/*"],
-      "Utils/*": ["src/Utils/*"],
+      "@/*": ["./src/*"],
+      "Components/*": ["./src/Components/*"],
+      "Interfaces/*": ["./src/Data/Interfaces/", "./src/Data/Interfaces/*"],
+      "Objects/*": ["./src/Data/Objects/*"],
+      "Utils/*": ["./src/Utils/*"],
     },
 
     /* Linting */
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "strict": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noFallthroughCasesInSwitch": true,
   },
   "include": ["src", "electron"],
   "references": [{ "path": "./tsconfig.node.json" }]

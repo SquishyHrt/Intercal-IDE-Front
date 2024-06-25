@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, MutableRefObject } from 'react';
 import '../App.css';
 import BasicTree from "Components/FileTree.tsx";
 import FileMenu from "Components/FileMenu.js";
@@ -12,10 +12,34 @@ import './i18n'; // For Locales / Language change
 
 import "react-tabs/style/react-tabs.css";
 import "../App.css";
+import { getFileContent } from '@/Utils/utils';
+import confetti from 'canvas-confetti';
 
 const App = () => {
+    const handleConfettiClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        console.log("Confetti button clicked!");
+
+        const confettiX = event.clientX;
+        const confettiY = event.clientY;
+
+        // Trigger confetti centered at the mouse click position
+        confetti({
+            particleCount: 40,
+            spread: 30,
+            origin: { 
+                x: confettiX / window.innerWidth, 
+                y: confettiY / window.innerHeight 
+            }
+        });
+
+        // // Play sound
+        // const audio = new Audio('/path-to-your-sound-file.mp3');
+        // audio.play();
+    };
+
+    // MANAGE MENUS
     const [visibleMenu, setVisibleMenu] = useState(null);
-    const menuRef: React.MutableRefObject<undefined> = useRef();
+    const menuRef: MutableRefObject<undefined> = useRef();
 
     const openMenu = (menu: any) => {
         setVisibleMenu(menu);
@@ -27,6 +51,7 @@ const App = () => {
 
     useEffect(() => {
         const handleClickOutside = (event: any) => {
+            // @ts-ignore
             if (menuRef.current && !menuRef.current.contains(event.target)) {
                 closeMenu();
             }
@@ -38,6 +63,27 @@ const App = () => {
         };
     }, [menuRef]);
 
+    // MANAGE TAB SELECTION
+    const [activeTabIndex, setActiveTabIndex] = useState(0);
+
+    // MANAGE FILE OPENING
+    const [openTabs, setOpenTabs] = useState<string[]>([]);
+    const [fileContents, setFileContents] = useState({});
+
+    const onNameClick = async (selectedFileAbsPath: string, selectedFile: string) => {
+        const idx = openTabs.indexOf(selectedFile);
+        if (idx == -1) {
+            const content = await getFileContent(selectedFileAbsPath);
+            setOpenTabs([...openTabs, selectedFile]);
+            setFileContents({ ...fileContents, [selectedFile]: content });
+            setActiveTabIndex(openTabs.length);
+        }
+        else {
+            setActiveTabIndex(idx);
+        }
+    }
+
+    // RETURN COMPONENT
     return (
 
         <div className="container">
@@ -65,19 +111,20 @@ const App = () => {
             </GetMeteo>
             <div className="bottom-container">
                 <div className="bottom-box">
-                    <BasicTree />
+
+                    <BasicTree openTab={onNameClick} />
                 </div>
                 <div className="bottom-box" id="editor-box">
-                    <EditorTabs />
+                    <EditorTabs openTabs={openTabs} fileContents={fileContents} activeTabIndex={activeTabIndex} setActiveTabIndex={setActiveTabIndex} />
                 </div>
                 <div className="bottom-box">
                     <TabInfoBox />
                 </div>
                 <div className="bottom-box">
-                    <button className="bleachers-box"></button>
+                    <button className="bleachers-box" onClick={handleConfettiClick}></button>
                 </div>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 };
 

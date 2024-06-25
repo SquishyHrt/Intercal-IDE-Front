@@ -1,7 +1,6 @@
 import {fetchWeatherApi} from 'openmeteo';
 import {useEffect, useState} from "react";
 import '../index.css';
-// Define the images to display depending on the weather and make sure they are imported
 import TopRainy from '../assets/TopRainy.png';
 import TopSunny from '../assets/TopSunny.png';
 
