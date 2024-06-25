@@ -1,7 +1,10 @@
 import { useState } from 'react';
+import React from 'react';
 import '../style/Chat.css';
+import { useTranslation } from 'react-i18next';
 
 const Chat = () => {
+    const { t } = useTranslation();
     const [messages, setMessages] = useState([]);
     const [messageInput, setMessageInput] = useState('');
 
@@ -73,7 +76,7 @@ const Chat = () => {
                     onChange={(e) => setMessageInput(e.target.value)}
                     onKeyPress={handleKeyPress}
                 />
-                <button id="send-button" onClick={sendMessage}>Send</button>
+                <button id="send-button" onClick={sendMessage}>{t('send')}</button>
             </div>
         </div>
     );

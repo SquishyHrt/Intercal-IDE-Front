@@ -8,6 +8,7 @@ import HelpMenu from "Components/HelpMenu.js";
 import TabInfoBox from "Components/TabInfoBox.tsx";
 import GetMeteo from "Components/MeteoComp.tsx";
 import EditorTabs from './EditorTabs';
+import './i18n'; // For Locales / Language change
 
 import "react-tabs/style/react-tabs.css";
 import "../App.css";
