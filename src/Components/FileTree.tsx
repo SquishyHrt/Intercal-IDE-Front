@@ -1,7 +1,7 @@
-import FolderTree, { testData } from 'react-folder-tree';
+import FolderTree, {testData} from 'react-folder-tree';
 import 'react-folder-tree/dist/style.css';
-import { useEffect, useState } from "react";
-import { createFile, createFolder, deleteP, fetchArchitecture, getFileContent, rename } from '@/utils';
+import {useEffect, useState} from "react";
+import {createFile, createFolder, deleteP, fetchArchitecture, rename} from '@/utils';
 
 function getNode(path: number[], fileTree: any) {
     let tmp: any = fileTree.children;
@@ -36,19 +36,17 @@ const BasicTree = () => {
             const prevTree = JSON.parse(JSON.stringify(fileTree));
             const absolutePath = getPath(rootPath, event.path, prevTree);
 
-            if (confirm("Are you sure to delete at " + absolutePath + " ?") == true) {
+            if (confirm("Are you sure to delete at " + absolutePath + " ?")) {
                 console.log("Deleting node at:", absolutePath);
                 deleteP(absolutePath);
-            }
-            else {
+            } else {
                 // How to preventDefault behaviour ??
 
                 // This bad solution gives me infinite loop on confirmation windows aaaaahhhh
                 // fetchArchitecture(rootPath).then(r => setFileTree(r));
                 return null;
             }
-        }
-        else if (event.type == "renameNode") {
+        } else if (event.type == "renameNode") {
             const prevTree = JSON.parse(JSON.stringify(fileTree));
             const absolutePath = getPath(rootPath, event.path, prevTree);
             // newName doesn't contains the full path
@@ -57,8 +55,7 @@ const BasicTree = () => {
             rename(absolutePath, newName);
 
             //console.log("Renaming node. Previous path:", absolutePath, ". New name:", newName);
-        }
-        else if (event.type == "addNode") {
+        } else if (event.type == "addNode") {
             // Problem because the added node has no absolutePath attribute
             // We need to recompose the path using event.path
             const children = getNode(event.path, state);
@@ -68,8 +65,7 @@ const BasicTree = () => {
                 const file_path = absolutePath + '/' + children[0].name;
                 //console.log("Creating file called:", file_path);
                 createFile(file_path);
-            }
-            else {
+            } else {
                 const folder_path = absolutePath + '/' + children[children.length - 1].name;
                 //console.log("Creating folder called:", folder_path);
                 createFolder(folder_path);
@@ -83,7 +79,7 @@ const BasicTree = () => {
         fetchArchitecture(project).then(r => setFileTree(r));
     }, []);
 
-    const onNameClick = ({ defaultOnClick, nodeData }) => {
+    const onNameClick = ({defaultOnClick, nodeData}) => {
         defaultOnClick();
 
         const absPath = getPath(rootPath, nodeData.path, fileTree);
