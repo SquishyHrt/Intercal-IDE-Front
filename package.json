@@ -12,6 +12,7 @@
   "description": "A Custom IDE for Intercal Language",
   "author": "Paolo Wattebled, Lucas Besnard, Arthur Guelennoc, Gustave Herve, Arthur Hamard",
   "dependencies": {
+    "canvas-confetti": "^1.5.1",
     "@sinm/react-file-tree": "^1.1.1",
     "@uiw/react-textarea-code-editor": "^3.0.2",
     "monaco-editor": "^0.50.0",

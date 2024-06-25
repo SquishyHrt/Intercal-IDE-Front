@@ -12,8 +12,29 @@ import EditorTabs from './EditorTabs';
 import "react-tabs/style/react-tabs.css";
 import "../App.css";
 import { getFileContent } from '@/Utils/utils';
+import confetti from 'canvas-confetti';
 
 const App = () => {
+    const handleConfettiClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        console.log("Confetti button clicked!");
+
+        const confettiX = event.clientX;
+        const confettiY = event.clientY;
+
+        // Trigger confetti centered at the mouse click position
+        confetti({
+            particleCount: 40,
+            spread: 30,
+            origin: { 
+                x: confettiX / window.innerWidth, 
+                y: confettiY / window.innerHeight 
+            }
+        });
+
+        // // Play sound
+        // const audio = new Audio('/path-to-your-sound-file.mp3');
+        // audio.play();
+    };
 
     // MANAGE MENUS
     const [visibleMenu, setVisibleMenu] = useState(null);
@@ -99,7 +120,7 @@ const App = () => {
                     <TabInfoBox />
                 </div>
                 <div className="bottom-box">
-                    <button className="bleachers-box"></button>
+                    <button className="bleachers-box" onClick={handleConfettiClick}></button>
                 </div>
             </div >
         </div >
