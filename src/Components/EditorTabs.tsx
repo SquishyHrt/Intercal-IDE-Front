@@ -1,5 +1,5 @@
-import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
-import { useState } from "react";
+import {Tab, TabList, TabPanel, Tabs} from "react-tabs";
+import {useState} from "react";
 import MonacoEditor from "./MonacoEditor";
 import '../style/EditorTabs.css'
 
@@ -41,7 +41,7 @@ const EditorTabs = () => {
                 </TabList>
                 {openTabs.map((tab, index) => (
                     <TabPanel key={index}>
-                        <MonacoEditor domId={index} />
+                        <MonacoEditor domId={index}/>
                     </TabPanel>
                 ))}
             </Tabs>

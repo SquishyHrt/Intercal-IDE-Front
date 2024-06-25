@@ -1,5 +1,3 @@
-import React from 'react';
-
 const FileMenuNew = () => {
     console.log('New File');
 }

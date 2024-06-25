@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import {useState, useEffect, useRef, MutableRefObject} from 'react';
 import '../App.css';
 import BasicTree from "Components/FileTree.tsx";
 import FileMenu from "Components/FileMenu.js";
@@ -14,7 +14,7 @@ import "../App.css";
 
 const App = () => {
     const [visibleMenu, setVisibleMenu] = useState(null);
-    const menuRef: React.MutableRefObject<undefined> = useRef();
+    const menuRef: MutableRefObject<undefined> = useRef();
 
     const openMenu = (menu: any) => {
         setVisibleMenu(menu);
@@ -57,21 +57,21 @@ const App = () => {
                     </div>
                 </div>
                 <div className="bottom-part" ref={menuRef}>
-                    {visibleMenu === 'file' && <FileMenu />}
-                    {visibleMenu === 'edit' && <EditMenu />}
-                    {visibleMenu === 'view' && <ViewMenu />}
-                    {visibleMenu === 'help' && <HelpMenu />}
+                    {visibleMenu === 'file' && <FileMenu/>}
+                    {visibleMenu === 'edit' && <EditMenu/>}
+                    {visibleMenu === 'view' && <ViewMenu/>}
+                    {visibleMenu === 'help' && <HelpMenu/>}
                 </div>
             </GetMeteo>
             <div className="bottom-container">
                 <div className="bottom-box">
-                    <BasicTree />
+                    <BasicTree/>
                 </div>
                 <div className="bottom-box" id="editor-box">
-                    <EditorTabs />
+                    <EditorTabs/>
                 </div>
                 <div className="bottom-box">
-                    <TabInfoBox />
+                    <TabInfoBox/>
                 </div>
                 <div className="bottom-box">
                     <button className="bleachers-box"></button>
