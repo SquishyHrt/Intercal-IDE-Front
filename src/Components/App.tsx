@@ -13,7 +13,9 @@ import './i18n'; // For Locales / Language change
 import "react-tabs/style/react-tabs.css";
 import "../App.css";
 import { compileIntercal, getFileContent, saveFile, fetchArchitecture } from '@/Utils/utils';
+
 import confetti from 'canvas-confetti';
+import cheering from '../assets/cheering.mp3';
 
 const App = () => {
 
@@ -55,9 +57,9 @@ const App = () => {
             }
         });
 
-        // // Play sound
-        // const audio = new Audio('/path-to-your-sound-file.mp3');
-        // audio.play();
+        // Play sound
+        const audio = new Audio(cheering);
+        audio.play();
     };
 
     // MANAGE MENUS
