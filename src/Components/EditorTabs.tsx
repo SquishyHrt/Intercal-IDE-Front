@@ -3,7 +3,7 @@ import { useState } from "react";
 import MonacoEditor from "./MonacoEditor";
 import '../style/EditorTabs.css'
 
-const EditorTabs = ({ openTabs, fileContents, activeTabIndex, setActiveTabIndex }: any) => {
+const EditorTabs = ({ openTabs, fileContents, setFileContents, activeTabIndex, setActiveTabIndex }: any) => {
     const handleTabSelect = (index) => {
         setActiveTabIndex(index);
     };
@@ -18,7 +18,7 @@ const EditorTabs = ({ openTabs, fileContents, activeTabIndex, setActiveTabIndex 
                 </TabList>
                 {openTabs.map((tab: any, index: any) => (
                     <TabPanel key={index}>
-                        <MonacoEditor domId={index} value={fileContents[tab]} />
+                        <MonacoEditor domId={index} filename={tab} value={fileContents[tab]} fileContents={fileContents} setFileContents={setFileContents} />
                     </TabPanel>
                 ))}
             </Tabs>

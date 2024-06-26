@@ -153,7 +153,7 @@ const App = () => {
                     <BasicTree openTab={onNameClick} />
                 </div>
                 <div className="bottom-box" id="editor-box">
-                    <EditorTabs openTabs={openTabs} fileContents={fileContents} activeTabIndex={fileTabIndex} setActiveTabIndex={setFileTabIndex} />
+                    <EditorTabs openTabs={openTabs} fileContents={fileContents} setFileContents={setFileContents} activeTabIndex={fileTabIndex} setActiveTabIndex={setFileTabIndex} />
                 </div>
                 <div className="bottom-box">
                     <TabInfoBox activeTabIndex={infoTabIndex} setActiveTabIndex={setInfoTabIndex} compilMsg={compilMsg} />

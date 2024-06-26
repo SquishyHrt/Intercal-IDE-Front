@@ -2,7 +2,7 @@ import { useRef, useEffect } from 'react';
 import * as monaco from 'monaco-editor';
 
 
-const MonacoEditor = ({ domId, value }: any) => {
+const MonacoEditor = ({ domId, filename, value, fileContents, setFileContents }: any) => {
     const editorRef = useRef(null);
 
     useEffect(() => {
@@ -67,6 +67,13 @@ const MonacoEditor = ({ domId, value }: any) => {
                 }));
                 return { suggestions: suggestions };
             },
+        });
+
+        editorRef.current.onDidChangeModelContent(function (e) {
+            // Save on our local dict 'fileContents' every live change in monaco
+            let tmp = fileContents;
+            tmp[filename] = editorRef.current.getValue();
+            setFileContents(tmp);
         });
 
         // Get the editor text:
