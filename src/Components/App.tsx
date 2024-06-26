@@ -128,10 +128,10 @@ const App = () => {
             <GetMeteo>
                 <div className="buttons">
                     <div>
-                        <button className="button-1" onClick={() => openMenu('file')}></button>
-                        <button className="button-2" onClick={() => openMenu('edit')}></button>
-                        <button className="button-3" onClick={() => openMenu('view')}></button>
-                        <button className="button-4" onClick={() => openMenu('help')}></button>
+                        <button className="button-1 french" onClick={() => openMenu('file')}></button>
+                        <button className="button-2 french" onClick={() => openMenu('edit')}></button>
+                        <button className="button-3 french" onClick={() => openMenu('view')}></button>
+                        <button className="button-4 french" onClick={() => openMenu('help')}></button>
                     </div>
 
                     <div>
