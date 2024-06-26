@@ -45,10 +45,26 @@
     "vite-plugin-electron": "^0.28.6",
     "vite-plugin-electron-renderer": "^0.14.5"
   },
+  "main": "dist-electron/main.js",
   "build": {
     "extraResources": [
-      "src/backend/**/*"
-    ]
-  },
-  "main": "dist-electron/main.js"
+      {
+        "from": "src/backend/ping-1.0-runner",
+        "to": "ping-1.0-runner",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "files": [
+      "dist/",
+      "dist-electron/",
+      "node_modules/",
+      "package.json"
+    ],
+    "linux": {
+      "category": "Utility",
+      "icon": "src/assets/bleachers.png"
+    }
+  }
 }

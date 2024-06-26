@@ -52,23 +52,6 @@ function createWindow() {
     }
 }
 
-function createBackend() {
-    const backendPath = path.join(process.env.APP_ROOT, 'src', 'backend', 'ping-1.0-runner');
-    backendProcess = spawn(backendPath);
-
-    backendProcess.stdout.on('data', (data: Buffer) => {
-        console.log(`Backend stdout: ${data}`);
-    });
-
-    backendProcess.stderr.on('data', (data: Buffer) => {
-        console.error(`Backend stderr: ${data}`);
-    });
-
-    backendProcess.on('close', (code: number) => {
-        console.log(`Backend process exited with code ${code}`);
-    });
-}
-
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
@@ -118,5 +101,22 @@ ipcMain.on('open-tips', (event, randomText) => {
 
 app.whenReady().then(() => {
     createWindow();
-    setTimeout(createBackend, 1000);
+
+    const backendRunnerPath = !app.isPackaged
+        ? path.join(__dirname, '..', 'src', 'backend', 'ping-1.0-runner')
+        : path.join(process.resourcesPath, 'ping-1.0-runner');
+
+    backendProcess = spawn(backendRunnerPath);
+
+    backendProcess.stdout.on('data', (data: Buffer) => {
+        console.log(`Backend stdout: ${data}`);
+    });
+
+    backendProcess.stderr.on('data', (data: Buffer) => {
+        console.error(`Backend stderr: ${data}`);
+    });
+
+    backendProcess.on('close', (code: number) => {
+        console.log(`Backend process exited with code ${code}`);
+    });
 });
