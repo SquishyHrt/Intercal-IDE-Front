@@ -1,6 +1,7 @@
 import { app, BrowserWindow, ipcMain } from "electron";
 import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
+import { spawn } from "child_process";
 import path from "node:path";
 createRequire(import.meta.url);
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -10,6 +11,7 @@ const MAIN_DIST = path.join(process.env.APP_ROOT, "dist-electron");
 const RENDERER_DIST = path.join(process.env.APP_ROOT, "dist");
 process.env.VITE_PUBLIC = VITE_DEV_SERVER_URL ? path.join(process.env.APP_ROOT, "public") : RENDERER_DIST;
 let win;
+let backendProcess = null;
 function createWindow() {
   win = new BrowserWindow({
     icon: path.join(process.env.VITE_PUBLIC, "electron-vite.svg"),
@@ -26,10 +28,26 @@ function createWindow() {
     win.loadFile(path.join(RENDERER_DIST, "index.html"));
   }
 }
+function createBackend() {
+  const backendPath = path.join(process.env.APP_ROOT, "src", "backend", "ping-1.0-runner");
+  backendProcess = spawn(backendPath);
+  backendProcess.stdout.on("data", (data) => {
+    console.log(`Backend stdout: ${data}`);
+  });
+  backendProcess.stderr.on("data", (data) => {
+    console.error(`Backend stderr: ${data}`);
+  });
+  backendProcess.on("close", (code) => {
+    console.log(`Backend process exited with code ${code}`);
+  });
+}
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
     app.quit();
     win = null;
+  }
+  if (backendProcess) {
+    backendProcess.kill();
   }
 });
 app.on("activate", () => {
@@ -39,6 +57,9 @@ app.on("activate", () => {
 });
 ipcMain.on("exit-app", () => {
   app.quit();
+  if (backendProcess) {
+    backendProcess.kill();
+  }
 });
 ipcMain.handle("get-cwd", () => {
   return process.cwd();
@@ -56,7 +77,10 @@ ipcMain.on("open-tips", (event, randomText) => {
   newWindow.title = "Tip of the Day";
   newWindow.loadURL(`file://${path.join(MAIN_DIST, "TipOfTheDay.html")}?text=${encodeURIComponent(randomText)}`);
 });
-app.whenReady().then(createWindow);
+app.whenReady().then(() => {
+  createWindow();
+  setTimeout(createBackend, 1e3);
+});
 export {
   MAIN_DIST,
   RENDERER_DIST,

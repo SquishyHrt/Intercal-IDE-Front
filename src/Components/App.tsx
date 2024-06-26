@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, MutableRefObject } from 'react';
+import { useState, useEffect, useRef, MutableRefObject } from 'react';
 import '../App.css';
 import BasicTree from "Components/FileTree.tsx";
 import FileMenu from "Components/FileMenu.js";
@@ -8,25 +8,40 @@ import HelpMenu from "Components/HelpMenu.js";
 import TabInfoBox from "Components/TabInfoBox.tsx";
 import GetMeteo from "Components/MeteoComp.tsx";
 import EditorTabs from './EditorTabs';
+import RunButton from "Components/RunButton.tsx"
 import './i18n'; // For Locales / Language change
-import confetti from 'canvas-confetti';
 
 import "react-tabs/style/react-tabs.css";
 import "../App.css";
-import { compileIntercal, getFileContent } from '@/Utils/utils';
+import { compileIntercal, getFileContent, saveFile, fetchArchitecture } from '@/Utils/utils';
 
-import RunButton from "Components/RunButton.tsx"
-
-function streamToString(stream) {
-    return new Promise((resolve, reject) => {
-        const chunks = [];
-        stream.on('data', chunk => chunks.push(chunk));
-        stream.on('end', () => resolve(Buffer.concat(chunks).toString('utf8')));
-        stream.on('error', reject);
-    });
-}
+import confetti from 'canvas-confetti';
+import cheering from '../assets/cheering.mp3';
 
 const App = () => {
+
+    const [rootPath, setRootPath] = useState("./");
+    const [cwd, setCwd] = useState('./');
+
+    useEffect(() => {
+        const fetchCwd = async () => {
+            try {
+                // @ts-ignore
+                const currentCwd = await window.electron.getCwd();
+                setCwd(currentCwd);
+                console.log('CWD:', cwd);
+
+                // These lines should be executed after the cwd is updated
+                setRootPath(cwd);
+            } catch (error) {
+                console.error('Error while fetching CWD:', error);
+            }
+        };
+
+        fetchCwd();
+    }, [cwd]);
+
+    // MANAGE CONFETTI
     const handleConfettiClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         console.log("Confetti button clicked!");
 
@@ -43,9 +58,9 @@ const App = () => {
             }
         });
 
-        // // Play sound
-        // const audio = new Audio('/path-to-your-sound-file.mp3');
-        // audio.play();
+        // Play sound
+        const audio = new Audio(cheering);
+        audio.play();
     };
 
     // MANAGE MENUS
@@ -99,12 +114,52 @@ const App = () => {
     }
 
     // MANAGE RUN - SAVE - CLOSE BUTTONS
-    const handleSaveClick = () => {
-        console.log('save');
+    const handleRunClick = async () => {
+        if (openTabs.length == 0) {
+            setCompilMsg('Open a file to run it');
+            return;
+        }
+        setCompilMsg('Compilation in progress...');
+        setInfoTabIndex(1);
+
+        const content = fileContents[openTabs[fileTabIndex]];
+        try {
+            let response = await compileIntercal(content);
+            response = JSON.parse(response);
+            if (response.output)
+                setCompilMsg(response.output);
+            else
+                setCompilMsg('Error: ' + response);
+        }
+        catch (error) {
+            setCompilMsg('Error during request. Verify your internet connection.');
+        }
+    }
+
+    const handleSaveClick = async () => {
+        if (openTabs.length == 0)
+            return;
+
+        let path = rootPath;
+        if (path[path.length - 1] != '/') {
+            path += '/';
+        }
+        path += openTabs[fileTabIndex];
+        await saveFile(path, fileContents[openTabs[fileTabIndex]]);
     }
 
     const handleCloseClick = () => {
-        console.log('close');
+        if (openTabs.length == 0)
+            return;
+
+        let newOpenTabs = openTabs;
+        newOpenTabs.splice(fileTabIndex, 1);
+        setOpenTabs(newOpenTabs);
+        // Set a new tab index, however the tab component doesn't re-render on button click
+        if (fileTabIndex == 0)
+            setFileTabIndex(-1);
+        else
+            setFileTabIndex(fileTabIndex - 1);
     }
 
     // RETURN COMPONENT
@@ -114,14 +169,14 @@ const App = () => {
             <GetMeteo>
                 <div className="buttons">
                     <div>
-                        <button className="button-1" onClick={() => openMenu('file')}></button>
-                        <button className="button-2" onClick={() => openMenu('edit')}></button>
-                        <button className="button-3" onClick={() => openMenu('view')}></button>
-                        <button className="button-4" onClick={() => openMenu('help')}></button>
+                        <button className="button-1 french" onClick={() => openMenu('file')}></button>
+                        <button className="button-2 french" onClick={() => openMenu('edit')}></button>
+                        <button className="button-3 french" onClick={() => openMenu('view')}></button>
+                        <button className="button-4 french" onClick={() => openMenu('help')}></button>
                     </div>
 
                     <div>
-                        <RunButton fileContents={fileContents} openTabs={openTabs} fileTabIndex={fileTabIndex} setInfoTabIndex={setInfoTabIndex} setCompilMsg={setCompilMsg} />
+                        <button id="button-run" onClick={handleRunClick}></button>
                         <button id="button-save" onClick={handleSaveClick}></button>
                         <button id="button-close" onClick={handleCloseClick}></button>
                     </div>
@@ -136,7 +191,7 @@ const App = () => {
             <div className="bottom-container">
                 <div className="bottom-box">
 
-                    <BasicTree openTab={onNameClick} />
+                    <BasicTree openTab={onNameClick} rootPath={rootPath} />
                 </div>
                 <div className="bottom-box" id="editor-box">
                     <EditorTabs openTabs={openTabs} fileContents={fileContents} setFileContents={setFileContents} activeTabIndex={fileTabIndex} setActiveTabIndex={setFileTabIndex} />
