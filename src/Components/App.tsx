@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, MutableRefObject } from 'react';
+import React, { useState, useEffect, useRef, MutableRefObject } from 'react';
 import '../App.css';
 import BasicTree from "Components/FileTree.tsx";
 import FileMenu from "Components/FileMenu.js";
@@ -7,14 +7,15 @@ import ViewMenu from "Components/ViewMenu.js";
 import HelpMenu from "Components/HelpMenu.js";
 import TabInfoBox from "Components/TabInfoBox.tsx";
 import GetMeteo from "Components/MeteoComp.tsx";
-import Player from "Components/Player.tsx";
 import EditorTabs from './EditorTabs';
 import './i18n'; // For Locales / Language change
+import confetti from 'canvas-confetti';
 
 import "react-tabs/style/react-tabs.css";
 import "../App.css";
 import { compileIntercal, getFileContent } from '@/Utils/utils';
-import confetti from 'canvas-confetti';
+
+import RunButton from "Components/RunButton.tsx"
 
 function streamToString(stream) {
     return new Promise((resolve, reject) => {
@@ -98,22 +99,6 @@ const App = () => {
     }
 
     // MANAGE RUN - SAVE - CLOSE BUTTONS
-    const handleRunClick = async () => {
-        const content = fileContents[openTabs[fileTabIndex]];
-        setInfoTabIndex(1);
-        try {
-            let response = await compileIntercal(content);
-            response = JSON.parse(response);
-            if (response.output)
-                setCompilMsg(response.output);
-            else
-                setCompilMsg('Error: ' + response);
-        }
-        catch (error) {
-            setCompilMsg('Error during request');
-        }
-    }
-
     const handleSaveClick = () => {
         console.log('save');
     }
@@ -136,7 +121,7 @@ const App = () => {
                     </div>
 
                     <div>
-                        <button id="button-run" onClick={handleRunClick}></button>
+                        <RunButton fileContents={fileContents} openTabs={openTabs} fileTabIndex={fileTabIndex} setInfoTabIndex={setInfoTabIndex} setCompilMsg={setCompilMsg} />
                         <button id="button-save" onClick={handleSaveClick}></button>
                         <button id="button-close" onClick={handleCloseClick}></button>
                     </div>
@@ -147,7 +132,6 @@ const App = () => {
                     {visibleMenu === 'view' && <ViewMenu />}
                     {visibleMenu === 'help' && <HelpMenu />}
                 </div>
-                <Player></Player>
             </GetMeteo>
             <div className="bottom-container">
                 <div className="bottom-box">
