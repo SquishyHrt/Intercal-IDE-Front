@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import Player from "Components/Player.tsx";
 import {compileIntercal} from "Utils/utils.ts";
 import confetti from 'canvas-confetti';
 
-const RunButton = ({ fileContents, openTabs, fileTabIndex, setInfoTabIndex, setCompilMsg }) => {
+const RunButton = ({fileContents, openTabs, fileTabIndex, setInfoTabIndex, setCompilMsg}) => {
     const [posX, setPosX] = useState(130);
     const [backgroundPosX, setBackgroundPosX] = useState(0);
     const [backgroundPosY, setBackgroundPosY] = useState(-160 * 3);
@@ -40,8 +40,7 @@ const RunButton = ({ fileContents, openTabs, fileTabIndex, setInfoTabIndex, setC
             };
 
             animate();
-        }
-        else if (resetAnimation) {
+        } else if (resetAnimation) {
             const interval = 2; // Change this to control the speed of the animation
             const frames = 6; // Number of frames in the sprite sheet
             let currentFrame = 0;
@@ -123,13 +122,11 @@ const RunButton = ({ fileContents, openTabs, fileTabIndex, setInfoTabIndex, setC
                 if (response.output.trim().startsWith("ICL")) {
                     playerFall();
                 }
-            }
-            else {
+            } else {
                 setCompilMsg('Error: ' + response);
                 playerFall();
             }
-        }
-        catch (error) {
+        } catch (error) {
             setCompilMsg('Error during request. Verify your internet connection.');
             playerFall();
         }
@@ -143,8 +140,10 @@ const RunButton = ({ fileContents, openTabs, fileTabIndex, setInfoTabIndex, setC
                 particleCount: 20,
                 spread: 30,
                 startVelocity: 80,
-                origin: { x: Math.random(),
-                y: 1 }
+                origin: {
+                    x: Math.random(),
+                    y: 1
+                }
             });
             // keep going until we are out of time
             if (Date.now() < end) {
@@ -153,11 +152,10 @@ const RunButton = ({ fileContents, openTabs, fileTabIndex, setInfoTabIndex, setC
         }());
     }
 
-
-
     return (<>
         <button id="button-run" onClick={handleRunClick}></button>
-        <Player posX={posX} backgroundPosX={backgroundPosX} backgroundPosY={backgroundPosY} resetAnimation={resetAnimation}/>
+        <Player posX={posX} backgroundPosX={backgroundPosX} backgroundPosY={backgroundPosY}
+                resetAnimation={resetAnimation}/>
     </>);
 }
 

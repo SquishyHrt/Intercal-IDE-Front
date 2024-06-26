@@ -1,13 +1,12 @@
-import { useRef, useEffect } from 'react';
+import {useRef, useEffect} from 'react';
 import * as monaco from 'monaco-editor';
 
-
-const MonacoEditor = ({ domId, filename, value, fileContents, setFileContents }: any) => {
+const MonacoEditor = ({domId, filename, value, fileContents, setFileContents}: any) => {
     const editorRef = useRef(null);
 
     useEffect(() => {
         // Define the INTERCAL language
-        monaco.languages.register({ id: 'intercal' });
+        monaco.languages.register({id: 'intercal'});
 
         monaco.languages.setMonarchTokensProvider('intercal', {
             tokenizer: {
@@ -18,11 +17,11 @@ const MonacoEditor = ({ domId, filename, value, fileContents, setFileContents }:
                     [/"([^"\\]|\\.)*$/, 'string.invalid'],
                     [/\(/, 'delimiter.parenthesis'],
                     [/\)/, 'delimiter.parenthesis'],
-                    [/"/, { token: 'string.quote', bracket: '@open', next: '@string' }],
+                    [/"/, {token: 'string.quote', bracket: '@open', next: '@string'}],
                 ],
                 string: [
                     [/[^\\"]+/, 'string'],
-                    [/"/, { token: 'string.quote', bracket: '@close', next: '@pop' }],
+                    [/"/, {token: 'string.quote', bracket: '@close', next: '@pop'}],
                 ],
             },
         });
@@ -37,10 +36,10 @@ const MonacoEditor = ({ domId, filename, value, fileContents, setFileContents }:
                 ['(', ')'],
             ],
             autoClosingPairs: [
-                { open: '{', close: '}' },
-                { open: '[', close: ']' },
-                { open: '(', close: ')' },
-                { open: '"', close: '"' },
+                {open: '{', close: '}'},
+                {open: '[', close: ']'},
+                {open: '(', close: ')'},
+                {open: '"', close: '"'},
             ],
         });
 
@@ -51,8 +50,6 @@ const MonacoEditor = ({ domId, filename, value, fileContents, setFileContents }:
             language: 'intercal',
             theme: 'vs-dark',
             automaticLayout: true,
-            // width: '100%',
-            // height: '100%',
         });
 
 
@@ -65,7 +62,7 @@ const MonacoEditor = ({ domId, filename, value, fileContents, setFileContents }:
                     kind: monaco.languages.CompletionItemKind.Keyword,
                     insertText: keyword,
                 }));
-                return { suggestions: suggestions };
+                return {suggestions: suggestions};
             },
         });
 
@@ -90,7 +87,7 @@ const MonacoEditor = ({ domId, filename, value, fileContents, setFileContents }:
         };
     }, []);
 
-    return <div id={domId} style={{ height: '100%', width: '100%' }} />;
+    return <div id={domId} style={{height: '100%', width: '100%'}}/>;
 };
 
 export default MonacoEditor;

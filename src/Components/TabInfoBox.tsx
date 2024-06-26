@@ -1,8 +1,8 @@
-import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
+import {Tab, TabList, TabPanel, Tabs} from "react-tabs";
 import Chat from "Components/Chat.tsx";
 import '../style/TabInfoBox.css'
 
-const TabInfoBox = ({ activeTabIndex, setActiveTabIndex, compilMsg }: any) => {
+const TabInfoBox = ({activeTabIndex, setActiveTabIndex, compilMsg}: any) => {
     const handleTabSelect = (index) => {
         setActiveTabIndex(index);
     };
@@ -15,7 +15,7 @@ const TabInfoBox = ({ activeTabIndex, setActiveTabIndex, compilMsg }: any) => {
             </TabList>
 
             <TabPanel>
-                <Chat />
+                <Chat/>
             </TabPanel>
             <TabPanel>
                 <p>{compilMsg}</p>

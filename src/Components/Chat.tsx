@@ -1,10 +1,9 @@
-import { useState } from 'react';
-import React from 'react';
+import {useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import '../style/Chat.css';
-import { useTranslation } from 'react-i18next';
 
 const Chat = () => {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const [messages, setMessages] = useState([]);
     const [messageInput, setMessageInput] = useState('');
 
@@ -52,7 +51,7 @@ const Chat = () => {
         }
     };
 
-    const handleKeyPress = (e) => {
+    const handleKeyPress = (e: any) => {
         if (e.key === 'Enter') {
             sendMessage();
         }

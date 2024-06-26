@@ -1,6 +1,4 @@
-import { useTranslation } from 'react-i18next';
-
-
+import {useTranslation} from 'react-i18next';
 
 const ViewMenuAppearance = () => {
     console.log('Appearance');
@@ -10,9 +8,8 @@ const ViewMenuSwitchThemes = () => {
     console.log('Switch Themes');
 }
 
-function ViewMenu()
-{
-    const { i18n } = useTranslation();
+function ViewMenu() {
+    const {i18n} = useTranslation();
 
     // To change buttons classes (For their img)
     const updateButtonClasses = (lang: 'fr' | 'ru') => {
@@ -43,4 +40,3 @@ function ViewMenu()
 }
 
 export default ViewMenu;
-

@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import {useState, useEffect} from 'react';
 import '../App.css'; // Ensure you have this CSS file
 
-const DarkOverlay = ({ show, onComplete }) => {
+const DarkOverlay = ({show, onComplete}) => {
     const [countdown, setCountdown] = useState(10);
 
     useEffect(() => {

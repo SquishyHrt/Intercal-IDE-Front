@@ -15,7 +15,7 @@ function getPath(rootPath: string, path: number[], fileTree: any) {
     let res: string = rootPath;
     let tmp: any = fileTree.children;
     for (const i of path) {
-        // Really bad but we can't use path inside a React path...
+        // Terrible but we can't use path inside a React path...
         if (res[res.length - 1] != '/')
             res += '/';
         res += tmp[i].name;

@@ -1,10 +1,9 @@
-import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
-import { useState } from "react";
+import {Tab, TabList, TabPanel, Tabs} from "react-tabs";
 import MonacoEditor from "./MonacoEditor";
 import '../style/EditorTabs.css'
 
-const EditorTabs = ({ openTabs, fileContents, setFileContents, activeTabIndex, setActiveTabIndex }: any) => {
-    const handleTabSelect = (index) => {
+const EditorTabs = ({openTabs, fileContents, setFileContents, activeTabIndex, setActiveTabIndex}: any) => {
+    const handleTabSelect = (index: any) => {
         setActiveTabIndex(index);
     };
 
@@ -18,7 +17,8 @@ const EditorTabs = ({ openTabs, fileContents, setFileContents, activeTabIndex, s
                 </TabList>
                 {openTabs.map((tab: any, index: any) => (
                     <TabPanel key={index}>
-                        <MonacoEditor domId={index} filename={tab} value={fileContents[tab]} fileContents={fileContents} setFileContents={setFileContents} />
+                        <MonacoEditor domId={index} filename={tab} value={fileContents[tab]} fileContents={fileContents}
+                                      setFileContents={setFileContents}/>
                     </TabPanel>
                 ))}
             </Tabs>

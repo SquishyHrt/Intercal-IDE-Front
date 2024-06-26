@@ -9,7 +9,7 @@
     position: absolute;
     width: 160px;
     height: 160px;
-    background-image: url('assets/PlayerSpriteSheet.png');
+    background-image: url('../assets/PlayerSpriteSheet.png');
     background-position: 0 calc(-160px * 3);
     background-repeat: no-repeat;
     image-rendering: pixelated;
