@@ -7,6 +7,7 @@ import ViewMenu from "Components/ViewMenu.js";
 import HelpMenu from "Components/HelpMenu.js";
 import TabInfoBox from "Components/TabInfoBox.tsx";
 import GetMeteo from "Components/MeteoComp.tsx";
+import Player from "Components/Player.tsx";
 import EditorTabs from './EditorTabs';
 import './i18n'; // For Locales / Language change
 
@@ -146,6 +147,7 @@ const App = () => {
                     {visibleMenu === 'view' && <ViewMenu />}
                     {visibleMenu === 'help' && <HelpMenu />}
                 </div>
+                <Player></Player>
             </GetMeteo>
             <div className="bottom-container">
                 <div className="bottom-box">
