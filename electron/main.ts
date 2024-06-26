@@ -75,4 +75,18 @@ ipcMain.handle('get-cwd', () => {
     return process.cwd();
 })
 
+ipcMain.on('open-tips', (event, randomText) => {
+    const newWindow = new BrowserWindow({
+        width: 550,
+        height: 220,
+        webPreferences: {
+            nodeIntegration: true,
+            contextIsolation: false,
+        },
+    });
+    newWindow.setMenu(null);
+    newWindow.title = 'Tip of the Day';
+    newWindow.loadURL(`file://${path.join(MAIN_DIST, 'TipOfTheDay.html')}?text=${encodeURIComponent(randomText)}`);
+});
+
 app.whenReady().then(createWindow)

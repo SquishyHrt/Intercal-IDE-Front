@@ -26,5 +26,6 @@ contextBridge.exposeInMainWorld('electron', {
     getCwd: async () => {
         return await ipcRenderer.invoke('get-cwd');
     },
+    openTips: (randomText: string) => ipcRenderer.send('open-tips', randomText),
     // add other APIs you need here.
 });
