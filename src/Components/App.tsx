@@ -12,8 +12,17 @@ import './i18n'; // For Locales / Language change
 
 import "react-tabs/style/react-tabs.css";
 import "../App.css";
-import { getFileContent } from '@/Utils/utils';
+import { compileIntercal, getFileContent } from '@/Utils/utils';
 import confetti from 'canvas-confetti';
+
+function streamToString(stream) {
+    return new Promise((resolve, reject) => {
+        const chunks = [];
+        stream.on('data', chunk => chunks.push(chunk));
+        stream.on('end', () => resolve(Buffer.concat(chunks).toString('utf8')));
+        stream.on('error', reject);
+    });
+}
 
 const App = () => {
     const handleConfettiClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -26,9 +35,9 @@ const App = () => {
         confetti({
             particleCount: 40,
             spread: 30,
-            origin: { 
-                x: confettiX / window.innerWidth, 
-                y: confettiY / window.innerHeight 
+            origin: {
+                x: confettiX / window.innerWidth,
+                y: confettiY / window.innerHeight
             }
         });
 
@@ -63,8 +72,12 @@ const App = () => {
         };
     }, [menuRef]);
 
-    // MANAGE TAB SELECTION
-    const [activeTabIndex, setActiveTabIndex] = useState(0);
+    // MANAGE INFO TAB SELECTION
+    const [infoTabIndex, setInfoTabIndex] = useState(0);
+    const [compilMsg, setCompilMsg] = useState("");
+
+    // MANAGE FILE TAB SELECTION
+    const [fileTabIndex, setFileTabIndex] = useState(0);
 
     // MANAGE FILE OPENING
     const [openTabs, setOpenTabs] = useState<string[]>([]);
@@ -76,11 +89,36 @@ const App = () => {
             const content = await getFileContent(selectedFileAbsPath);
             setOpenTabs([...openTabs, selectedFile]);
             setFileContents({ ...fileContents, [selectedFile]: content });
-            setActiveTabIndex(openTabs.length);
+            setFileTabIndex(openTabs.length);
         }
         else {
-            setActiveTabIndex(idx);
+            setFileTabIndex(idx);
         }
+    }
+
+    // MANAGE RUN - SAVE - CLOSE BUTTONS
+    const handleRunClick = async () => {
+        const content = fileContents[openTabs[fileTabIndex]];
+        setInfoTabIndex(1);
+        try {
+            let response = await compileIntercal(content);
+            response = JSON.parse(response);
+            if (response.output)
+                setCompilMsg(response.output);
+            else
+                setCompilMsg('Error: ' + response);
+        }
+        catch (error) {
+            setCompilMsg('Error during request');
+        }
+    }
+
+    const handleSaveClick = () => {
+        console.log('save');
+    }
+
+    const handleCloseClick = () => {
+        console.log('close');
     }
 
     // RETURN COMPONENT
@@ -97,9 +135,9 @@ const App = () => {
                     </div>
 
                     <div>
-                        <button id="button-run"></button>
-                        <button id="button-save"></button>
-                        <button id="button-close"></button>
+                        <button id="button-run" onClick={handleRunClick}></button>
+                        <button id="button-save" onClick={handleSaveClick}></button>
+                        <button id="button-close" onClick={handleCloseClick}></button>
                     </div>
                 </div>
                 <div className="bottom-part" ref={menuRef}>
@@ -115,10 +153,10 @@ const App = () => {
                     <BasicTree openTab={onNameClick} />
                 </div>
                 <div className="bottom-box" id="editor-box">
-                    <EditorTabs openTabs={openTabs} fileContents={fileContents} activeTabIndex={activeTabIndex} setActiveTabIndex={setActiveTabIndex} />
+                    <EditorTabs openTabs={openTabs} fileContents={fileContents} activeTabIndex={fileTabIndex} setActiveTabIndex={setFileTabIndex} />
                 </div>
                 <div className="bottom-box">
-                    <TabInfoBox />
+                    <TabInfoBox activeTabIndex={infoTabIndex} setActiveTabIndex={setInfoTabIndex} compilMsg={compilMsg} />
                 </div>
                 <div className="bottom-box">
                     <button className="bleachers-box" onClick={handleConfettiClick}></button>
