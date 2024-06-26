@@ -6,6 +6,7 @@ import EditMenu from "Components/EditMenu.js";
 import ViewMenu from "Components/ViewMenu.js";
 import HelpMenu from "Components/HelpMenu.js";
 import TabInfoBox from "Components/TabInfoBox.tsx";
+import DarkOverlay from 'Components/DarkOverlay';
 import GetMeteo from "Components/MeteoComp.tsx";
 import EditorTabs from './EditorTabs';
 import RunButton from "Components/RunButton.tsx"
@@ -22,6 +23,7 @@ const App = () => {
 
     const [rootPath, setRootPath] = useState("./");
     const [cwd, setCwd] = useState('./');
+    const [showOverlay, setShowOverlay] = useState(false);
 
     useEffect(() => {
         const fetchCwd = async () => {
@@ -40,6 +42,15 @@ const App = () => {
 
         fetchCwd();
     }, [cwd]);
+
+    // To manage waiting menu
+    const handleButtonClick = () => {
+        setShowOverlay(true);
+    };
+
+    const handleOverlayComplete = () => {
+        setShowOverlay(false);
+    };
 
     // MANAGE CONFETTI
     const handleConfettiClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -169,6 +180,7 @@ const App = () => {
     return (
 
         <div className="container">
+            <DarkOverlay show={showOverlay} onComplete={handleOverlayComplete} />
             <GetMeteo>
                 <div className="buttons">
                     <div>
@@ -190,6 +202,7 @@ const App = () => {
                     {visibleMenu === 'view' && <ViewMenu />}
                     {visibleMenu === 'help' && <HelpMenu />}
                 </div>
+
             </GetMeteo>
             <div className="bottom-container">
                 <div className="bottom-box">
@@ -206,6 +219,7 @@ const App = () => {
                     <button className="bleachers-box" onClick={handleConfettiClick}></button>
                 </div>
             </div >
+            <button onClick={handleButtonClick}>Start Countdown</button>
         </div >
     );
 };
