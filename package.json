@@ -45,5 +45,10 @@
     "vite-plugin-electron": "^0.28.6",
     "vite-plugin-electron-renderer": "^0.14.5"
   },
+  "build": {
+    "extraResources": [
+      "src/backend/**/*"
+    ]
+  },
   "main": "dist-electron/main.js"
 }

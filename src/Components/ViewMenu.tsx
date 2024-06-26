@@ -30,6 +30,7 @@ function ViewMenu()
         console.log("Change in Language");
         const newLang = i18n.language === 'fr' ? 'ru' : 'fr';
         i18n.changeLanguage(newLang);
+        // @ts-ignore
         updateButtonClasses(i18n.language);
     }
     return (<div className="top-menu" id="view-menu">
