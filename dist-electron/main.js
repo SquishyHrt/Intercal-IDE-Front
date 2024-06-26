@@ -1,6 +1,7 @@
 import { app, BrowserWindow, ipcMain } from "electron";
 import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
+import "child_process";
 import path from "node:path";
 createRequire(import.meta.url);
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -56,7 +57,9 @@ ipcMain.on("open-tips", (event, randomText) => {
   newWindow.title = "Tip of the Day";
   newWindow.loadURL(`file://${path.join(MAIN_DIST, "TipOfTheDay.html")}?text=${encodeURIComponent(randomText)}`);
 });
-app.whenReady().then(createWindow);
+app.whenReady().then(() => {
+  createWindow();
+});
 export {
   MAIN_DIST,
   RENDERER_DIST,

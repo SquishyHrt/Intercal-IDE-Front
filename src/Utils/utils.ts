@@ -23,16 +23,16 @@ async function fetchbase(endpoint: string, path: string): Promise<any> {
 }
 
 export async function fetchArchitecture(path: string): Promise<any> {
-    return (await fetchbase("http://localhost:8080/api/architecture", path)).json();
+    return (await fetchbase("http://localhost:8081/api/architecture", path)).json();
 }
 
 export async function getFileContent(path: string): Promise<any> {
-    return (await fetchbase("http://localhost:8080/api/open/file", path)).text();
+    return (await fetchbase("http://localhost:8081/api/open/file", path)).text();
 }
 
 export async function rename(src: string, dst: string): Promise<any> {
     try {
-        const response = await fetch("http://localhost:8080/api/rename", {
+        const response = await fetch("http://localhost:8081/api/rename", {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ 'src': src, 'dst': dst })
@@ -51,20 +51,20 @@ export async function rename(src: string, dst: string): Promise<any> {
 }
 
 export async function createFile(path: string): Promise<any> {
-    return await fetchbase("http://localhost:8080/api/create/file", path);
+    return await fetchbase("http://localhost:8081/api/create/file", path);
 }
 
 export async function createFolder(path: string): Promise<any> {
-    return await fetchbase("http://localhost:8080/api/create/folder", path);
+    return await fetchbase("http://localhost:8081/api/create/folder", path);
 }
 
 export async function deleteP(path: string): Promise<any> {
-    return await fetchbase("http://localhost:8080/api/delete", path);
+    return await fetchbase("http://localhost:8081/api/delete", path);
 }
 
 export async function saveFile(path: string, content: string): Promise<any> {
     try {
-        const response = await fetch("http://localhost:8080/api/save/file", {
+        const response = await fetch("http://localhost:8081/api/save/file", {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ 'path': path, 'content': content })
@@ -84,7 +84,7 @@ export async function saveFile(path: string, content: string): Promise<any> {
 
 export async function compileIntercal(content: string): Promise<any> {
     try {
-        const response = await fetch("http://localhost:8080/api/compile/intercal", {
+        const response = await fetch("http://localhost:8081/api/compile/intercal", {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ 'content': content })

@@ -24,7 +24,7 @@ const Chat = () => {
 
         try {
             console.log("Sending message to backend:", userMessage.text);
-            const response = await fetch('http://localhost:8080/api/message', {
+            const response = await fetch('http://localhost:8081/api/message', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({message: userMessage.text})
