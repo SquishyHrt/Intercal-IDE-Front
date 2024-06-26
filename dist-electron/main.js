@@ -1,58 +1,85 @@
-import { app as i, BrowserWindow as c, ipcMain as a } from "electron";
-import { createRequire as w } from "node:module";
-import { fileURLToPath as f } from "node:url";
-import { spawn as R } from "child_process";
-import e from "node:path";
-w(import.meta.url);
-const l = e.dirname(f(import.meta.url));
-process.env.APP_ROOT = e.join(l, "..");
-const s = process.env.VITE_DEV_SERVER_URL, u = e.join(process.env.APP_ROOT, "dist-electron"), p = e.join(process.env.APP_ROOT, "dist");
-process.env.VITE_PUBLIC = s ? e.join(process.env.APP_ROOT, "public") : p;
-let o, n = null;
-function m() {
-  o = new c({
-    icon: e.join(process.env.VITE_PUBLIC, "electron-vite.svg"),
+import { app, BrowserWindow, ipcMain } from "electron";
+import { createRequire } from "node:module";
+import { fileURLToPath } from "node:url";
+import { spawn } from "child_process";
+import path from "node:path";
+createRequire(import.meta.url);
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+process.env.APP_ROOT = path.join(__dirname, "..");
+const VITE_DEV_SERVER_URL = process.env["VITE_DEV_SERVER_URL"];
+const MAIN_DIST = path.join(process.env.APP_ROOT, "dist-electron");
+const RENDERER_DIST = path.join(process.env.APP_ROOT, "dist");
+process.env.VITE_PUBLIC = VITE_DEV_SERVER_URL ? path.join(process.env.APP_ROOT, "public") : RENDERER_DIST;
+let win;
+let backendProcess = null;
+function createWindow() {
+  win = new BrowserWindow({
+    icon: path.join(process.env.VITE_PUBLIC, "electron-vite.svg"),
     webPreferences: {
-      preload: e.join(l, "preload.mjs")
+      preload: path.join(__dirname, "preload.mjs")
     }
-  }), o.webContents.on("did-finish-load", () => {
-    o == null || o.webContents.send("main-process-message", (/* @__PURE__ */ new Date()).toLocaleString());
-  }), s ? o.loadURL(s) : o.loadFile(e.join(p, "index.html"));
+  });
+  win.webContents.on("did-finish-load", () => {
+    win == null ? void 0 : win.webContents.send("main-process-message", (/* @__PURE__ */ new Date()).toLocaleString());
+  });
+  if (VITE_DEV_SERVER_URL) {
+    win.loadURL(VITE_DEV_SERVER_URL);
+  } else {
+    win.loadFile(path.join(RENDERER_DIST, "index.html"));
+  }
 }
-i.on("window-all-closed", () => {
-  process.platform !== "darwin" && (i.quit(), o = null), n && n.kill();
+app.on("window-all-closed", () => {
+  if (process.platform !== "darwin") {
+    app.quit();
+    win = null;
+  }
+  if (backendProcess) {
+    backendProcess.kill();
+  }
 });
-i.on("activate", () => {
-  c.getAllWindows().length === 0 && m();
+app.on("activate", () => {
+  if (BrowserWindow.getAllWindows().length === 0) {
+    createWindow();
+  }
 });
-a.on("exit-app", () => {
-  i.quit(), n && n.kill();
+ipcMain.on("exit-app", () => {
+  app.quit();
+  if (backendProcess) {
+    backendProcess.kill();
+  }
 });
-a.handle("get-cwd", () => process.cwd());
-a.on("open-tips", (d, t) => {
-  const r = new c({
+ipcMain.handle("get-cwd", () => {
+  return process.cwd();
+});
+ipcMain.on("open-tips", (event, randomText) => {
+  const newWindow = new BrowserWindow({
     width: 550,
     height: 220,
     webPreferences: {
-      nodeIntegration: !0,
-      contextIsolation: !1
+      nodeIntegration: true,
+      contextIsolation: false
     }
   });
-  r.setMenu(null), r.title = "Tip of the Day", r.loadURL(`file://${e.join(u, "TipOfTheDay.html")}?text=${encodeURIComponent(t)}`);
+  newWindow.setMenu(null);
+  newWindow.title = "Tip of the Day";
+  newWindow.loadURL(`file://${path.join(MAIN_DIST, "TipOfTheDay.html")}?text=${encodeURIComponent(randomText)}`);
 });
-i.whenReady().then(() => {
-  m();
-  const d = i.isPackaged ? e.join(process.resourcesPath, "ping-1.0-runner") : e.join(l, "..", "src", "backend", "ping-1.0-runner");
-  n = R(d), n.stdout.on("data", (t) => {
-    console.log(`Backend stdout: ${t}`);
-  }), n.stderr.on("data", (t) => {
-    console.error(`Backend stderr: ${t}`);
-  }), n.on("close", (t) => {
-    console.log(`Backend process exited with code ${t}`);
+app.whenReady().then(() => {
+  createWindow();
+  const backendRunnerPath = !app.isPackaged ? path.join(__dirname, "..", "src", "backend", "ping-1.0-runner") : path.join(process.resourcesPath, "ping-1.0-runner");
+  backendProcess = spawn(backendRunnerPath);
+  backendProcess.stdout.on("data", (data) => {
+    console.log(`Backend stdout: ${data}`);
+  });
+  backendProcess.stderr.on("data", (data) => {
+    console.error(`Backend stderr: ${data}`);
+  });
+  backendProcess.on("close", (code) => {
+    console.log(`Backend process exited with code ${code}`);
   });
 });
 export {
-  u as MAIN_DIST,
-  p as RENDERER_DIST,
-  s as VITE_DEV_SERVER_URL
+  MAIN_DIST,
+  RENDERER_DIST,
+  VITE_DEV_SERVER_URL
 };
