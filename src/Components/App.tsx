@@ -114,6 +114,8 @@ const App = () => {
     }
 
     // MANAGE RUN - SAVE - CLOSE BUTTONS
+    // RUN BUTTON CODE LOGIC IS NOW IN RunButton.tsx !
+    /*
     const handleRunClick = async () => {
         if (openTabs.length == 0) {
             setCompilMsg('Open a file to run it');
@@ -135,6 +137,7 @@ const App = () => {
             setCompilMsg('Error during request. Verify your internet connection.');
         }
     }
+    */
 
     const handleSaveClick = async () => {
         if (openTabs.length == 0)
@@ -176,7 +179,7 @@ const App = () => {
                     </div>
 
                     <div>
-                        <button id="button-run" onClick={handleRunClick}></button>
+                        <RunButton fileContents={fileContents} fileTabIndex={fileTabIndex} setInfoTabIndex={setInfoTabIndex} openTabs={openTabs} setCompilMsg={setCompilMsg} />
                         <button id="button-save" onClick={handleSaveClick}></button>
                         <button id="button-close" onClick={handleCloseClick}></button>
                     </div>

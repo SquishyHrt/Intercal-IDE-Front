@@ -26,7 +26,8 @@ const RunButton = ({ fileContents, openTabs, fileTabIndex, setInfoTabIndex, setC
                 setBackgroundPosX(-currentFrame * 160); // Assuming each frame is 100px wide
                 setPosX((prevPos) => {
                     const newPos = prevPos + 10;
-                    if (newPos >= 1600) {
+                    const max_X = window.innerWidth - 150;
+                    if (newPos >= max_X) {
                         setRunAnimation(false);
                         winningPose();
                         launchConfetti();
@@ -104,19 +105,22 @@ const RunButton = ({ fileContents, openTabs, fileTabIndex, setInfoTabIndex, setC
     }
 
     const handleRunClick = async () => {
-        setCompilMsg("Compiling...");
+        if (openTabs.length == 0) {
+            setCompilMsg('Open a file to run it');
+            return;
+        }
+        setCompilMsg('Compilation in progress...');
+        setInfoTabIndex(1);
         //clearTimeout(playerFallTimeout);
         resetPlayer();
         startRunAnimation();
         const content = fileContents[openTabs[fileTabIndex]];
-        setInfoTabIndex(1);
         try {
             let response = await compileIntercal(content);
             response = JSON.parse(response);
             if (response.output) {
                 setCompilMsg(response.output);
                 if (response.output.trim().startsWith("ICL")) {
-                    console.log("Compilation failed")
                     playerFall();
                 }
             }
@@ -126,7 +130,7 @@ const RunButton = ({ fileContents, openTabs, fileTabIndex, setInfoTabIndex, setC
             }
         }
         catch (error) {
-            setCompilMsg('Error during request');
+            setCompilMsg('Error during request. Verify your internet connection.');
             playerFall();
         }
     }
