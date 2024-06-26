@@ -22,6 +22,7 @@ electron.contextBridge.exposeInMainWorld("electron", {
   exitApp: () => electron.ipcRenderer.send("exit-app"),
   getCwd: async () => {
     return await electron.ipcRenderer.invoke("get-cwd");
-  }
+  },
+  openTips: (randomText) => electron.ipcRenderer.send("open-tips", randomText)
   // add other APIs you need here.
 });

@@ -12,19 +12,33 @@ import './i18n'; // For Locales / Language change
 
 import "react-tabs/style/react-tabs.css";
 import "../App.css";
-import { compileIntercal, getFileContent } from '@/Utils/utils';
+import { compileIntercal, getFileContent, saveFile, fetchArchitecture } from '@/Utils/utils';
 import confetti from 'canvas-confetti';
 
-function streamToString(stream) {
-    return new Promise((resolve, reject) => {
-        const chunks = [];
-        stream.on('data', chunk => chunks.push(chunk));
-        stream.on('end', () => resolve(Buffer.concat(chunks).toString('utf8')));
-        stream.on('error', reject);
-    });
-}
-
 const App = () => {
+
+    const [rootPath, setRootPath] = useState("./");
+    const [cwd, setCwd] = useState('./');
+
+    useEffect(() => {
+        const fetchCwd = async () => {
+            try {
+                // @ts-ignore
+                const currentCwd = await window.electron.getCwd();
+                setCwd(currentCwd);
+                console.log('CWD:', cwd);
+
+                // These lines should be executed after the cwd is updated
+                setRootPath(cwd);
+            } catch (error) {
+                console.error('Error while fetching CWD:', error);
+            }
+        };
+
+        fetchCwd();
+    }, [cwd]);
+
+    // MANAGE CONFETTI
     const handleConfettiClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         console.log("Confetti button clicked!");
 
@@ -98,8 +112,14 @@ const App = () => {
 
     // MANAGE RUN - SAVE - CLOSE BUTTONS
     const handleRunClick = async () => {
-        const content = fileContents[openTabs[fileTabIndex]];
+        if (openTabs.length == 0) {
+            setCompilMsg('Open a file to run it');
+            return;
+        }
+        setCompilMsg('Compilation in progress...');
         setInfoTabIndex(1);
+
+        const content = fileContents[openTabs[fileTabIndex]];
         try {
             let response = await compileIntercal(content);
             response = JSON.parse(response);
@@ -109,16 +129,34 @@ const App = () => {
                 setCompilMsg('Error: ' + response);
         }
         catch (error) {
-            setCompilMsg('Error during request');
+            setCompilMsg('Error during request. Verify your internet connection.');
         }
     }
 
-    const handleSaveClick = () => {
-        console.log('save');
+    const handleSaveClick = async () => {
+        if (openTabs.length == 0)
+            return;
+
+        let path = rootPath;
+        if (path[path.length - 1] != '/') {
+            path += '/';
+        }
+        path += openTabs[fileTabIndex];
+        await saveFile(path, fileContents[openTabs[fileTabIndex]]);
     }
 
     const handleCloseClick = () => {
-        console.log('close');
+        if (openTabs.length == 0)
+            return;
+
+        let newOpenTabs = openTabs;
+        newOpenTabs.splice(fileTabIndex, 1);
+        setOpenTabs(newOpenTabs);
+        // Set a new tab index, however the tab component doesn't re-render on button click
+        if (fileTabIndex == 0)
+            setFileTabIndex(-1);
+        else
+            setFileTabIndex(fileTabIndex - 1);
     }
 
     // RETURN COMPONENT
@@ -150,7 +188,7 @@ const App = () => {
             <div className="bottom-container">
                 <div className="bottom-box">
 
-                    <BasicTree openTab={onNameClick} />
+                    <BasicTree openTab={onNameClick} rootPath={rootPath} />
                 </div>
                 <div className="bottom-box" id="editor-box">
                     <EditorTabs openTabs={openTabs} fileContents={fileContents} setFileContents={setFileContents} activeTabIndex={fileTabIndex} setActiveTabIndex={setFileTabIndex} />
