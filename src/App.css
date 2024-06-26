@@ -45,34 +45,34 @@
 }
 
 .button-2.french {
-    background: url("./assets/sprite_top_buttons.png") 250px 150px ;
+    background: url("./assets/sprite_top_buttons.png") 250px -150px ;
     width: 250px;
     height: 150px;
 }
 .button-2.russian {
-    background: url("./assets/sprite_top_buttons.png") 0px 150px ;
+    background: url("./assets/sprite_top_buttons.png") 0px -150px ;
     width: 250px;
     height: 150px;
 }
 
 .button-3.french {
-    background: url("./assets/sprite_top_buttons.png") 250px 300px ;
+    background: url("./assets/sprite_top_buttons.png") 250px -300px ;
     width: 250px;
     height: 150px;
 }
 .button-3.russian {
-    background: url("./assets/sprite_top_buttons.png") 0px 300px ;
+    background: url("./assets/sprite_top_buttons.png") 0px -300px ;
     width: 250px;
     height: 150px;
 }
 
 .button-4.french {
-    background: url("./assets/sprite_top_buttons.png") 250px 450px ;
+    background: url("./assets/sprite_top_buttons.png") 250px -450px ;
     width: 250px;
     height: 150px;
 }
 .button-4.russian {
-    background: url("./assets/sprite_top_buttons.png") 0px 450px;
+    background: url("./assets/sprite_top_buttons.png") 0px -450px;
     width: 250px;
     height: 150px;
 }
@@ -91,34 +91,34 @@
 }
 
 .button-2.french:hover {
-    background: url("./assets/top_buttons_sprite_hover.webp") 250px 150px ;
+    background: url("./assets/top_buttons_sprite_hover.webp") 250px -150px ;
     width: 250px;
     height: 150px;
 }
 .button-2.russian:hover {
-    background: url("./assets/top_buttons_sprite_hover.webp") 0px 150px ;
+    background: url("./assets/top_buttons_sprite_hover.webp") 0px -150px ;
     width: 250px;
     height: 150px;
 }
 
 .button-3.french:hover {
-    background: url("./assets/top_buttons_sprite_hover.webp") 250px 300px ;
+    background: url("./assets/top_buttons_sprite_hover.webp") 250px -300px ;
     width: 250px;
     height: 150px;
 }
 .button-3.russian:hover {
-    background: url("./assets/top_buttons_sprite_hover.webp") 0px 300px ;
+    background: url("./assets/top_buttons_sprite_hover.webp") 0px -300px ;
     width: 250px;
     height: 150px;
 }
 
 .button-4.french:hover {
-    background: url("./assets/top_buttons_sprite_hover.webp") 250px 450px ;
+    background: url("./assets/top_buttons_sprite_hover.webp") 250px -450px ;
     width: 250px;
     height: 150px;
 }
 .button-4.russian:hover {
-    background: url("./assets/top_buttons_sprite_hover.webp") 0px 450px;
+    background: url("./assets/top_buttons_sprite_hover.webp") 0px -450px;
     width: 250px;
     height: 150px;
 }
