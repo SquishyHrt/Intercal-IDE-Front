@@ -24,11 +24,17 @@ const Bleachers = () => {
             const container = document.querySelector('.bleachers-box');
             if (container) {
                 const fireworks = new Fireworks(container, {
-                    hue: {min: 1, max: 60},
+                    hue: {min: 0, max: 60},
                     particles: 200,
                     lineWidth: {trace: {min: 0, max: 5}},
                 });
                 fireworks.start();
+
+                // Stop fireworks after 5 seconds
+                setTimeout(() => {
+                    fireworks.stop(true);
+                    setConfettiParams({ particleCount: 40, spread: 30 });
+                }, 6000);
             }
         } else {
             if (lastClickTime && (now - lastClickTime < timeout)) {
