@@ -1,7 +1,16 @@
 import { useRef } from "react";
+import smalltalk from 'smalltalk';
 
 const FileMenuCookies = () => {
-    console.log('Add cookies');
+    smalltalk
+        .prompt('JDoodle cookies', 'What\'s the compilation cookie for JDoodle ? (Dev Tools -> Network -> execute)', window.localStorage["compileCookie"])
+        .then((value) => {
+            if (value.trim().length == 0)
+                smalltalk.alert("Wrong cookies", "Without those cookies, you can't compile INTERCAL !");
+            else
+                window.localStorage["compileCookie"] = value.trim();
+        })
+        .catch();
 }
 
 const FileMenuExit = () => {

@@ -18,6 +18,9 @@ import "react-tabs/style/react-tabs.css";
 import "../App.css";
 
 const App = () => {
+
+    window.localStorage["compileCookie"] = "marker_id_65379a42896b9b3785d33e92=948fa098-1d0f-4c07-8b73-5d87f1b739b2; SESSION=169c1312-c8ab-413b-9431-5f45a19aa331; ph_phc_FTWxh3zPvEFoJy4fpLYNTxH0MSaPrUyXBO247WRRw0n_posthog=%7B%22distinct_id%22%3A%22019053d9-203e-7e44-9902-d4e6a87942bb%22%2C%22%24sesid%22%3A%5B1719493489705%2C%22019059cc-6a0d-7dc4-9042-d0643398bb7d%22%2C1719493487117%5D%7D";
+
     const [rootPath, setRootPath] = useState("./");
     const [showOverlay, setShowOverlay] = useState(false);
     const [visibleMenu, setVisibleMenu] = useState(null);
