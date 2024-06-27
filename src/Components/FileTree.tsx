@@ -2,6 +2,7 @@ import FolderTree, { testData } from 'react-folder-tree';
 import 'react-folder-tree/dist/style.css';
 import { useEffect, useState } from "react";
 import { createFile, createFolder, deleteP, fetchArchitecture, rename } from 'Utils/utils.ts';
+import { useTranslation } from 'react-i18next';
 
 function getNode(path: number[], fileTree: any) {
     let tmp: any = fileTree.children;
@@ -25,6 +26,7 @@ function getPath(rootPath: string, path: number[], fileTree: any) {
 }
 
 const BasicTree = ({ openTab, rootPath }: any) => {
+    const { t } = useTranslation();
     const [fileTree, setFileTree] = useState(testData);
 
     useEffect(() => {
@@ -41,7 +43,7 @@ const BasicTree = ({ openTab, rootPath }: any) => {
             const prevTree = JSON.parse(JSON.stringify(fileTree));
             const absolutePath = getPath(rootPath, event.path, prevTree);
 
-            if (confirm("Are you sure to delete at " + absolutePath + " ?")) {
+            if (confirm(t('deleteConfirm') + absolutePath + " ?")) {
                 console.log("Deleting node at:", absolutePath);
                 deleteP(absolutePath);
             } else {
@@ -82,7 +84,7 @@ const BasicTree = ({ openTab, rootPath }: any) => {
         defaultOnClick();
         const path = getPath("", nodeData.path, fileTree);
         const absPath = rootPath + path;
-        console.log('File selected: ', absPath);
+        // console.log('File selected: ', absPath);
         if (nodeData.isOpen == undefined) // It's a file, so open a tab
             openTab(absPath, path.substring(1));
     };

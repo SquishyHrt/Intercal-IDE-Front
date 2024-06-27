@@ -1,14 +1,14 @@
-import {useState} from 'react';
-import {useTranslation} from 'react-i18next';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import '../style/Chat.css';
 
 const Chat = () => {
-    const {t} = useTranslation();
+    const { t } = useTranslation();
     const [messages, setMessages] = useState([]);
     const [messageInput, setMessageInput] = useState('');
 
     const sendMessage = async () => {
-        console.log("Send button clicked");
+        //console.log("Send button clicked");
         if (messageInput.trim() === '') return;
 
         const userMessage = {
@@ -16,7 +16,7 @@ const Chat = () => {
             text: messageInput.trim()
         };
 
-        console.log("User message:", userMessage);
+        //console.log("User message:", userMessage);
 
         setMessages([...messages, userMessage]);
         setMessageInput('');
@@ -25,8 +25,8 @@ const Chat = () => {
             console.log("Sending message to backend:", userMessage.text);
             const response = await fetch('http://localhost:8081/api/message', {
                 method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({message: userMessage.text})
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: userMessage.text })
             });
 
             if (!response.ok) {
@@ -34,7 +34,7 @@ const Chat = () => {
             }
 
             const data = await response.json();
-            console.log("Received response from backend:", data);
+            //console.log("Received response from backend:", data);
 
             const botMessage = {
                 sender: 'bot',
@@ -70,7 +70,7 @@ const Chat = () => {
                 <input
                     type="text"
                     id="message-input"
-                    placeholder="Type a message..."
+                    placeholder={t('inputAI')}
                     value={messageInput}
                     onChange={(e) => setMessageInput(e.target.value)}
                     onKeyPress={handleKeyPress}

@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 const EditMenuCut = () => {
     console.log('Cut');
 }
@@ -14,16 +16,20 @@ const EditMenuFind = () => {
     console.log('Find');
 }
 
-const EditMenu = () => (
-    <div className="top-menu" id="edit-menu">
-        <ul>
-            <li onClick={EditMenuCut}>Cut</li>
-            <li onClick={EditMenuCopy}>Copy</li>
-            <li onClick={EditMenuDelete}>Delete</li>
-            <li onClick={EditMenuFind}>Find</li>
-        </ul>
-    </div>
-);
+const EditMenu = () => {
+    const { t } = useTranslation();
+
+    return (
+        <div className="top-menu" id="edit-menu">
+            <ul>
+                <li onClick={EditMenuCut}>{t('cut')}</li>
+                <li onClick={EditMenuCopy}>{t('copy')}</li>
+                <li onClick={EditMenuDelete}>{t('delete')}</li>
+                <li onClick={EditMenuFind}>{t('find')}</li>
+            </ul>
+        </div>
+    );
+};
 
 export default EditMenu;
 

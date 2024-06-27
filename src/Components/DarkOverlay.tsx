@@ -1,8 +1,11 @@
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import '../App.css'; // Ensure you have this CSS file
+import { useTranslation } from 'react-i18next';
 
-const DarkOverlay = ({show, onComplete}) => {
+const DarkOverlay = ({ show, onComplete }) => {
+
     const [countdown, setCountdown] = useState(10);
+    const { t } = useTranslation();
 
     useEffect(() => {
         let timer;
@@ -26,8 +29,8 @@ const DarkOverlay = ({show, onComplete}) => {
         show && (
             <div className="overlay">
                 <div className="countdown-text">
-                    <p>You failed. Do 10 push-ups!</p>
-                    <p>Countdown: {countdown} seconds</p>
+                    <p>{t('compilationFailed')}</p>
+                    <p>{t('countdown') + countdown + t('seconds')}</p>
                 </div>
             </div>
         )

@@ -1,12 +1,14 @@
 import { useRef } from "react";
 import smalltalk from 'smalltalk';
+import { useTranslation } from 'react-i18next';
 
 const FileMenuCookies = () => {
+    const { t } = useTranslation();
     smalltalk
-        .prompt('JDoodle cookies', 'What\'s the compilation cookie for JDoodle ? (Dev Tools -> Network -> execute)', window.localStorage["compileCookie"])
+        .prompt('JDoodle cookies', t('cookiePrompt'), window.localStorage["compileCookie"])
         .then((value) => {
             if (value.trim().length == 0)
-                smalltalk.alert("Wrong cookies", "Without those cookies, you can't compile INTERCAL !");
+                smalltalk.alert(t("cookieErrorTitle"), t("cookieError"));
             else
                 window.localStorage["compileCookie"] = value.trim();
         })
@@ -19,6 +21,8 @@ const FileMenuExit = () => {
 };
 
 const FileMenu = ({ onSaveClick, setRootPath, loadFile, clearTabs }: any) => {
+    const { t } = useTranslation();
+
     const openProjectRef = useRef();
     const openFileRef = useRef();
 
@@ -44,11 +48,11 @@ const FileMenu = ({ onSaveClick, setRootPath, loadFile, clearTabs }: any) => {
             <ul>
                 <input ref={openProjectRef} type="file" hidden webkitdirectory="true" onChange={handleOpenProject} />
                 <input ref={openFileRef} type="file" hidden onChange={handleOpenFile} />
-                <li onClick={() => openProjectRef.current.click()}>Open Project</li>
-                <li onClick={() => openFileRef.current.click()}>Open File</li>
-                <li onClick={onSaveClick}>Save File</li>
-                <li onClick={FileMenuCookies}>Compilation cookies</li>
-                <li onClick={FileMenuExit}>Exit</li>
+                <li onClick={() => openProjectRef.current.click()}>{t('openProject')}</li>
+                <li onClick={() => openFileRef.current.click()}>{t('openFile')}</li>
+                <li onClick={onSaveClick}>{t('saveFile')}</li>
+                <li onClick={FileMenuCookies}>{t('cookieMenu')}</li>
+                <li onClick={FileMenuExit}>{t('quit')}</li>
             </ul>
         </div >
     )

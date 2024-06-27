@@ -1,9 +1,11 @@
 import { useRef, useEffect, useState } from 'react';
 import * as monaco from 'monaco-editor';
+import { useTranslation } from 'react-i18next';
 
 const MonacoEditor = ({ domId, filename, value, fileContents, setFileContents }: any) => {
+    const { t } = useTranslation();
     const editorRef = useRef(null);
-    const [calories, setCalories] = useState("0 lignes | 0 calories");
+    const [calories, setCalories] = useState("0 " + t('lines') + " | 0 " + t('calories'));
 
     useEffect(() => {
         // Define the INTERCAL language
@@ -75,7 +77,7 @@ const MonacoEditor = ({ domId, filename, value, fileContents, setFileContents }:
 
             const nbLines = tmp[filename].split("\n").length;
             const nbCalories = nbLines * 5;
-            setCalories(nbLines + " lines | " + nbCalories + " calories");
+            setCalories(nbLines + " " + t('lines') + " | " + nbCalories + " " + t('calories'));
         });
 
         // Get the editor text:

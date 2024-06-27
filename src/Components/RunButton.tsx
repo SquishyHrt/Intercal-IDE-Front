@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import Player from "Components/Player.tsx";
 import { compileIntercal } from "Utils/utils.ts";
 import confetti from 'canvas-confetti';
+import { useTranslation } from 'react-i18next';
 
 const RunButton = ({ fileContents, openTabs, fileTabIndex, setInfoTabIndex, setCompilMsg, blockScreen }) => {
+    const { t } = useTranslation();
     const [posX, setPosX] = useState(130);
     const [backgroundPosX, setBackgroundPosX] = useState(0);
     const [backgroundPosY, setBackgroundPosY] = useState(-160 * 3);
@@ -119,10 +121,10 @@ const RunButton = ({ fileContents, openTabs, fileTabIndex, setInfoTabIndex, setC
     const handleRunClick = async () => {
         setInfoTabIndex(1);
         if (openTabs.length == 0) {
-            setCompilMsg('Open a file to run it');
+            setCompilMsg(t('compilOpenFile'));
             return;
         }
-        setCompilMsg('Compilation in progress...');
+        setCompilMsg(t('compilProgress'));
         //clearTimeout(playerFallTimeout);
         resetPlayer();
         startRunAnimation();
@@ -143,7 +145,7 @@ const RunButton = ({ fileContents, openTabs, fileTabIndex, setInfoTabIndex, setC
                 playerFall();
             }
         } catch (error) {
-            setCompilMsg('Error during request. Verify your internet connection.');
+            setCompilMsg(t('compilError'));
             playerFall();
         }
     }
@@ -170,7 +172,7 @@ const RunButton = ({ fileContents, openTabs, fileTabIndex, setInfoTabIndex, setC
 
     return (<>
         <button id="button-run" onClick={handleRunClick}></button>
-        <Player posX={posX} backgroundPosX={backgroundPosX} backgroundPosY={backgroundPosY}/>
+        <Player posX={posX} backgroundPosX={backgroundPosX} backgroundPosY={backgroundPosY} />
     </>);
 }
 
