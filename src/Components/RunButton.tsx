@@ -3,7 +3,7 @@ import Player from "Components/Player.tsx";
 import { compileIntercal } from "Utils/utils.ts";
 import confetti from 'canvas-confetti';
 
-const RunButton = ({ fileContents, openTabs, fileTabIndex, setInfoTabIndex, setCompilMsg }) => {
+const RunButton = ({ fileContents, openTabs, fileTabIndex, setInfoTabIndex, setCompilMsg, blockScreen }) => {
     const [posX, setPosX] = useState(130);
     const [backgroundPosX, setBackgroundPosX] = useState(0);
     const [backgroundPosY, setBackgroundPosY] = useState(-160 * 3);
@@ -100,6 +100,7 @@ const RunButton = ({ fileContents, openTabs, fileTabIndex, setInfoTabIndex, setC
         setRunAnimation(false);
         setBackgroundPosX(0);
         setBackgroundPosY(-160 * 4);
+        blockScreen(true);
         //setPlayerFallTimeout(setTimeout(resetPlayer, 1000));
     }
 

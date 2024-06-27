@@ -49,10 +49,6 @@ const App = () => {
     }, [menuRef]);
 
     // To manage waiting menu
-    const handleButtonClick = () => {
-        setShowOverlay(true);
-    };
-
     const handleOverlayComplete = () => {
         setShowOverlay(false);
     };
@@ -107,32 +103,6 @@ const App = () => {
         setFileTabIndex(-1);
     };
 
-    // MANAGE RUN - SAVE - CLOSE BUTTONS
-    // RUN BUTTON CODE LOGIC IS NOW IN RunButton.tsx !
-    /*
-    const handleRunClick = async () => {
-        if (openTabs.length == 0) {
-            setCompilMsg('Open a file to run it');
-            return;
-        }
-        setCompilMsg('Compilation in progress...');
-        setInfoTabIndex(1);
-
-        const content = fileContents[openTabs[fileTabIndex]];
-        try {
-            let response = await compileIntercal(content);
-            response = JSON.parse(response);
-            if (response.output)
-                setCompilMsg(response.output);
-            else
-                setCompilMsg('Error: ' + response);
-        }
-        catch (error) {
-            setCompilMsg('Error during request. Verify your internet connection.');
-        }
-    }
-    */
-
     // RETURN COMPONENT
     return (
         <div className="container">
@@ -148,7 +118,7 @@ const App = () => {
 
                     <div>
                         <RunButton fileContents={fileContents} fileTabIndex={fileTabIndex}
-                            setInfoTabIndex={setInfoTabIndex} openTabs={openTabs} setCompilMsg={setCompilMsg} />
+                            setInfoTabIndex={setInfoTabIndex} openTabs={openTabs} setCompilMsg={setCompilMsg} blockScreen={setShowOverlay} />
                         <button id="button-save" onClick={handleSaveClick}></button>
                         <button id="button-close" onClick={handleCloseClick}></button>
                     </div>
@@ -178,7 +148,6 @@ const App = () => {
                     <Bleachers />
                 </div>
             </div>
-            <button onClick={handleButtonClick}>Start Countdown</button>
         </div>
     );
 };
