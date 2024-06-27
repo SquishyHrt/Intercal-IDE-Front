@@ -1,3 +1,7 @@
+import { useTranslation } from 'react-i18next';
+import React from 'react';
+import aud from "@/assets/doit.mp3";
+
 const HelpMenuHelp = () => {
     console.log('Help');
 }
@@ -34,14 +38,25 @@ const HelpMenuTipOfTheDay = () => {
     window.electron.openTips(randomText);
 }
 
-const HelpMenu = () => (
+
+function HelpMenu() {
+
+    const PlayAudio = () => {
+        var audio = new Audio(aud);
+        audio.play();
+    };
+
+    const {t} = useTranslation();
+    return(
     <div className="top-menu" id="help-menu">
         <ul>
             <li onClick={HelpMenuHelp}>Help</li>
             <li onClick={HelpMenuTipOfTheDay}>Tip of the Day</li>
+            <li onClick={PlayAudio}>{t('motivate')}</li>
         </ul>
     </div>
-);
+    )
+}
 
 export default HelpMenu;
 

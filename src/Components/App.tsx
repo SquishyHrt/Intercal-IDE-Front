@@ -12,6 +12,7 @@ import GetMeteo from "Components/MeteoComp.tsx";
 import RunButton from "Components/RunButton.tsx"
 import Bleachers from "Components/Bleachers.tsx";
 import EditorTabs from 'Components/EditorTabs';
+import RandomSoundPlayer from 'Components/randSound';
 
 import "./i18n";
 import "react-tabs/style/react-tabs.css";
@@ -146,6 +147,7 @@ const App = () => {
                 </div>
                 <div className="bottom-box">
                     <Bleachers />
+                    <RandomSoundPlayer />
                 </div>
             </div>
         </div>
