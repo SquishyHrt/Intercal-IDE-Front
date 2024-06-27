@@ -2,8 +2,7 @@ import { useRef } from "react";
 import smalltalk from 'smalltalk';
 import { useTranslation } from 'react-i18next';
 
-const FileMenuCookies = () => {
-    const { t } = useTranslation();
+const FileMenuCookies = (t: any) => {
     smalltalk
         .prompt('JDoodle cookies', t('cookiePrompt'), window.localStorage["compileCookie"])
         .then((value) => {
@@ -23,8 +22,8 @@ const FileMenuExit = () => {
 const FileMenu = ({ onSaveClick, setRootPath, loadFile, clearTabs }: any) => {
     const { t } = useTranslation();
 
-    const openProjectRef = useRef();
-    const openFileRef = useRef();
+    const openProjectRef = useRef(null);
+    const openFileRef = useRef(null);
 
     const handleOpenProject = () => {
         if (openProjectRef.current.files.length == 0)
@@ -46,12 +45,12 @@ const FileMenu = ({ onSaveClick, setRootPath, loadFile, clearTabs }: any) => {
     return (
         <div className="top-menu" id="file-menu">
             <ul>
-                <input ref={openProjectRef} type="file" hidden webkitdirectory="true" onChange={handleOpenProject} />
+                <input ref={openProjectRef} type="file" hidden onChange={handleOpenProject} {...({ webkitdirectory: "true" } as React.InputHTMLAttributes<HTMLInputElement>)} />
                 <input ref={openFileRef} type="file" hidden onChange={handleOpenFile} />
                 <li onClick={() => openProjectRef.current.click()}>{t('openProject')}</li>
                 <li onClick={() => openFileRef.current.click()}>{t('openFile')}</li>
                 <li onClick={onSaveClick}>{t('saveFile')}</li>
-                <li onClick={FileMenuCookies}>{t('cookieMenu')}</li>
+                <li onClick={() => FileMenuCookies(t)}>{t('cookieMenu')}</li>
                 <li onClick={FileMenuExit}>{t('quit')}</li>
             </ul>
         </div >

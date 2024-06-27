@@ -6,10 +6,8 @@ const HelpMenuHelp = () => {
     console.log('Help');
 }
 
-const HelpMenuTipOfTheDay = () => {
+const HelpMenuTipOfTheDay = (t: any) => {
     console.log('Tip of the Day');
-
-    const { t } = useTranslation();
 
     const texts = [
         t('motiv1'),
@@ -55,7 +53,7 @@ function HelpMenu() {
         <div className="top-menu" id="help-menu">
             <ul>
                 <li onClick={HelpMenuHelp}>{t('help')}</li>
-                <li onClick={HelpMenuTipOfTheDay}>{t('tipDay')}</li>
+                <li onClick={() => HelpMenuTipOfTheDay(t)}>{t('tipDay')}</li>
                 <li onClick={PlayAudio}>{t('motivate')}</li>
             </ul>
         </div>
