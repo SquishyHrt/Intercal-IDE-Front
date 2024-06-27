@@ -1,9 +1,9 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import Player from "Components/Player.tsx";
-import {compileIntercal} from "Utils/utils.ts";
+import { compileIntercal } from "Utils/utils.ts";
 import confetti from 'canvas-confetti';
 
-const RunButton = ({fileContents, openTabs, fileTabIndex, setInfoTabIndex, setCompilMsg}) => {
+const RunButton = ({ fileContents, openTabs, fileTabIndex, setInfoTabIndex, setCompilMsg }) => {
     const [posX, setPosX] = useState(130);
     const [backgroundPosX, setBackgroundPosX] = useState(0);
     const [backgroundPosY, setBackgroundPosY] = useState(-160 * 3);
@@ -104,12 +104,12 @@ const RunButton = ({fileContents, openTabs, fileTabIndex, setInfoTabIndex, setCo
     }
 
     const handleRunClick = async () => {
+        setInfoTabIndex(1);
         if (openTabs.length == 0) {
             setCompilMsg('Open a file to run it');
             return;
         }
         setCompilMsg('Compilation in progress...');
-        setInfoTabIndex(1);
         //clearTimeout(playerFallTimeout);
         resetPlayer();
         startRunAnimation();
@@ -155,7 +155,7 @@ const RunButton = ({fileContents, openTabs, fileTabIndex, setInfoTabIndex, setCo
     return (<>
         <button id="button-run" onClick={handleRunClick}></button>
         <Player posX={posX} backgroundPosX={backgroundPosX} backgroundPosY={backgroundPosY}
-                resetAnimation={resetAnimation}/>
+            resetAnimation={resetAnimation} />
     </>);
 }
 
