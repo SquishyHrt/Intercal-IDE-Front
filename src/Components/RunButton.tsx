@@ -8,47 +8,56 @@ const RunButton = ({ fileContents, openTabs, fileTabIndex, setInfoTabIndex, setC
     const [backgroundPosX, setBackgroundPosX] = useState(0);
     const [backgroundPosY, setBackgroundPosY] = useState(-160 * 3);
     const [runAnimation, setRunAnimation] = useState(false);
-    const [resetAnimation, setResetAnimation] = useState(false);
-    //const [playerFallTimeout, setPlayerFallTimeout] = useState(null);
+    //const [resetAnimation, setResetAnimation] = useState(false);
+    const [compilSuccess, setCompilSuccess] = useState(false);
 
     useEffect(() => {
         let animationFrame;
-        let resetTimeout;
         if (runAnimation) {
-            const interval = 40; // Change this to control the speed of the animation
+            const interval = 14; // Change this to control the speed of the animation
             const frames = 6; // Number of frames in the sprite sheet
             let currentFrame = 0;
+            let tick = 0;
 
             setBackgroundPosY(-160 * 1);
 
             const animate = () => {
-                currentFrame = (currentFrame + 1) % frames;
+                ++tick;
+                if (tick % 3 === 0)
+                    currentFrame = (currentFrame + 1) % frames;
                 setBackgroundPosX(-currentFrame * 160); // Assuming each frame is 100px wide
                 setPosX((prevPos) => {
                     const newPos = prevPos + 10;
-                    const max_X = window.innerWidth - 150;
-                    if (newPos >= max_X) {
+                    const max_X = window.innerWidth - 140;
+                    if (compilSuccess) {
+                        //setResetAnimation(false);
                         setRunAnimation(false);
+                        setCompilSuccess(false);
                         winningPose();
                         launchConfetti();
-                        resetTimeout = setTimeout(startResetAnimation, 3000);
+                        //setResetTimeout(setTimeout(startResetAnimation, 3000));
                         return prevPos;
                     }
-                    return newPos;
+                    if (newPos <= max_X)
+                        return newPos;
+                    return prevPos;
                 });
                 animationFrame = setTimeout(animate, interval);
             };
 
             animate();
-        } else if (resetAnimation) {
+        } /*else if (resetAnimation) {
             const interval = 2; // Change this to control the speed of the animation
             const frames = 6; // Number of frames in the sprite sheet
             let currentFrame = 0;
+            let tick = 0;
 
             setBackgroundPosY(-160 * 1);
 
             const animate = () => {
-                currentFrame = (currentFrame + 1) % frames;
+                ++tick;
+                if (tick % 3 === 0)
+                    currentFrame = (currentFrame + 1) % frames;
                 setBackgroundPosX(-currentFrame * 160); // Assuming each frame is 100px wide
                 setPosX((prevPos) => {
                     const newPos = prevPos - 10;
@@ -63,13 +72,13 @@ const RunButton = ({ fileContents, openTabs, fileTabIndex, setInfoTabIndex, setC
             };
 
             animate();
-        }
+        }*/
         return () => {
             clearTimeout(animationFrame);
-            clearTimeout(resetTimeout);
+            //clearTimeout(resetTimeout);
         };
 
-    }, [runAnimation, resetAnimation]);
+    }, [runAnimation, compilSuccess]);
 
     const startRunAnimation = () => {
         if (!runAnimation) {
@@ -82,18 +91,21 @@ const RunButton = ({ fileContents, openTabs, fileTabIndex, setInfoTabIndex, setC
         setBackgroundPosY(-160 * 2);
     }
 
+    /*
     const startResetAnimation = () => {
-        if (!resetAnimation) {
-            setResetAnimation(true);
-        }
+        if (!runAnimation && !resetAnimation)
+        setResetAnimation(true);
     }
+     */
 
     const resetPlayer = () => {
+        //clearTimeout(resetTimeout);
         setPosX(130);
         setBackgroundPosX(0);
         setBackgroundPosY(-160 * 3);
-        setResetAnimation(false);
+        //setResetAnimation(false);
         setRunAnimation(false);
+        setCompilSuccess(false);
     }
 
     const playerFall = () => {
@@ -122,6 +134,9 @@ const RunButton = ({ fileContents, openTabs, fileTabIndex, setInfoTabIndex, setC
                 setCompilMsg(response.output);
                 if (response.output.trim().startsWith("ICL")) {
                     playerFall();
+                }
+                else {
+                    setCompilSuccess(true);
                 }
             } else {
                 setCompilMsg('Error: ' + response);
@@ -155,8 +170,7 @@ const RunButton = ({ fileContents, openTabs, fileTabIndex, setInfoTabIndex, setC
 
     return (<>
         <button id="button-run" onClick={handleRunClick}></button>
-        <Player posX={posX} backgroundPosX={backgroundPosX} backgroundPosY={backgroundPosY}
-            resetAnimation={resetAnimation} />
+        <Player posX={posX} backgroundPosX={backgroundPosX} backgroundPosY={backgroundPosY}/>
     </>);
 }
 
