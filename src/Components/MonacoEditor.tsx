@@ -1,12 +1,13 @@
-import {useRef, useEffect} from 'react';
+import { useRef, useEffect, useState } from 'react';
 import * as monaco from 'monaco-editor';
 
-const MonacoEditor = ({domId, filename, value, fileContents, setFileContents}: any) => {
+const MonacoEditor = ({ domId, filename, value, fileContents, setFileContents }: any) => {
     const editorRef = useRef(null);
+    const [calories, setCalories] = useState("0 lignes | 0 calories");
 
     useEffect(() => {
         // Define the INTERCAL language
-        monaco.languages.register({id: 'intercal'});
+        monaco.languages.register({ id: 'intercal' });
 
         monaco.languages.setMonarchTokensProvider('intercal', {
             tokenizer: {
@@ -17,11 +18,11 @@ const MonacoEditor = ({domId, filename, value, fileContents, setFileContents}: a
                     [/"([^"\\]|\\.)*$/, 'string.invalid'],
                     [/\(/, 'delimiter.parenthesis'],
                     [/\)/, 'delimiter.parenthesis'],
-                    [/"/, {token: 'string.quote', bracket: '@open', next: '@string'}],
+                    [/"/, { token: 'string.quote', bracket: '@open', next: '@string' }],
                 ],
                 string: [
                     [/[^\\"]+/, 'string'],
-                    [/"/, {token: 'string.quote', bracket: '@close', next: '@pop'}],
+                    [/"/, { token: 'string.quote', bracket: '@close', next: '@pop' }],
                 ],
             },
         });
@@ -36,10 +37,10 @@ const MonacoEditor = ({domId, filename, value, fileContents, setFileContents}: a
                 ['(', ')'],
             ],
             autoClosingPairs: [
-                {open: '{', close: '}'},
-                {open: '[', close: ']'},
-                {open: '(', close: ')'},
-                {open: '"', close: '"'},
+                { open: '{', close: '}' },
+                { open: '[', close: ']' },
+                { open: '(', close: ')' },
+                { open: '"', close: '"' },
             ],
         });
 
@@ -62,7 +63,7 @@ const MonacoEditor = ({domId, filename, value, fileContents, setFileContents}: a
                     kind: monaco.languages.CompletionItemKind.Keyword,
                     insertText: keyword,
                 }));
-                return {suggestions: suggestions};
+                return { suggestions: suggestions };
             },
         });
 
@@ -71,6 +72,10 @@ const MonacoEditor = ({domId, filename, value, fileContents, setFileContents}: a
             let tmp = fileContents;
             tmp[filename] = editorRef.current.getValue();
             setFileContents(tmp);
+
+            const nbLines = tmp[filename].split("\n").length;
+            const nbCalories = nbLines * 5;
+            setCalories(nbLines + " lines | " + nbCalories + " calories");
         });
 
         // Get the editor text:
@@ -87,7 +92,10 @@ const MonacoEditor = ({domId, filename, value, fileContents, setFileContents}: a
         };
     }, []);
 
-    return <div id={domId} style={{height: '100%', width: '100%'}}/>;
+    return <div style={{ height: '99%', width: '100%', display: 'flex', flexDirection: 'column' }}>
+        <div id={domId} style={{ height: '100%', width: '100%' }} />
+        <p style={{ margin: 0 }}>{calories}</p>
+    </div >;
 };
 
 export default MonacoEditor;
