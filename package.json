@@ -51,8 +51,8 @@
   "build": {
     "extraResources": [
       {
-        "from": "src/backend/ping-1.0-runner",
-        "to": "ping-1.0-runner",
+        "from": "src/backend/ping-1.0-runner.exe",
+        "to": "ping-1.0-runner.exe",
         "filter": [
           "**/*"
         ]
@@ -66,7 +66,13 @@
     ],
     "linux": {
       "category": "Utility",
-      "icon": "src/assets/bleachers.png"
+      "icon": "src/assets/appicon.png"
+    },
+    "win": {
+	"icon": "src/assets/appicon.png"
+    },
+    "mac": {
+	"icon": "src/assets/appicon.png"
     }
   }
 }
