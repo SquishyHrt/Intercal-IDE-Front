@@ -56,6 +56,13 @@
         "filter": [
           "**/*"
         ]
+      },
+      {
+        "from": "src/backend/ping-1.0-runner-arm",
+        "to": "ping-1.0-runner-arm",
+        "filter": [
+          "**/*"
+        ]
       }
     ],
     "files": [

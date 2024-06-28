@@ -3,6 +3,7 @@ import {createRequire} from 'node:module'
 import {fileURLToPath} from 'node:url'
 import {spawn} from 'child_process'
 import path from 'node:path'
+import os from 'os'
 
 const require = createRequire(import.meta.url)
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -50,6 +51,30 @@ function createWindow() {
         // win.loadFile('dist/index.html')
         win.loadFile(path.join(RENDERER_DIST, 'index.html'))
     }
+}
+
+function createBackend() {
+    let backendRunnerFile = 'ping-1.0-runner';
+    if (os.platform() === 'darwin' || os.arch() === 'arm') {
+        backendRunnerFile = 'ping-1.0-runner-arm';
+    }
+
+    const backendRunnerPath = !app.isPackaged
+        ? path.join(__dirname, '..', 'src', 'backend', backendRunnerFile)
+        : path.join(process.resourcesPath, backendRunnerFile);
+    backendProcess = spawn(backendRunnerPath);
+
+    backendProcess.stdout.on('data', (data: Buffer) => {
+        console.log(`Backend stdout: ${data}`);
+    });
+
+    backendProcess.stderr.on('data', (data: Buffer) => {
+        console.error(`Backend stderr: ${data}`);
+    });
+
+    backendProcess.on('close', (code: number) => {
+        console.log(`Backend process exited with code ${code}`);
+    });
 }
 
 // Quit when all windows are closed, except on macOS. There, it's common
@@ -101,22 +126,5 @@ ipcMain.on('open-tips', (event, randomText) => {
 
 app.whenReady().then(() => {
     createWindow();
-
-    const backendRunnerPath = !app.isPackaged
-        ? path.join(__dirname, '..', 'src', 'backend', 'ping-1.0-runner')
-        : path.join(process.resourcesPath, 'ping-1.0-runner');
-
-    backendProcess = spawn(backendRunnerPath);
-
-    backendProcess.stdout.on('data', (data: Buffer) => {
-        console.log(`Backend stdout: ${data}`);
-    });
-
-    backendProcess.stderr.on('data', (data: Buffer) => {
-        console.error(`Backend stderr: ${data}`);
-    });
-
-    backendProcess.on('close', (code: number) => {
-        console.log(`Backend process exited with code ${code}`);
-    });
+    createBackend();
 });
