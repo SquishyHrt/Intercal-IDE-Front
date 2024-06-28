@@ -45,12 +45,15 @@ const GetMeteo = ({lat, long, children}: { lat: string, long: string, children: 
     const [meteoCode, setMeteoCode] = useState<boolean>(false);
 
     useEffect(() => {
-        console.log("Fetching meteo data at ", lat, long);
         const fetchMeteoData = async () => {
+            console.log("Fetching meteo data at ", lat, long);
             const precipitationData = await GetMeteoData({lat: lat, long: long});
             setMeteoCode(IsRaining(precipitationData));
         };
         fetchMeteoData().then();
+
+        const intervalId = setInterval(fetchMeteoData, 60 * 1000); // 1 minutes interval
+        return () => clearInterval(intervalId);
     }, [lat, long]);
 
     const background = meteoCode ? TopRainy : TopSunny;
