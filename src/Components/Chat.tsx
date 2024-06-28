@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import {useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import '../style/Chat.css';
 
 const Chat = () => {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const [messages, setMessages] = useState([]);
     const [messageInput, setMessageInput] = useState('');
 
@@ -25,8 +25,8 @@ const Chat = () => {
             console.log("Sending message to backend:", userMessage.text);
             const response = await fetch('http://localhost:8081/api/message', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message: userMessage.text })
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({message: userMessage.text})
             });
 
             if (!response.ok) {

@@ -12,8 +12,8 @@ const increment = 5;
 const decrement = 30;
 const timeout = 300; // Time in milliseconds to reset confettiParams
 const colors = [["C40C0C", "#FF6500", "FF8A08", "FFC100"], ["FF7F3E", "FFF6E9", "80C4E9", "604CC3"], ["7BD3EA", "A1EEBD", "F6F7C4", "F6D6D6"],
-    ["0D1282", "EEEDED", "F0DE36", "D71313"], ["EA047E", "FF6D28", "FCE700", "00F5FF"], ["900C3F", "C70039", "F94C10", "F8DE22"], 
-["0079FF", "00DFA2", "F6FA70", "FF0060"], ["B70404", "DB005B", "F79327", "FFE569"]];
+    ["0D1282", "EEEDED", "F0DE36", "D71313"], ["EA047E", "FF6D28", "FCE700", "00F5FF"], ["900C3F", "C70039", "F94C10", "F8DE22"],
+    ["0079FF", "00DFA2", "F6FA70", "FF0060"], ["B70404", "DB005B", "F79327", "FFE569"]];
 
 const Bleachers = () => {
     const [lastClickTime, setLastClickTime] = useState<number | null>(null);
@@ -34,7 +34,7 @@ const Bleachers = () => {
                 // Stop fireworks after 5 seconds
                 setTimeout(() => {
                     fireworks.waitStop(true);
-                    setConfettiParams({ particleCount: 40, spread: 30 });
+                    setConfettiParams({particleCount: 40, spread: 30});
                 }, 6000);
             }
         } else {

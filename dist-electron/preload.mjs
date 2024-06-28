@@ -23,6 +23,8 @@ electron.contextBridge.exposeInMainWorld("electron", {
   getCwd: async () => {
     return await electron.ipcRenderer.invoke("get-cwd");
   },
-  openTips: (randomText) => electron.ipcRenderer.send("open-tips", randomText)
+  openTips: (randomText) => electron.ipcRenderer.send("open-tips", randomText),
   // add other APIs you need here.
+  joinPath: (...args) => electron.ipcRenderer.invoke("joinPath", ...args),
+  dirName: (path) => electron.ipcRenderer.invoke("dirName", path)
 });

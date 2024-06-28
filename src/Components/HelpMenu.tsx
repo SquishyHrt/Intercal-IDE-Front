@@ -1,4 +1,4 @@
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 import React from 'react';
 import aud from "@/assets/doit.mp3";
 
@@ -42,7 +42,7 @@ const HelpMenuTipOfTheDay = (t: any) => {
 
 function HelpMenu() {
 
-    const { t } = useTranslation();
+    const {t} = useTranslation();
 
     const PlayAudio = () => {
         var audio = new Audio(aud);

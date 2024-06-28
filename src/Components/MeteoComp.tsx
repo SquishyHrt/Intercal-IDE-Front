@@ -4,13 +4,6 @@ import '../index.css';
 import TopRainy from '../assets/TopRainy.png';
 import TopSunny from '../assets/TopSunny.png';
 
-const params = {
-    "latitude": 48.132022,
-    "longitude": -1.621433,
-    "current": ["precipitation", "rain", "showers", "snowfall"],
-    "timezone": "Europe/Berlin",
-    "forecast_days": 1
-};
 const url = "https://api.open-meteo.com/v1/forecast";
 
 const IsRaining = (precipitationData: any): boolean => {
@@ -26,31 +19,39 @@ const IsRaining = (precipitationData: any): boolean => {
     return precipitationData.snowfall > 0;
 }
 
-const GetMeteo = ({children}: { children: any }) => {
-    const GetMeteoData = async () => {
-        try {
-            const responses = await fetchWeatherApi(url, params);
-            const current = responses[0].current()!;
-            return {
-                precipitation: current.variables(0)!.value(),
-                rain: current.variables(1)!.value(),
-                showers: current.variables(2)!.value(),
-                snowfall: current.variables(3)!.value(),
-            };
-        } catch (error) {
-            console.error('Error during fetch:', error);
-        }
-    };
+const GetMeteoData = async ({lat, long}: { lat: any, long: any }) => {
+    try {
+        const params = {
+            "latitude": parseFloat(lat),
+            "longitude": parseFloat(long),
+            "current": ["precipitation", "rain", "showers", "snowfall"],
+            "timezone": "Europe/Berlin",
+            "forecast_days": 1
+        };
+        const responses = await fetchWeatherApi(url, params);
+        const current = responses[0].current()!;
+        return {
+            precipitation: current.variables(0)!.value(),
+            rain: current.variables(1)!.value(),
+            showers: current.variables(2)!.value(),
+            snowfall: current.variables(3)!.value(),
+        };
+    } catch (error) {
+        console.error('Error during fetch of meteo:', error);
+    }
+};
 
-    const [meteoCode, setMeteoCode] = useState<boolean | undefined>(undefined);
+const GetMeteo = ({lat, long, children}: { lat: string, long: string, children: any }) => {
+    const [meteoCode, setMeteoCode] = useState<boolean>(false);
 
     useEffect(() => {
+        console.log("Fetching meteo data at ", lat, long);
         const fetchMeteoData = async () => {
-            const precipitationData = await GetMeteoData();
+            const precipitationData = await GetMeteoData({lat: lat, long: long});
             setMeteoCode(IsRaining(precipitationData));
         };
         fetchMeteoData().then();
-    }, []);
+    }, [lat, long]);
 
     const background = meteoCode ? TopRainy : TopSunny;
 

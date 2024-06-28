@@ -1,8 +1,8 @@
-import FolderTree, { testData } from 'react-folder-tree';
+import FolderTree, {testData} from 'react-folder-tree';
 import 'react-folder-tree/dist/style.css';
-import { useEffect, useState } from "react";
-import { createFile, createFolder, deleteP, fetchArchitecture, rename } from 'Utils/utils.ts';
-import { useTranslation } from 'react-i18next';
+import {useEffect, useState} from "react";
+import {createFile, createFolder, deleteP, fetchArchitecture, rename} from 'Utils/utils.ts';
+import {useTranslation} from 'react-i18next';
 
 function getNode(path: number[], fileTree: any) {
     let tmp: any = fileTree.children;
@@ -24,8 +24,8 @@ async function getPath(rootPath: string, path: number[], fileTree: any) {
     return res;
 }
 
-const BasicTree = ({ openTab, rootPath }: any) => {
-    const { t } = useTranslation();
+const BasicTree = ({openTab, rootPath}: any) => {
+    const {t} = useTranslation();
     const [fileTree, setFileTree] = useState(testData);
 
     useEffect(() => {
@@ -81,7 +81,7 @@ const BasicTree = ({ openTab, rootPath }: any) => {
         }
     };
 
-    const onNameClick = async ({ defaultOnClick, nodeData }) => {
+    const onNameClick = async ({defaultOnClick, nodeData}) => {
         defaultOnClick();
         const path = await getPath("", nodeData.path, fileTree);
         // @ts-ignore

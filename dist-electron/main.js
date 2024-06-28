@@ -1,9 +1,9 @@
 import { app, BrowserWindow, ipcMain } from "electron";
 import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
-import { spawn } from "child_process";
+import "child_process";
 import path from "node:path";
-import os from "os";
+import "os";
 createRequire(import.meta.url);
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 process.env.APP_ROOT = path.join(__dirname, "..");
@@ -12,7 +12,6 @@ const MAIN_DIST = path.join(process.env.APP_ROOT, "dist-electron");
 const RENDERER_DIST = path.join(process.env.APP_ROOT, "dist");
 process.env.VITE_PUBLIC = VITE_DEV_SERVER_URL ? path.join(process.env.APP_ROOT, "public") : RENDERER_DIST;
 let win;
-let backendProcess = null;
 function createWindow() {
   win = new BrowserWindow({
     icon: path.join(process.env.VITE_PUBLIC, "electron-vite.svg"),
@@ -20,6 +19,9 @@ function createWindow() {
       preload: path.join(__dirname, "preload.mjs")
     }
   });
+  if (app.isPackaged) {
+    win.setMenu(null);
+  }
   win.webContents.on("did-finish-load", () => {
     win == null ? void 0 : win.webContents.send("main-process-message", (/* @__PURE__ */ new Date()).toLocaleString());
   });
@@ -29,30 +31,10 @@ function createWindow() {
     win.loadFile(path.join(RENDERER_DIST, "index.html"));
   }
 }
-function createBackend() {
-  let backendRunnerFile = "ping-1.0-runner";
-  if (os.platform() === "darwin" || os.arch() === "arm") {
-    backendRunnerFile = "ping-1.0-runner-arm";
-  }
-  const backendRunnerPath = !app.isPackaged ? path.join(__dirname, "..", "src", "backend", backendRunnerFile) : path.join(process.resourcesPath, backendRunnerFile);
-  backendProcess = spawn(backendRunnerPath);
-  backendProcess.stdout.on("data", (data) => {
-    console.log(`Backend stdout: ${data}`);
-  });
-  backendProcess.stderr.on("data", (data) => {
-    console.error(`Backend stderr: ${data}`);
-  });
-  backendProcess.on("close", (code) => {
-    console.log(`Backend process exited with code ${code}`);
-  });
-}
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
     app.quit();
     win = null;
-  }
-  if (backendProcess) {
-    backendProcess.kill();
   }
 });
 app.on("activate", () => {
@@ -62,9 +44,6 @@ app.on("activate", () => {
 });
 ipcMain.on("exit-app", () => {
   app.quit();
-  if (backendProcess) {
-    backendProcess.kill();
-  }
 });
 ipcMain.handle("get-cwd", () => {
   return process.cwd();
@@ -82,9 +61,14 @@ ipcMain.on("open-tips", (event, randomText) => {
   newWindow.title = "Tip of the Day";
   newWindow.loadURL(`file://${path.join(MAIN_DIST, "TipOfTheDay.html")}?text=${encodeURIComponent(randomText)}`);
 });
+ipcMain.handle("joinPath", (event, ...args) => {
+  return path.join(...args);
+});
+ipcMain.handle("dirName", (event, path2) => {
+  return path.dirname(path2);
+});
 app.whenReady().then(() => {
   createWindow();
-  createBackend();
 });
 export {
   MAIN_DIST,

@@ -1,11 +1,11 @@
-import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
+import {Tab, TabList, TabPanel, Tabs} from "react-tabs";
 import Chat from "Components/Chat.tsx";
 import '../style/TabInfoBox.css';
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 
 
-const TabInfoBox = ({ activeTabIndex, setActiveTabIndex, compilMsg }: any) => {
-    const { t } = useTranslation();
+const TabInfoBox = ({activeTabIndex, setActiveTabIndex, compilMsg}: any) => {
+    const {t} = useTranslation();
 
     const handleTabSelect = (index) => {
         setActiveTabIndex(index);
@@ -19,7 +19,7 @@ const TabInfoBox = ({ activeTabIndex, setActiveTabIndex, compilMsg }: any) => {
             </TabList>
 
             <TabPanel>
-                <Chat />
+                <Chat/>
             </TabPanel>
             <TabPanel>
                 <p>{compilMsg}</p>

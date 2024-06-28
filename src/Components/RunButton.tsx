@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import Player from "Components/Player.tsx";
-import { compileIntercal } from "Utils/utils.ts";
+import {compileIntercal} from "Utils/utils.ts";
 import confetti from 'canvas-confetti';
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 
-const RunButton = ({ fileContents, openTabs, fileTabIndex, setInfoTabIndex, setCompilMsg, blockScreen }) => {
-    const { t } = useTranslation();
+const RunButton = ({fileContents, openTabs, fileTabIndex, setInfoTabIndex, setCompilMsg, blockScreen}) => {
+    const {t} = useTranslation();
     const [posX, setPosX] = useState(130);
     const [backgroundPosX, setBackgroundPosX] = useState(0);
     const [backgroundPosY, setBackgroundPosY] = useState(-160 * 3);
@@ -136,8 +136,7 @@ const RunButton = ({ fileContents, openTabs, fileTabIndex, setInfoTabIndex, setC
                 setCompilMsg(response.output);
                 if (response.output.trim().startsWith("ICL")) {
                     playerFall();
-                }
-                else {
+                } else {
                     setCompilSuccess(true);
                 }
             } else {
@@ -172,7 +171,7 @@ const RunButton = ({ fileContents, openTabs, fileTabIndex, setInfoTabIndex, setC
 
     return (<>
         <button id="button-run" onClick={handleRunClick}></button>
-        <Player posX={posX} backgroundPosX={backgroundPosX} backgroundPosY={backgroundPosY} />
+        <Player posX={posX} backgroundPosX={backgroundPosX} backgroundPosY={backgroundPosY}/>
     </>);
 }
 

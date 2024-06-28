@@ -1,4 +1,4 @@
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 
 const EditMenuCut = () => {
     console.log('Cut');
@@ -17,7 +17,7 @@ const EditMenuFind = () => {
 }
 
 const EditMenu = () => {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
 
     return (
         <div className="top-menu" id="edit-menu">
