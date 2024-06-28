@@ -25,11 +25,12 @@ const FileMenu = ({ onSaveClick, setRootPath, loadFile, clearTabs }: any) => {
     const openProjectRef = useRef(null);
     const openFileRef = useRef(null);
 
-    const handleOpenProject = () => {
+    const handleOpenProject = async () => {
         if (openProjectRef.current.files.length == 0)
             return;
         const firstFile: string = openProjectRef.current.files[0].path;
-        const absDir: string = firstFile.slice(0, firstFile.lastIndexOf('/'));
+        // @ts-ignore
+        const absDir: string = await window.electron.dirName(firstFile);
         setRootPath(absDir);
         clearTabs();
     }

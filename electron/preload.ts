@@ -1,4 +1,4 @@
-import {ipcRenderer, contextBridge} from 'electron'
+import { ipcRenderer, contextBridge } from 'electron'
 
 // --------- Expose some API to the Renderer process ---------
 contextBridge.exposeInMainWorld('ipcRenderer', {
@@ -28,4 +28,6 @@ contextBridge.exposeInMainWorld('electron', {
     },
     openTips: (randomText: string) => ipcRenderer.send('open-tips', randomText),
     // add other APIs you need here.
+    joinPath: (...args) => ipcRenderer.invoke('joinPath', ...args),
+    dirName: path => ipcRenderer.invoke('dirName', path)
 });
