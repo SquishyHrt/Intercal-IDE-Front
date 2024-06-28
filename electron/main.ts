@@ -1,7 +1,7 @@
-import { app, BrowserWindow, ipcMain } from 'electron'
-import { createRequire } from 'node:module'
-import { fileURLToPath } from 'node:url'
-import { spawn } from 'child_process'
+import {app, BrowserWindow, ipcMain} from 'electron'
+import {createRequire} from 'node:module'
+import {fileURLToPath} from 'node:url'
+import {spawn} from 'child_process'
 import path from 'node:path'
 import os from 'os'
 
@@ -38,7 +38,10 @@ function createWindow() {
         },
     })
 
-    // win.setMenu(null) enable this to hide the menu bar when release
+    // Hide the menu bar in production mode
+    if (app.isPackaged) {
+        win.setMenu(null)
+    }
 
     // Test active push message to Renderer-process.
     win.webContents.on('did-finish-load', () => {
