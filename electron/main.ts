@@ -61,6 +61,9 @@ function createBackend() {
     if (os.platform() === 'darwin' || os.arch() === 'arm') {
         backendRunnerFile = 'ping-1.0-runner-arm';
     }
+    if (os.platform() === 'win32') {
+        backendRunnerFile = 'ping-1.0-runner.exe';
+    }
 
     const backendRunnerPath = !app.isPackaged
         ? path.join(__dirname, '..', 'src', 'backend', backendRunnerFile)
@@ -137,5 +140,5 @@ ipcMain.handle('dirName', (event, path2) => {
 
 app.whenReady().then(() => {
     createWindow();
-    // createBackend();
+    createBackend();
 });

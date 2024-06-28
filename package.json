@@ -51,6 +51,13 @@
   "build": {
     "extraResources": [
       {
+        "from": "src/backend/ping-1.0-runner",
+        "to": "ping-1.0-runner",
+        "filter": [
+          "**/*"
+        ]
+      },
+      {
         "from": "src/backend/ping-1.0-runner.exe",
         "to": "ping-1.0-runner.exe",
         "filter": [
