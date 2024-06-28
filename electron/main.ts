@@ -1,7 +1,7 @@
-import {app, BrowserWindow, ipcMain} from 'electron'
-import {createRequire} from 'node:module'
-import {fileURLToPath} from 'node:url'
-import {spawn} from 'child_process'
+import { app, BrowserWindow, ipcMain } from 'electron'
+import { createRequire } from 'node:module'
+import { fileURLToPath } from 'node:url'
+import { spawn } from 'child_process'
 import path from 'node:path'
 
 const require = createRequire(import.meta.url)
@@ -33,7 +33,7 @@ function createWindow() {
     win = new BrowserWindow({
         icon: path.join(process.env.VITE_PUBLIC, 'electron-vite.svg'),
         webPreferences: {
-            preload: path.join(__dirname, 'preload.mjs'),
+            preload: path.join(__dirname, 'preload.mjs')
         },
     })
 
@@ -98,6 +98,14 @@ ipcMain.on('open-tips', (event, randomText) => {
     newWindow.title = 'Tip of the Day';
     newWindow.loadURL(`file://${path.join(MAIN_DIST, 'TipOfTheDay.html')}?text=${encodeURIComponent(randomText)}`);
 });
+
+ipcMain.handle('joinPath', (event, ...args) => {
+    return path.join(...args);
+})
+
+ipcMain.handle('dirName', (event, path2) => {
+    return path.dirname(path2);
+})
 
 app.whenReady().then(() => {
     createWindow();
