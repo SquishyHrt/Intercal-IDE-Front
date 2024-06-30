@@ -3,10 +3,6 @@ import React from 'react';
 import aud from "@/assets/doit.mp3";
 import smalltalk from 'smalltalk';
 
-const HelpMenuHelp = (t: any) => {
-    smalltalk.alert(t('helpTitle'), t('helpContent'));
-}
-
 const HelpMenuTipOfTheDay = (t: any) => {
     console.log('Tip of the Day');
 
@@ -41,8 +37,9 @@ const HelpMenuTipOfTheDay = (t: any) => {
 }
 
 function HelpShortcuts(t) {
-  const text = t('helptext');
-  window.electron.openTips(text);
+    const text = t('helptext');
+    //window.electron.openTips(text);
+    smalltalk.alert(t('helpTitle'), t('helpContent') + "\n" + text);
 }
 
 
