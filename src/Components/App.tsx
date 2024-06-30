@@ -41,6 +41,9 @@ const App = () => {
     const [fileContents, setFileContents] = useState({});
     const menuRef: MutableRefObject<undefined> = useRef();
 
+    // MANAGE EDITOR MENU <=> MONACO EDITOR LINK
+    const [editorRef, setEditorRef] = useState(null);
+
     useEffect(() => {
         const handleClickOutside = (event: any) => {
             // @ts-ignore
@@ -113,7 +116,7 @@ const App = () => {
     // RETURN COMPONENT
     return (
         <div className="container">
-            <DarkOverlay show={showOverlay} onComplete={handleOverlayComplete} />
+            <DarkOverlay show={showOverlay} onComplete={handleOverlayComplete}/>
             <GetMeteo lat={lat} long={long}>
                 <div className="buttons">
                     <div>
@@ -125,8 +128,8 @@ const App = () => {
 
                     <div>
                         <RunButton fileContents={fileContents} fileTabIndex={fileTabIndex}
-                            setInfoTabIndex={setInfoTabIndex} openTabs={openTabs} setCompilMsg={setCompilMsg}
-                            blockScreen={setShowOverlay} />
+                                   setInfoTabIndex={setInfoTabIndex} openTabs={openTabs} setCompilMsg={setCompilMsg}
+                                   blockScreen={setShowOverlay}/>
                         <button id="button-save" onClick={handleSaveClick}></button>
                         <button id="button-close" onClick={handleCloseClick}></button>
                     </div>
@@ -134,29 +137,29 @@ const App = () => {
                 <div className="bottom-part" ref={menuRef}>
                     {visibleMenu === 'file' &&
                         <FileMenu onSaveClick={handleSaveClick} setRootPath={setRootPath} loadFile={onNameClick}
-                            clearTabs={clearTabs} setLat={setLat} setLong={setLong} />}
-                    {visibleMenu === 'edit' && <EditMenu />}
-                    {visibleMenu === 'view' && <ViewMenu />}
-                    {visibleMenu === 'help' && <HelpMenu />}
+                                  clearTabs={clearTabs} setLat={setLat} setLong={setLong}/>}
+                    {visibleMenu === 'edit' && <EditMenu editorRef={editorRef}/>}
+                    {visibleMenu === 'view' && <ViewMenu/>}
+                    {visibleMenu === 'help' && <HelpMenu/>}
                 </div>
 
             </GetMeteo>
             <div className="bottom-container">
                 <div className="bottom-box">
 
-                    <BasicTree openTab={onNameClick} rootPath={rootPath} />
+                    <BasicTree openTab={onNameClick} rootPath={rootPath}/>
                 </div>
                 <div className="bottom-box" id="editor-box">
                     <EditorTabs openTabs={openTabs} fileContents={fileContents} setFileContents={setFileContents}
-                        activeTabIndex={fileTabIndex} setActiveTabIndex={setFileTabIndex} />
+                                activeTabIndex={fileTabIndex} setActiveTabIndex={setFileTabIndex} setEditorRef={setEditorRef}/>
                 </div>
                 <div className="bottom-box">
                     <TabInfoBox activeTabIndex={infoTabIndex} setActiveTabIndex={setInfoTabIndex}
-                        compilMsg={compilMsg} />
+                                compilMsg={compilMsg}/>
                 </div>
                 <div className="bottom-box">
-                    <Bleachers />
-                    <RandomSoundPlayer />
+                    <Bleachers/>
+                    <RandomSoundPlayer/>
                 </div>
             </div>
         </div>

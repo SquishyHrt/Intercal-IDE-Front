@@ -11,6 +11,7 @@
   "copy": "Copier",
   "delete": "Supprimer",
   "find": "Chercher",
+  "paste": "Coller",
   "cookiePrompt": "Veuillez entrer les cookies de compilation JDoodle (Dev Tools -> Network -> execute)",
   "cookieErrorTitle": "Mauvais cookies",
   "cookieError": "Sans ces cookies, vous ne pouvez compiler le code INTERCAL.",

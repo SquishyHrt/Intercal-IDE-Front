@@ -2,7 +2,7 @@ import {useRef, useEffect, useState} from 'react';
 import * as monaco from 'monaco-editor';
 import {useTranslation} from 'react-i18next';
 
-const MonacoEditor = ({domId, filename, value, fileContents, setFileContents}: any) => {
+const MonacoEditor = ({domId, filename, value, fileContents, setFileContents, setEditorRef}: any) => {
     const {t} = useTranslation();
     const editorRef = useRef(null);
     const [calories, setCalories] = useState("0 " + t('lines') + " | 0 " + t('calories'));
@@ -86,6 +86,8 @@ const MonacoEditor = ({domId, filename, value, fileContents, setFileContents}: a
         // Set the editor text:
         editorRef.current.setValue(value);
         // console.log(editorRef.current.getValue());
+
+        setEditorRef(editorRef);
 
         return () => {
             completion.dispose();

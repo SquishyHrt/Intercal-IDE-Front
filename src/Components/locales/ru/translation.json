@@ -11,6 +11,7 @@
   "copy": "Копировать",
   "delete": "Удалить",
   "find": "Найти",
+  "paste": "Вставляю",
   "cookiePrompt": "Пожалуйста, введите cookies компиляции JDoodle (Dev Tools -> Network -> execute)",
   "cookieErrorTitle": "Неправильные cookies",
   "cookieError": "Без этих cookies вы не можете компилировать код INTERCAL.",
