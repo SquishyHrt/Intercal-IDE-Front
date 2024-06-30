@@ -40,7 +40,7 @@ const App = () => {
   const [fileContents, setFileContents] = useState({});
   const menuRef: MutableRefObject<undefined> = useRef();
 
-  const runButt = useRef(null);
+  const runButt: MutableRefObject<any> = useRef(null);
   const closeButt = useRef(null);
   const saveButt = useRef(null);
 
