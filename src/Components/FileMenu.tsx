@@ -85,7 +85,6 @@ const FileMenu = ({onSaveClick, setRootPath, loadFile, clearTabs, setLat, setLon
                 <li onClick={() => openProjectRef.current.click()}>{t('openProject')}</li>
                 <li onClick={() => openFileRef.current.click()}>{t('openFile')}</li>
                 <li onClick={onSaveClick}>{t('saveFile')}</li>
-                <li onClick={() => FileMenuCookies(t)}>{t('cookieMenu')}</li>
                 <li onClick={() => FileMenuLocalisation(t, setLat, setLong)}>{t('localisationM')}</li>
                 <li onClick={FileMenuExit}>{t('quit')}</li>
             </ul>
