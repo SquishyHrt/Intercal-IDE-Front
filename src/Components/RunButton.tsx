@@ -84,6 +84,7 @@ const RunButton = forwardRef((props: any, ref: MutableRefObject<any>) => {
         }
         props.setCompilMsg(t('compilProgress'));
         resetPlayer();
+        startRunAnimation();
         const content = props.fileContents[props.openTabs[props.fileTabIndex]];
         try {
             let response = await compileIntercal(content);
