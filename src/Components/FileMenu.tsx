@@ -55,6 +55,7 @@ const FileMenu = ({onSaveClick, setRootPath, loadFile, clearTabs, setLat, setLon
     const openProjectRef = useRef(null);
     const openFileRef = useRef(null);
 
+
     const handleOpenProject = async () => {
         if (openProjectRef.current.files.length == 0)
             return;
@@ -72,6 +73,8 @@ const FileMenu = ({onSaveClick, setRootPath, loadFile, clearTabs, setLat, setLon
         const file = openFileRef.current.files[0];
         loadFile(file.path, file.name);
     }
+
+
 
     return (
         <div className="top-menu" id="file-menu">

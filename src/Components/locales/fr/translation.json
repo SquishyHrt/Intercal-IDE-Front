@@ -56,5 +56,6 @@
   "localisationM": "Localisation",
   "localisationPrompt": "Enter your localisation as this format: (-?)xx.xxx,(-?)yy.yyy",
   "localisationErrorTitle": "Wrong localisation",
-  "localisationError": "Wrong format for localisation. Please enter it as this format: (-?)xx.xxx,(-?)yy.yyy"
+  "localisationError": "Wrong format for localisation. Please enter it as this format: (-?)xx.xxx,(-?)yy.yyy",
+  "helptext":"F8 - Compiler le fichier | Ctrl + s - Sauvegarder le fichier | Ctrl + w - Fermer l'onglet"
 }

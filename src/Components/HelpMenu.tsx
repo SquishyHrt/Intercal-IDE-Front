@@ -39,6 +39,11 @@ const HelpMenuTipOfTheDay = (t: any) => {
     window.electron.openTips(randomText);
 }
 
+function HelpShortcuts(t) {
+  const text = t('helptext');
+  window.electron.openTips(text);
+}
+
 
 function HelpMenu() {
 
@@ -52,7 +57,7 @@ function HelpMenu() {
     return (
         <div className="top-menu" id="help-menu">
             <ul>
-                <li onClick={HelpMenuHelp}>{t('help')}</li>
+                <li onClick={() => HelpShortcuts(t)}>{t('help')}</li>
                 <li onClick={() => HelpMenuTipOfTheDay(t)}>{t('tipDay')}</li>
                 <li onClick={PlayAudio}>{t('motivate')}</li>
             </ul>
