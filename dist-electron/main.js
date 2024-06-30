@@ -95,8 +95,8 @@ ipcMain.handle("dirName", (event, path2) => {
   return path.dirname(path2);
 });
 app.whenReady().then(() => {
-  createWindow();
   createBackend();
+  createWindow();
 });
 export {
   MAIN_DIST,
