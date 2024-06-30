@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import React from 'react';
 import aud from "@/assets/doit.mp3";
 import smalltalk from 'smalltalk';
+import { playRandomSound } from './randSound';
 
 const HelpMenuTipOfTheDay = (t: any) => {
     console.log('Tip of the Day');
@@ -48,8 +49,7 @@ function HelpMenu() {
     const { t } = useTranslation();
 
     const PlayAudio = () => {
-        var audio = new Audio(aud);
-        audio.play();
+        playRandomSound();
     };
 
     return (

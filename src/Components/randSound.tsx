@@ -1,17 +1,20 @@
-import React, {useEffect, useRef} from 'react';
+import React, { useEffect, useRef } from 'react';
 
 // Import your mp3 files if they are in the src directory (optional)
 import sound1 from '@/assets/doit.mp3';
+import sound2 from '@/assets//motiv2.mp3'
+import sound3 from '@/assets//motiv3.mp3'
+import sound4 from '@/assets//motiv4.mp3'
 //import sound2 from './sounds/sound2.mp3';
 //import sound3 from './sounds/sound3.mp3';
 
-const sounds = [sound1]//, sound2, sound3];
+const sounds = [sound1, sound2, sound3, sound4];
 
 const getRandomDelay = (min, max) => {
     return Math.random() * (max - min) + min;
 };
 
-const playRandomSound = () => {
+export const playRandomSound = () => {
     const randomIndex = Math.floor(Math.random() * sounds.length);
     const audio = new Audio(sounds[randomIndex]);
     audio.play();
