@@ -19,47 +19,47 @@ import 'react-tabs/style/react-tabs.css';
 import '../App.css';
 
 const App = () => {
-    if (!window.localStorage["compileCookie"])
-        window.localStorage["compileCookie"] = "SESSION=4b9da30a-fb0b-474e-8ac0-5164016e3263; marker_id_65379a42896b9b3785d33e92=1baf8fbc-33a1-44e3-94e5-f3cbbffcd692; ph_phc_FTWxh3zPvEFoJy4fpLYNTxH0MSaPrUyXBO247WRRw0n_posthog=%7B%22distinct_id%22%3A%22019053d9-203e-7e44-9902-d4e6a87942bb%22%2C%22%24sesid%22%3A%5B1719741425058%2C%2201906892-5022-7397-9a10-40e0982bd67c%22%2C1719741337634%5D%7D";
+  if (!window.localStorage["compileCookie"])
+    window.localStorage["compileCookie"] = "SESSION=4b9da30a-fb0b-474e-8ac0-5164016e3263; marker_id_65379a42896b9b3785d33e92=1baf8fbc-33a1-44e3-94e5-f3cbbffcd692; ph_phc_FTWxh3zPvEFoJy4fpLYNTxH0MSaPrUyXBO247WRRw0n_posthog=%7B%22distinct_id%22%3A%22019053d9-203e-7e44-9902-d4e6a87942bb%22%2C%22%24sesid%22%3A%5B1719741425058%2C%2201906892-5022-7397-9a10-40e0982bd67c%22%2C1719741337634%5D%7D";
 
-    // MANAGE LOCALISATION, default localisation is Rennes
-    const [lat, setLat] = useState("48.132022");
-    const [long, setLong] = useState("-1.621433");
+  // MANAGE LOCALISATION, default localisation is Rennes
+  const [lat, setLat] = useState("48.132022");
+  const [long, setLong] = useState("-1.621433");
 
 
-    const [rootPath, setRootPath] = useState("./");
-    const [showOverlay, setShowOverlay] = useState(false);
-    const [visibleMenu, setVisibleMenu] = useState(null);
-    // MANAGE INFO TAB SELECTION
-    const [infoTabIndex, setInfoTabIndex] = useState(0);
-    const [compilMsg, setCompilMsg] = useState("");
-    // MANAGE FILE TAB SELECTION
-    const [fileTabIndex, setFileTabIndex] = useState(0);
-    // MANAGE FILE OPENING
-    const [openTabs, setOpenTabs] = useState<string[]>([]);
-    const [fileContents, setFileContents] = useState({});
-    const menuRef: MutableRefObject<undefined> = useRef();
+  const [rootPath, setRootPath] = useState("./");
+  const [showOverlay, setShowOverlay] = useState(false);
+  const [visibleMenu, setVisibleMenu] = useState(null);
+  // MANAGE INFO TAB SELECTION
+  const [infoTabIndex, setInfoTabIndex] = useState(0);
+  const [compilMsg, setCompilMsg] = useState("");
+  // MANAGE FILE TAB SELECTION
+  const [fileTabIndex, setFileTabIndex] = useState(0);
+  // MANAGE FILE OPENING
+  const [openTabs, setOpenTabs] = useState<string[]>([]);
+  const [fileContents, setFileContents] = useState({});
+  const menuRef: MutableRefObject<undefined> = useRef();
 
-    const runButt = useRef(null);
-    const closeButt = useRef(null);
-    const saveButt = useRef(null);
+  const runButt = useRef(null);
+  const closeButt = useRef(null);
+  const saveButt = useRef(null);
 
-    // MANAGE EDITOR MENU <=> MONACO EDITOR LINK
-    const [editorRef, setEditorRef] = useState(null);
+  // MANAGE EDITOR MENU <=> MONACO EDITOR LINK
+  const [editorRef, setEditorRef] = useState(null);
 
-    useEffect(() => {
-        const handleClickOutside = (event: any) => {
-            // @ts-ignore
-            if (menuRef.current && !menuRef.current.contains(event.target)) {
-                closeMenu();
-            }
-        };
+  useEffect(() => {
+    const handleClickOutside = (event: any) => {
+      // @ts-ignore
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        closeMenu();
+      }
+    };
 
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, [menuRef]);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [menuRef]);
 
   // Shortcuts
   useEffect(() => {
@@ -111,7 +111,7 @@ const App = () => {
   };
 
   const handleSaveClick = async () => {
-    if (openTabs.length == 0) 
+    if (openTabs.length == 0)
       return;
 
     let path = rootPath;
@@ -132,7 +132,15 @@ const App = () => {
     let newOpenTabs = openTabs;
     newOpenTabs.splice(fileTabIndex, 1);
     setOpenTabs(newOpenTabs);
-    setFileTabIndex(fileTabIndex == 0 ? -1 : fileTabIndex - 1);
+    console.log(fileTabIndex);
+    if (newOpenTabs.length == 0)
+      setFileTabIndex(-1);
+    else {
+      if (fileTabIndex == 0)
+        setFileTabIndex(fileTabIndex + 1);
+      else
+        setFileTabIndex(fileTabIndex - 1);
+    }
   };
 
   const clearTabs = () => {
@@ -163,8 +171,8 @@ const App = () => {
               setCompilMsg={setCompilMsg}
               blockScreen={setShowOverlay}
             />
-            <button ref = {saveButt} id="button-save" onClick={handleSaveClick}></button>
-            <button ref = {closeButt} id="button-close" onClick={handleCloseClick}></button>
+            <button ref={saveButt} id="button-save" onClick={handleSaveClick}></button>
+            <button ref={closeButt} id="button-close" onClick={handleCloseClick}></button>
           </div>
         </div>
         <div className="bottom-part" ref={menuRef}>
@@ -178,7 +186,7 @@ const App = () => {
               setLong={setLong}
             />
           )}
-          {visibleMenu === 'edit' && <EditMenu editorRef={editorRef}/>}
+          {visibleMenu === 'edit' && <EditMenu editorRef={editorRef} />}
           {visibleMenu === 'view' && <ViewMenu />}
           {visibleMenu === 'help' && <HelpMenu />}
         </div>

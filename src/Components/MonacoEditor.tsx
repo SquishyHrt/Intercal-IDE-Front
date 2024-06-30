@@ -1,15 +1,15 @@
-import {useRef, useEffect, useState} from 'react';
+import { useRef, useEffect, useState } from 'react';
 import * as monaco from 'monaco-editor';
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
-const MonacoEditor = ({domId, filename, value, fileContents, setFileContents, setEditorRef}: any) => {
-    const {t} = useTranslation();
+const MonacoEditor = ({ domId, filename, value, fileContents, setFileContents, setEditorRef }: any) => {
+    const { t } = useTranslation();
     const editorRef = useRef(null);
     const [calories, setCalories] = useState("0 " + t('lines') + " | 0 " + t('calories'));
 
     useEffect(() => {
         // Define the INTERCAL language
-        monaco.languages.register({id: 'intercal'});
+        monaco.languages.register({ id: 'intercal' });
 
         monaco.languages.setMonarchTokensProvider('intercal', {
             tokenizer: {
@@ -20,11 +20,11 @@ const MonacoEditor = ({domId, filename, value, fileContents, setFileContents, se
                     [/"([^"\\]|\\.)*$/, 'string.invalid'],
                     [/\(/, 'delimiter.parenthesis'],
                     [/\)/, 'delimiter.parenthesis'],
-                    [/"/, {token: 'string.quote', bracket: '@open', next: '@string'}],
+                    [/"/, { token: 'string.quote', bracket: '@open', next: '@string' }],
                 ],
                 string: [
                     [/[^\\"]+/, 'string'],
-                    [/"/, {token: 'string.quote', bracket: '@close', next: '@pop'}],
+                    [/"/, { token: 'string.quote', bracket: '@close', next: '@pop' }],
                 ],
             },
         });
@@ -39,10 +39,10 @@ const MonacoEditor = ({domId, filename, value, fileContents, setFileContents, se
                 ['(', ')'],
             ],
             autoClosingPairs: [
-                {open: '{', close: '}'},
-                {open: '[', close: ']'},
-                {open: '(', close: ')'},
-                {open: '"', close: '"'},
+                { open: '{', close: '}' },
+                { open: '[', close: ']' },
+                { open: '(', close: ')' },
+                { open: '"', close: '"' },
             ],
         });
 
@@ -65,7 +65,7 @@ const MonacoEditor = ({domId, filename, value, fileContents, setFileContents, se
                     kind: monaco.languages.CompletionItemKind.Keyword,
                     insertText: keyword,
                 }));
-                return {suggestions: suggestions};
+                return { suggestions: suggestions };
             },
         });
 
@@ -96,9 +96,9 @@ const MonacoEditor = ({domId, filename, value, fileContents, setFileContents, se
         };
     }, []);
 
-    return <div style={{height: '99%', width: '100%', display: 'flex', flexDirection: 'column'}}>
-        <div id={domId} style={{height: '100%', width: '100%'}}/>
-        <p style={{margin: 0}}>{calories}</p>
+    return <div style={{ height: '99%', width: '100%', display: 'flex', flexDirection: 'column' }}>
+        <div id={domId} style={{ height: '100%', width: '100%' }} />
+        <p style={{ margin: 0 }}>{calories}</p>
     </div>;
 };
 
