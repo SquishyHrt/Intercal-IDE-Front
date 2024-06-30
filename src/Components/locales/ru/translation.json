@@ -11,6 +11,7 @@
   "copy": "Копировать",
   "delete": "Удалить",
   "find": "Найти",
+  "paste": "Вставляю",
   "cookiePrompt": "Пожалуйста, введите cookies компиляции JDoodle (Dev Tools -> Network -> execute)",
   "cookieErrorTitle": "Неправильные cookies",
   "cookieError": "Без этих cookies вы не можете компилировать код INTERCAL.",
@@ -57,5 +58,7 @@
   "localisationPrompt": "Введите свою локализацию в следующем формате: (-?)xx.xxx,(-?)yy.yyy.",
   "localisationErrorTitle": "Неправильная локализация",
   "localisationError": "Пожалуйста, введите вашу локализацию в правильном формате.",
-  "helptext": "F8 - Компилировать файл | Ctrl + s - Сохранить файл | Ctrl + w - Закрыть вкладку"
+  "helptext": "F8 - Компилировать файл | Ctrl + s - Сохранить файл | Ctrl + w - Закрыть вкладку",
+  "helpTitle": "помощник",
+  "helpContent": "InterSport это IDE, позволяющая облегчить издание программы INTERCAL."
 }

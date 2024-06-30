@@ -11,6 +11,7 @@
   "copy": "Copier",
   "delete": "Supprimer",
   "find": "Chercher",
+  "paste": "Coller",
   "cookiePrompt": "Veuillez entrer les cookies de compilation JDoodle (Dev Tools -> Network -> execute)",
   "cookieErrorTitle": "Mauvais cookies",
   "cookieError": "Sans ces cookies, vous ne pouvez compiler le code INTERCAL.",
@@ -57,5 +58,7 @@
   "localisationPrompt": "Enter your localisation as this format: (-?)xx.xxx,(-?)yy.yyy",
   "localisationErrorTitle": "Wrong localisation",
   "localisationError": "Wrong format for localisation. Please enter it as this format: (-?)xx.xxx,(-?)yy.yyy",
-  "helptext":"F8 - Compiler le fichier | Ctrl + s - Sauvegarder le fichier | Ctrl + w - Fermer l'onglet"
+  "helptext":"F8 - Compiler le fichier | Ctrl + s - Sauvegarder le fichier | Ctrl + w - Fermer l'onglet",
+  "helpTitle": "Aide",
+  "helpContent": "InterSport est un IDE permettant de faciliter l'édition de programme INTERCAL."
 }

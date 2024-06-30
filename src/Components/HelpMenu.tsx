@@ -1,9 +1,10 @@
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import React from 'react';
 import aud from "@/assets/doit.mp3";
+import smalltalk from 'smalltalk';
 
-const HelpMenuHelp = () => {
-    console.log('Help');
+const HelpMenuHelp = (t: any) => {
+    smalltalk.alert(t('helpTitle'), t('helpContent'));
 }
 
 const HelpMenuTipOfTheDay = (t: any) => {
@@ -35,8 +36,8 @@ const HelpMenuTipOfTheDay = (t: any) => {
     ];
 
     const randomText = texts[Math.floor(Math.random() * texts.length)];
-    // @ts-ignore
-    window.electron.openTips(randomText);
+
+    smalltalk.alert(t('tipDay'), randomText);
 }
 
 function HelpShortcuts(t) {
@@ -47,7 +48,7 @@ function HelpShortcuts(t) {
 
 function HelpMenu() {
 
-    const {t} = useTranslation();
+    const { t } = useTranslation();
 
     const PlayAudio = () => {
         var audio = new Audio(aud);

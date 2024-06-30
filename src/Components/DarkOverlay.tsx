@@ -1,11 +1,11 @@
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import '../App.css'; // Ensure you have this CSS file
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
-const DarkOverlay = ({show, onComplete}) => {
+const DarkOverlay = ({ show, onComplete }) => {
 
     const [countdown, setCountdown] = useState(10);
-    const {t} = useTranslation();
+    const { t } = useTranslation();
 
     useEffect(() => {
         let timer;
@@ -30,7 +30,7 @@ const DarkOverlay = ({show, onComplete}) => {
             <div className="overlay">
                 <div className="countdown-text">
                     <p>{t('compilationFailed')}</p>
-                    <p>{t('countdown') + countdown + t('seconds')}</p>
+                    <p>{t('countdown') + countdown + ' ' + t('seconds')}</p>
                 </div>
             </div>
         )
