@@ -56,5 +56,7 @@
   "localisationM": "Localisation",
   "localisationPrompt": "Enter your localisation as this format: (-?)xx.xxx,(-?)yy.yyy",
   "localisationErrorTitle": "Wrong localisation",
-  "localisationError": "Wrong format for localisation. Please enter it as this format: (-?)xx.xxx,(-?)yy.yyy"
+  "localisationError": "Wrong format for localisation. Please enter it as this format: (-?)xx.xxx,(-?)yy.yyy",
+  "helpTitle": "Aide",
+  "helpContent": "InterSport est un IDE permettant de faciliter l'édition de programme INTERCAL."
 }

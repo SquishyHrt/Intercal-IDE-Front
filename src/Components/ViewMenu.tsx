@@ -1,4 +1,4 @@
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 const ViewMenuAppearance = () => {
     console.log('Appearance');
@@ -9,8 +9,8 @@ const ViewMenuSwitchThemes = () => {
 }
 
 function ViewMenu() {
-    const {i18n} = useTranslation();
-    const {t} = useTranslation();
+    const { i18n } = useTranslation();
+    const { t } = useTranslation();
 
     // To change buttons classes (For their img)
     const updateButtonClasses = (lang: 'fr' | 'ru') => {
@@ -31,10 +31,14 @@ function ViewMenu() {
         // @ts-ignore
         updateButtonClasses(i18n.language);
     }
-    return (<div className="top-menu" id="view-menu">
-        <ul>
+
+    /*
             <li onClick={ViewMenuAppearance}>{t('appearance')}</li>
             <li onClick={ViewMenuSwitchThemes}>{t('switchTheme')}</li>
+
+    */
+    return (<div className="top-menu" id="view-menu">
+        <ul>
             <li onClick={toggleLanguage}>{i18n.language === 'fr' ? 'На русском языке' : 'Passer en Français'}</li>
         </ul>
     </div>);

@@ -56,5 +56,7 @@
   "localisationM": "Локализация",
   "localisationPrompt": "Введите свою локализацию в следующем формате: (-?)xx.xxx,(-?)yy.yyy.",
   "localisationErrorTitle": "Неправильная локализация",
-  "localisationError": "Пожалуйста, введите вашу локализацию в правильном формате."
+  "localisationError": "Пожалуйста, введите вашу локализацию в правильном формате.",
+  "helpTitle": "помощник",
+  "helpContent": "InterSport это IDE, позволяющая облегчить издание программы INTERCAL."
 }

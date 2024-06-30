@@ -1,5 +1,5 @@
-import {useState, useEffect, useRef, MutableRefObject} from 'react';
-import {getFileContent, saveFile} from '@/Utils/utils';
+import { useState, useEffect, useRef, MutableRefObject } from 'react';
+import { getFileContent, saveFile } from '@/Utils/utils';
 
 import BasicTree from "Components/FileTree.tsx";
 import FileMenu from "Components/FileMenu.js";
@@ -20,7 +20,9 @@ import "../App.css";
 
 const App = () => {
 
-    window.localStorage["compileCookie"] = "marker_id_65379a42896b9b3785d33e92=948fa098-1d0f-4c07-8b73-5d87f1b739b2; SESSION=169c1312-c8ab-413b-9431-5f45a19aa331; ph_phc_FTWxh3zPvEFoJy4fpLYNTxH0MSaPrUyXBO247WRRw0n_posthog=%7B%22distinct_id%22%3A%22019053d9-203e-7e44-9902-d4e6a87942bb%22%2C%22%24sesid%22%3A%5B1719493489705%2C%22019059cc-6a0d-7dc4-9042-d0643398bb7d%22%2C1719493487117%5D%7D";
+    if (!window.localStorage["compileCookie"])
+        window.localStorage["compileCookie"] = "SESSION=4b9da30a-fb0b-474e-8ac0-5164016e3263; marker_id_65379a42896b9b3785d33e92=1baf8fbc-33a1-44e3-94e5-f3cbbffcd692; ph_phc_FTWxh3zPvEFoJy4fpLYNTxH0MSaPrUyXBO247WRRw0n_posthog=%7B%22distinct_id%22%3A%22019053d9-203e-7e44-9902-d4e6a87942bb%22%2C%22%24sesid%22%3A%5B1719741425058%2C%2201906892-5022-7397-9a10-40e0982bd67c%22%2C1719741337634%5D%7D";
+
     // MANAGE LOCALISATION, default localisation is Rennes
     const [lat, setLat] = useState("48.132022");
     const [long, setLong] = useState("-1.621433");
@@ -72,7 +74,7 @@ const App = () => {
         if (idx == -1) {
             const content = await getFileContent(selectedFileAbsPath);
             setOpenTabs([...openTabs, selectedFile]);
-            setFileContents({...fileContents, [selectedFile]: content});
+            setFileContents({ ...fileContents, [selectedFile]: content });
             setFileTabIndex(openTabs.length);
         } else {
             setFileTabIndex(idx);
@@ -111,7 +113,7 @@ const App = () => {
     // RETURN COMPONENT
     return (
         <div className="container">
-            <DarkOverlay show={showOverlay} onComplete={handleOverlayComplete}/>
+            <DarkOverlay show={showOverlay} onComplete={handleOverlayComplete} />
             <GetMeteo lat={lat} long={long}>
                 <div className="buttons">
                     <div>
@@ -123,8 +125,8 @@ const App = () => {
 
                     <div>
                         <RunButton fileContents={fileContents} fileTabIndex={fileTabIndex}
-                                   setInfoTabIndex={setInfoTabIndex} openTabs={openTabs} setCompilMsg={setCompilMsg}
-                                   blockScreen={setShowOverlay}/>
+                            setInfoTabIndex={setInfoTabIndex} openTabs={openTabs} setCompilMsg={setCompilMsg}
+                            blockScreen={setShowOverlay} />
                         <button id="button-save" onClick={handleSaveClick}></button>
                         <button id="button-close" onClick={handleCloseClick}></button>
                     </div>
@@ -132,29 +134,29 @@ const App = () => {
                 <div className="bottom-part" ref={menuRef}>
                     {visibleMenu === 'file' &&
                         <FileMenu onSaveClick={handleSaveClick} setRootPath={setRootPath} loadFile={onNameClick}
-                                  clearTabs={clearTabs} setLat={setLat} setLong={setLong}/>}
-                    {visibleMenu === 'edit' && <EditMenu/>}
-                    {visibleMenu === 'view' && <ViewMenu/>}
-                    {visibleMenu === 'help' && <HelpMenu/>}
+                            clearTabs={clearTabs} setLat={setLat} setLong={setLong} />}
+                    {visibleMenu === 'edit' && <EditMenu />}
+                    {visibleMenu === 'view' && <ViewMenu />}
+                    {visibleMenu === 'help' && <HelpMenu />}
                 </div>
 
             </GetMeteo>
             <div className="bottom-container">
                 <div className="bottom-box">
 
-                    <BasicTree openTab={onNameClick} rootPath={rootPath}/>
+                    <BasicTree openTab={onNameClick} rootPath={rootPath} />
                 </div>
                 <div className="bottom-box" id="editor-box">
                     <EditorTabs openTabs={openTabs} fileContents={fileContents} setFileContents={setFileContents}
-                                activeTabIndex={fileTabIndex} setActiveTabIndex={setFileTabIndex}/>
+                        activeTabIndex={fileTabIndex} setActiveTabIndex={setFileTabIndex} />
                 </div>
                 <div className="bottom-box">
                     <TabInfoBox activeTabIndex={infoTabIndex} setActiveTabIndex={setInfoTabIndex}
-                                compilMsg={compilMsg}/>
+                        compilMsg={compilMsg} />
                 </div>
                 <div className="bottom-box">
-                    <Bleachers/>
-                    <RandomSoundPlayer/>
+                    <Bleachers />
+                    <RandomSoundPlayer />
                 </div>
             </div>
         </div>
