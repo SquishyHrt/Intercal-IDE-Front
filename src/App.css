@@ -152,6 +152,10 @@
     border: none;
 }
 
+#button-run:hover {
+    filter: brightness(70%);
+}
+
 #button-save {
     width: 42px;
     height: 42px;
@@ -161,6 +165,10 @@
     border: none;
 }
 
+#button-save:hover {
+    filter: brightness(70%);
+}
+
 #button-close {
     width: 42px;
     height: 42px;
@@ -168,4 +176,8 @@
     background-size: contain;
     background-position: center;
     border: none;
+}
+
+#button-close:hover {
+    filter: brightness(70%);
 }
