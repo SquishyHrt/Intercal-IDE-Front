@@ -13,6 +13,7 @@
   "author": "Paolo Wattebled, Lucas Besnard, Arthur Guelennoc, Gustave Herve, Arthur Hamard",
   "dependencies": {
     "canvas-confetti": "^1.5.1",
+    "fireworks-js": "^2.10.7",
     "i18next": "^23.11.5",
     "monaco-editor": "^0.50.0",
     "openmeteo": "^1.1.4",
