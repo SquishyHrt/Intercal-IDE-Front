@@ -45,7 +45,7 @@
   "help": "Aide",
   "tipDay": "Astuce du jour",
   "lines": "lignes",
-  "calories": "calories",
+  "calories": "kcal",
   "compilOpenFile": "Veuillez ouvrir un fichier avant de l'exécuter",
   "compilProgress": "Compilation en cours...",
   "compilError": "Erreur durant la requête. Veuillez vérifier votre connexion internet.",

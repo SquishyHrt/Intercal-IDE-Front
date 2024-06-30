@@ -76,7 +76,7 @@ const MonacoEditor = ({domId, filename, value, fileContents, setFileContents}: a
             setFileContents(tmp);
 
             const nbLines = tmp[filename].split("\n").length;
-            const nbCalories = nbLines * 5;
+            const nbCalories = nbLines * 3;
             setCalories(nbLines + " " + t('lines') + " | " + nbCalories + " " + t('calories'));
         });
 
