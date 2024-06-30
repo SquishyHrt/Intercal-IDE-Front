@@ -12,36 +12,25 @@
   "description": "A Custom IDE for Intercal Language",
   "author": "Paolo Wattebled, Lucas Besnard, Arthur Guelennoc, Gustave Herve, Arthur Hamard",
   "dependencies": {
-    "@fireworks-js/react": "^2.10.7",
-    "@sinm/react-file-tree": "^1.1.1",
-    "@uiw/react-textarea-code-editor": "^3.0.2",
     "canvas-confetti": "^1.5.1",
-    "electron-prompt": "^1.7.0",
     "i18next": "^23.11.5",
     "monaco-editor": "^0.50.0",
     "openmeteo": "^1.1.4",
-    "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-folder-tree": "^5.1.1",
     "react-i18next": "^14.1.2",
-    "react-icons": "^5.2.1",
     "react-tabs": "^6.0.2",
     "smalltalk": "^4.1.2",
-    "use-tree-state": "^1.1.1",
     "vite-tsconfig-paths": "^4.3.2"
   },
   "devDependencies": {
     "@types/react": "^18.2.64",
     "@types/react-dom": "^18.2.21",
-    "@typescript-eslint/eslint-plugin": "^7.1.1",
-    "@typescript-eslint/parser": "^7.1.1",
     "@vitejs/plugin-react": "^4.2.1",
     "electron": "^30.0.1",
     "electron-builder": "^24.13.3",
     "eslint": "^8.57.0",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.5",
     "typescript": "^5.2.2",
     "vite": "^5.1.6",
     "vite-plugin-electron": "^0.28.6",
@@ -83,10 +72,10 @@
       "icon": "src/assets/appicon.png"
     },
     "win": {
-	"icon": "src/assets/appicon.png"
+      "icon": "src/assets/appicon.png"
     },
     "mac": {
-	"icon": "src/assets/appicon.png"
+      "icon": "src/assets/appicon.png"
     }
   }
 }
