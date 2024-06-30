@@ -1,105 +1,65 @@
-import { app, BrowserWindow, ipcMain } from "electron";
-import { createRequire } from "node:module";
-import { fileURLToPath } from "node:url";
-import { spawn } from "child_process";
-import path from "node:path";
-import os from "os";
-createRequire(import.meta.url);
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-process.env.APP_ROOT = path.join(__dirname, "..");
-const VITE_DEV_SERVER_URL = process.env["VITE_DEV_SERVER_URL"];
-const MAIN_DIST = path.join(process.env.APP_ROOT, "dist-electron");
-const RENDERER_DIST = path.join(process.env.APP_ROOT, "dist");
-process.env.VITE_PUBLIC = VITE_DEV_SERVER_URL ? path.join(process.env.APP_ROOT, "public") : RENDERER_DIST;
-let win;
-let backendProcess = null;
-function createWindow() {
-  win = new BrowserWindow({
-    icon: path.join(process.env.VITE_PUBLIC, "electron-vite.svg"),
+import { app as s, BrowserWindow as d, ipcMain as a } from "electron";
+import { createRequire as u } from "node:module";
+import { fileURLToPath as w } from "node:url";
+import { spawn as h } from "child_process";
+import e from "node:path";
+import c from "os";
+u(import.meta.url);
+const p = e.dirname(w(import.meta.url));
+process.env.APP_ROOT = e.join(p, "..");
+const l = process.env.VITE_DEV_SERVER_URL, R = e.join(process.env.APP_ROOT, "dist-electron"), m = e.join(process.env.APP_ROOT, "dist");
+process.env.VITE_PUBLIC = l ? e.join(process.env.APP_ROOT, "public") : m;
+let o, t = null;
+function f() {
+  o = new d({
+    icon: e.join(process.env.VITE_PUBLIC, "electron-vite.svg"),
     webPreferences: {
-      preload: path.join(__dirname, "preload.mjs")
+      preload: e.join(p, "preload.mjs")
     }
-  });
-  if (app.isPackaged) {
-    win.setMenu(null);
-  }
-  win.webContents.on("did-finish-load", () => {
-    win == null ? void 0 : win.webContents.send("main-process-message", (/* @__PURE__ */ new Date()).toLocaleString());
-  });
-  if (VITE_DEV_SERVER_URL) {
-    win.loadURL(VITE_DEV_SERVER_URL);
-  } else {
-    win.loadFile(path.join(RENDERER_DIST, "index.html"));
-  }
+  }), s.isPackaged && o.setMenu(null), o.webContents.on("did-finish-load", () => {
+    o == null || o.webContents.send("main-process-message", (/* @__PURE__ */ new Date()).toLocaleString());
+  }), l ? o.loadURL(l) : o.loadFile(e.join(m, "index.html"));
 }
-function createBackend() {
-  let backendRunnerFile = "ping-1.0-runner";
-  if (os.platform() === "darwin" || os.arch() === "arm") {
-    backendRunnerFile = "ping-1.0-runner-arm";
-  }
-  if (os.platform() === "win32") {
-    backendRunnerFile = "ping-1.0-runner.exe";
-  }
-  const backendRunnerPath = !app.isPackaged ? path.join(__dirname, "..", "src", "backend", backendRunnerFile) : path.join(process.resourcesPath, backendRunnerFile);
-  backendProcess = spawn(backendRunnerPath);
-  backendProcess.stdout.on("data", (data) => {
-    console.log(`Backend stdout: ${data}`);
-  });
-  backendProcess.stderr.on("data", (data) => {
-    console.error(`Backend stderr: ${data}`);
-  });
-  backendProcess.on("close", (code) => {
-    console.log(`Backend process exited with code ${code}`);
+function P() {
+  let r = "ping-1.0-runner";
+  (c.platform() === "darwin" || c.arch() === "arm") && (r = "ping-1.0-runner-arm"), c.platform() === "win32" && (r = "ping-1.0-runner.exe");
+  const i = s.isPackaged ? e.join(process.resourcesPath, r) : e.join(p, "..", "src", "backend", r);
+  t = h(i), t.stdout.on("data", (n) => {
+    console.log(`Backend stdout: ${n}`);
+  }), t.stderr.on("data", (n) => {
+    console.error(`Backend stderr: ${n}`);
+  }), t.on("close", (n) => {
+    console.log(`Backend process exited with code ${n}`);
   });
 }
-app.on("window-all-closed", () => {
-  if (process.platform !== "darwin") {
-    app.quit();
-    win = null;
-  }
-  if (backendProcess) {
-    backendProcess.kill();
-  }
+s.on("window-all-closed", () => {
+  process.platform !== "darwin" && (s.quit(), o = null), t && t.kill();
 });
-app.on("activate", () => {
-  if (BrowserWindow.getAllWindows().length === 0) {
-    createWindow();
-  }
+s.on("activate", () => {
+  d.getAllWindows().length === 0 && f();
 });
-ipcMain.on("exit-app", () => {
-  app.quit();
-  if (backendProcess) {
-    backendProcess.kill();
-  }
+a.on("exit-app", () => {
+  s.quit(), t && t.kill();
 });
-ipcMain.handle("get-cwd", () => {
-  return process.cwd();
-});
-ipcMain.on("open-tips", (event, randomText) => {
-  const newWindow = new BrowserWindow({
+a.handle("get-cwd", () => process.cwd());
+a.on("open-tips", (r, i) => {
+  const n = new d({
     width: 550,
     height: 220,
     webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false
+      nodeIntegration: !0,
+      contextIsolation: !1
     }
   });
-  newWindow.setMenu(null);
-  newWindow.title = "Tip of the Day";
-  newWindow.loadURL(`file://${path.join(MAIN_DIST, "TipOfTheDay.html")}?text=${encodeURIComponent(randomText)}`);
+  n.setMenu(null), n.title = "Tip of the Day", n.loadURL(`file://${e.join(R, "TipOfTheDay.html")}?text=${encodeURIComponent(i)}`);
 });
-ipcMain.handle("joinPath", (event, ...args) => {
-  return path.join(...args);
-});
-ipcMain.handle("dirName", (event, path2) => {
-  return path.dirname(path2);
-});
-app.whenReady().then(() => {
-  createBackend();
-  createWindow();
+a.handle("joinPath", (r, ...i) => e.join(...i));
+a.handle("dirName", (r, i) => e.dirname(i));
+s.whenReady().then(() => {
+  P(), f();
 });
 export {
-  MAIN_DIST,
-  RENDERER_DIST,
-  VITE_DEV_SERVER_URL
+  R as MAIN_DIST,
+  m as RENDERER_DIST,
+  l as VITE_DEV_SERVER_URL
 };
